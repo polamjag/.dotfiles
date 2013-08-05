@@ -10,7 +10,7 @@
 ;;   +- enable ibus-mozc as emacs-mozc
 ;;   +- keybindings
 ;;   +- miscellaneous preferences
-
+;;   +- Marmalade snippets
 
 ;; ================
 ;; common load-path
@@ -225,3 +225,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; ==================
+;; Marmalade snippets
+;; ==================
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
