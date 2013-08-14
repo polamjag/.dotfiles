@@ -21,10 +21,10 @@
 ;; ========
 ;; commands
 ;; ========
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
-(require 'auto-install)
-(auto-install-update-emacswiki-package-name t)
-(auto-install-compatibility-setup)
+;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
+;;(require 'auto-install)
+;;(auto-install-update-emacswiki-package-name t)
+;;(auto-install-compatibility-setup)
 
 
 ;; =====
@@ -45,7 +45,15 @@
  ;; Add the path to the repo
  (add-to-list 'load-path "/path/to/wc-mode/")
  (require 'wc-mode)
-
+;; ocaml-mode
+(setq auto-mode-alist
+      (cons '("\\.ml[iylp]?\$" . caml-mode) auto-mode-alist))
+(autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
+(autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
+(if window-system (require 'caml-font))
+(setq inferior-caml-program "/usr/local/bin/ocaml")
+;; startup/setup anything.el
+;;(require 'anything-startup)
 
 ;; ================
 ;; set color scheme
@@ -126,7 +134,7 @@
 ;; enable visual bell (disable beep)
 (setq visible-bell t)
 ;; set opacity of editor window
-(set-frame-parameter nil 'alpha 90)
+(set-frame-parameter nil 'alpha 80)
 ;; display line number
 (setq linum-delay t)
 (defadvice linum-schedule (around my-linum-schedule () activate)
@@ -230,6 +238,6 @@
 ;; Marmalade snippets
 ;; ==================
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)

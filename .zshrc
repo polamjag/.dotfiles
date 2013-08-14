@@ -1,5 +1,5 @@
 # .zshrc をコンパイルして .zshrc.zwc を生成するコマンド
-zcompile .zshrc
+#zcompile .zshrc
 
 # enable emacs-like keybind
 bindkey -e
@@ -67,10 +67,22 @@ function history-all { history -E 1 }
 ##========================================================##
 autoload -U promptinit ; promptinit
 autoload -U colors     ; colors
+autoload -U add-zsh-hook
 
 PROMPT="
-%F{yellow}%B%d%b%f :: (%F{cyan}%n%f@%F{cyan}%M%f): 
+%F{yellow}%B%d%b%f :: (%F{cyan}%B%n%f@%F{cyan}%M%b%f): 
 %# "
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+precmd_1 () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+add-zsh-hook precmd precmd_1
+RPROMPT="%B%1(v|%F{magenta}%1v%f|)%b"
 
 #PROMPT="%{$reset_color%}%{$fg[green]%}$USER%{$reset_color%}@%{$fg[cyan]%}%m%{$reset_color%}$PROMPT"
 #RPROMPT="%{$fg[green]%}[%*]%{$reset_color%}"
@@ -132,7 +144,7 @@ limit coredumpsize 0 # core 抑制
 export G_FILENAME_ENCODING=@locale
 
 # タイトルバーの動的変更
-precmd() {
+precmd_2() {
 [[ -t 1 ]] || return
 case $TERM in
 sun-cmd) print -Pn "\e]l[%~]\e\\"
@@ -141,6 +153,13 @@ sun-cmd) print -Pn "\e]l[%~]\e\\"
  ;;
 esac
 }
+add-zsh-hook precmd precmd_2
+
+# coloring for ls
+eval $(dircolors -b ~/.dir_colors)
+
+# alias for fix of less with colored output
+alias less='less --raw'
 
 # Global alias
 alias -g L='| less'
@@ -151,19 +170,18 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
 
-
 # alias
 alias e='emacs -nw'
 alias h='history'
 alias ha='history-all'
-alias l='ls -CFa --color'
-alias ll='ls -lh -F --color'
-alias lla='ls -lh -a -F --color'
-
-# coloring for ls
-eval $(dircolors -b ~/.dir_colors)
-
-# export
-export PATH="$PATH":/home/satoru/bin
+alias ls='ls --color'
+alias l='ls -CFa'
+alias ll='ls -lh -F'
+alias lla='ls -lh -a -F'
 alias pse='ps aux | grep'
 alias tm='tmux'
+
+# well-used keys config
+bindkey "^[[3~" delete-char
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[4~" end-of-line
