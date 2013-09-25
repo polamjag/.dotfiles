@@ -1,16 +1,17 @@
-# .zshrc をコンパイルして .zshrc.zwc を生成するコマンド
-#zcompile .zshrc
+# .zshrc - ZSH configuration
+# polamjag <indirectgeeks@gmail.com>
 
 # enable emacs-like keybind
 bindkey -e
 
+# ==========
+# completion
+# ==========
+autoload -U compinit ; compinit
 # enable coloring for completion
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 # enable coloring for completion of kill command
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
-
-## completion
-autoload -U compinit ; compinit
 # ignore case for completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1 # select completion with arrow keys
@@ -19,25 +20,17 @@ zstyle ':completion:*:processes' command 'ps x'
 
 setopt list_packed           # display completion compactly
 unsetopt auto_remove_slash
-setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
-setopt mark_dirs             # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
-setopt list_types            # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
+setopt auto_param_slash      # append '/' at tail of directory in completion automatically
+setopt mark_dirs             
+setopt list_types            # display type of files in completion list as ls -F
 unsetopt menu_complete       # 補完の際に、可能なリストを表示してビープを鳴らすのではなく、
 # 最初にマッチしたものをいきなり挿入、はしない
-setopt auto_list             # ^Iで補完可能な一覧を表示する(補完候補が複数ある時に、一覧表示)
-setopt auto_menu             # 補完キー連打で順に補完候補を自動で補完
-setopt auto_param_keys       # カッコの対応などを自動的に補完
+setopt auto_list             # display with list of all completion with ^I
+setopt auto_menu             # complete automatically with key press of completion-key
+setopt auto_param_keys       # complete parens automatically
 setopt auto_resume           # resume suspended command automatically
+compdef mosh=ssh             # override mosh completion with ssh
 
-
-##========================================================##
-##==================== 予測補完の設定 ====================##
-##========================================================##
-autoload -U predict-on       # 履歴による予測入力 (man zshcontrib)
-zle -N predict-on
-zle -N predict-off
-bindkey '^xp'  predict-on    # Ctrl+x p で予測オン
-bindkey '^x^p' predict-off   # Ctrl+x Ctrl+p で予測オフ
 
 ##========================================================##
 ##====================== 履歴の設定 ======================##
@@ -51,8 +44,6 @@ setopt inc_append_history    # 履歴をインクリメンタルに追加
 setopt share_history         # 履歴の共有
 setopt hist_ignore_all_dups  # 重複するコマンド行は古い方を削除
 setopt hist_ignore_dups      # 直前と同じコマンドラインはヒストリに追加しない
-setopt hist_ignore_space     # スペースで始まるコマンド行はヒストリリストから削除
-                        # (→ 先頭にスペースを入れておけば、ヒストリに保存されない)
 unsetopt hist_verify         # ヒストリを呼び出してから実行する間に一旦編集可能を止める
 setopt hist_reduce_blanks    # 余分な空白は詰めて記録
 setopt hist_save_no_dups     # ヒストリファイルに書き出すときに、古いコマンドと同じものは無視する。
@@ -69,10 +60,11 @@ autoload -U promptinit ; promptinit
 autoload -U colors     ; colors
 autoload -U add-zsh-hook
 
+# main prompt
 PROMPT="
 %F{yellow}%B%d%b%f :: (%F{cyan}%B%n%f@%F{cyan}%M%b%f): 
-%# "
-
+%B%#%b "
+# config for right prompt which shows VCSs
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
@@ -101,12 +93,12 @@ alias gd='dirs -v; echo -n "select number: ";
 read newdir; cd +"$newdir" '
 
 ## misc settings
-setopt no_beep               # コマンド入力エラーでBeepを鳴らさない
+setopt no_beep
 setopt complete_in_word
-setopt extended_glob         # 拡張グロブを有効にする
+setopt extended_glob
 setopt brace_ccl             # ブレース展開機能を有効にする
 setopt equals                # =COMMAND を COMMAND のパス名に展開
-setopt numeric_glob_sort     # 数字を数値と解釈してソートする
+setopt numeric_glob_sort
 setopt path_dirs             # コマンド名に / が含まれているとき PATH 中のサブディレクトリを探す
 setopt print_eight_bit       # 補完候補リストの日本語を適正表示
 setopt auto_name_dirs
@@ -125,9 +117,9 @@ setopt always_last_prompt    # カーソル位置は保持したままファイ�
 setopt cdable_vars sh_word_split
 setopt rm_star_wait          # rm * を実行する前に確認
 unsetopt no_clobber
-setopt no_unset              # 未定義変数の使用禁止
+setopt no_unset              # don't allow using of undefined variables
 
-# less の動作（man less 参照）
+# configure behaviour of less (ref. man less)
 LESS=-M
 export LESS
 if type /usr/bin/lesspipe &>/dev/null
@@ -143,7 +135,7 @@ limit coredumpsize 0 # core 抑制
 # Grip などGlibアプリケーション出力での文字化け防止
 export G_FILENAME_ENCODING=@locale
 
-# タイトルバーの動的変更
+# change title bar dynamically
 precmd_2() {
 [[ -t 1 ]] || return
 case $TERM in
@@ -161,7 +153,7 @@ eval $(dircolors -b ~/.dir_colors)
 # alias for fix of less with colored output
 alias less='less --raw'
 
-# Global alias
+# global aliases with pipe
 alias -g L='| less'
 alias -g H='| head'
 alias -g T='| tail'
@@ -180,8 +172,19 @@ alias ll='ls -lh -F'
 alias lla='ls -lh -a -F'
 alias pse='ps aux | grep'
 alias tm='tmux'
+alias goog='w3m https://www.google.co.jp/'
 
 # well-used keys config
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
+
+
+# enable .zshenv for various environmental varieties
+source ~/.zshenv
+
+
+
+
+
+

@@ -1,8 +1,8 @@
 ;; init.el: initial configurator for emacs
-;; author: "polamjag / ABE Satoru" <indirectgeeks@gmail.com>
+;; polamjag <indirectgeeks@gmail.com>
 ;;
 ;; a table of contents
-;;   +- common laod-path
+;;   +- common load-path
 ;;   +- commands
 ;;   +- modes
 ;;   +- set color scheme
@@ -42,9 +42,7 @@
    "Editing PHP scripts" t)
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 ;; wc-mode
- ;; Add the path to the repo
- (add-to-list 'load-path "/path/to/wc-mode/")
- (require 'wc-mode)
+(require 'wc-mode)
 ;; ocaml-mode
 (setq auto-mode-alist
       (cons '("\\.ml[iylp]?\$" . caml-mode) auto-mode-alist))
@@ -134,7 +132,7 @@
 ;; enable visual bell (disable beep)
 (setq visible-bell t)
 ;; set opacity of editor window
-(set-frame-parameter nil 'alpha 80)
+(set-frame-parameter nil 'alpha 90)
 ;; display line number
 (setq linum-delay t)
 (defadvice linum-schedule (around my-linum-schedule () activate)
@@ -162,7 +160,17 @@
   (push '("*Completions*" :height 0.4) popwin:special-display-config)
   (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
   )
-
+;;
+(if (boundp 'window-system)
+  (setq default-frame-alist
+    (append (list
+	     '(top . 60)
+	     '(left . 140)
+	     '(width . 80)
+	     '(height . 35)
+	     )
+	    default-frame-alist)))
+(setq initial-frame-alist default-frame-alist )
 
 ;; ======================================================
 ;; enable ibus-mozc as emacs-mozc (Japanese Input Method)
@@ -241,3 +249,11 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
+
+(define-obsolete-variable-alias 'last-command-char 'last-command-event "at least 19.34") 
+
+
+;; undo-tree
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
