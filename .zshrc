@@ -42,11 +42,11 @@ setopt extended_history      # 履歴ファイルに開始時刻と経過時間�
 setopt append_history        # 履歴を追加 (毎回 .zhistory を作るのではなく)
 setopt inc_append_history    # 履歴をインクリメンタルに追加
 setopt share_history         # 履歴の共有
-setopt hist_ignore_all_dups  # 重複するコマンド行は古い方を削除
+#setopt hist_ignore_all_dups  # 重複するコマンド行は古い方を削除
 setopt hist_ignore_dups      # 直前と同じコマンドラインはヒストリに追加しない
 unsetopt hist_verify         # ヒストリを呼び出してから実行する間に一旦編集可能を止める
 setopt hist_reduce_blanks    # 余分な空白は詰めて記録
-setopt hist_save_no_dups     # ヒストリファイルに書き出すときに、古いコマンドと同じものは無視する。
+#setopt hist_save_no_dups     # ヒストリファイルに書き出すときに、古いコマンドと同じものは無視する。
 setopt hist_no_store         # historyコマンドは履歴に登録しない
 setopt hist_expand           # 補完時にヒストリを自動的に展開
 
@@ -151,7 +151,7 @@ add-zsh-hook precmd precmd_2
 eval $(dircolors -b ~/.dir_colors)
 
 # alias for fix of less with colored output
-alias less='less --raw'
+alias less='less --raw -R'
 
 # global aliases with pipe
 alias -g L='| less'
