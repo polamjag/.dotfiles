@@ -1,0 +1,7 @@
+[user]
+	name = polamjag
+	email = indirectgeeks@gmail.com
+[core]
+	editor = emacs
+[color]
+	ui = auto
