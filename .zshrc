@@ -1,4 +1,4 @@
-# .zshrc - ZSH configuration
+# .zshrc
 # polamjag <indirectgeeks@gmail.com>
 
 # enable emacs-like keybind
@@ -17,6 +17,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1 # select completion with arrow keys
 zstyle ':completion:*' use-cache true        # cache completion
 zstyle ':completion:*:processes' command 'ps x'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colored file completion
 
 setopt list_packed           # display completion compactly
 unsetopt auto_remove_slash
@@ -182,9 +183,3 @@ bindkey "^[[4~" end-of-line
 
 # enable .zshenv for various environmental varieties
 source ~/.zshenv
-
-
-
-
-
-
