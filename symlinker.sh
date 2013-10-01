@@ -1,17 +1,19 @@
 #!/usr/bin/sh
 
-echo "Creating symbolic link of dotfiles..."
+# symlinker.sh
+# create symbolic link of dotfiles in your home directory
+# NOTICE: this script processes only files whose name begin with . (dot)
 
-echo `dirname $0`
+echo -e "creating symbolic link of dotfiles..."
 
-cd `dirname $0`
+shdir="$(cd $(dirname $0) && pwd)"
 
-for filepath in .*
+cd ${shdir}
+
+for filepath in ${shdir}/.*
 do
-    ln -s $filepath ~/
-done
-
-for filepath in *
-do
-    ln -s $filepath ~/
+    if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" ] ; then
+	echo "creating link: ${filepath} -> ${HOME}"
+	ln -s ${filepath} ${HOME}
+    fi
 done
