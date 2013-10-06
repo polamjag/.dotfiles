@@ -193,7 +193,7 @@ autoload -U add-zsh-hook
 
 # main prompt
 PROMPT="
-%F{yellow}%B%d%b%f :: (%F{cyan}%B%n%f@%F{cyan}%M%b%f): 
+%F{yellow}%B%~%b%f :: (%F{cyan}%B%n%f@%F{cyan}%M%b%f): 
 %B%#%b "
 # config for right prompt which shows VCSs
 autoload -Uz vcs_info
