@@ -12,7 +12,7 @@
       [(1 0)
        nil "Edit all lines matching a given regexp" single])
  (auctex .
-	 [(11 87)
+	 [(11 87 1)
 	  nil "Integrated environment for *TeX*" tar])
  (cl-lib .
 	 [(0 3)
@@ -21,7 +21,7 @@
 	      [(0 4 1)
 	       nil "Major mode for CoffeeScript files" single])
  (company .
-	  [(0 6 10)
+	  [(0 6 12)
 	   nil "Modular in-buffer completion framework" tar])
  (csv-mode .
 	   [(1 2)
