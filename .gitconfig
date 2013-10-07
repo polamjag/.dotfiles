@@ -3,5 +3,6 @@
 	email = indirectgeeks@gmail.com
 [core]
 	editor = emacs
+	pager = less --raw
 [color]
 	ui = auto
