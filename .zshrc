@@ -192,8 +192,11 @@ autoload -U colors     ; colors
 autoload -U add-zsh-hook
 
 # main prompt
+#PROMPT="
+#%F{yellow}%B%~%b%f (%F{cyan}%B%n%f): 
+#%B%F{green}%M%f%#%b "
 PROMPT="
-%F{yellow}%B%~%b%f (%F{cyan}%B%n%f@%F{cyan}%M%b%f): 
+%F{yellow}%B%~%b%f %B(%F{cyan}%M%f::%F{cyan}%n%f)%b: 
 %B%#%b "
 # config for right prompt which shows VCSs
 autoload -Uz vcs_info
