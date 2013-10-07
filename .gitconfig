@@ -5,4 +5,6 @@
 	editor = emacs
 	pager = less --raw
 [color]
-	ui = auto
+	ui = true
+[help]
+	autocorrect = 1
