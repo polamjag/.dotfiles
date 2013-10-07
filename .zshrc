@@ -304,6 +304,7 @@ alias lla='ls -lh -a -F'
 alias pse='ps aux | grep'
 alias tm='tmux'
 alias goog='w3m https://www.google.co.jp/'
+alias gst='git status'
 
 # configs for well-used keys
 bindkey "^[[3~" delete-char
