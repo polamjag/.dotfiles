@@ -366,7 +366,9 @@
 (global-set-key (kbd "M-?") 'mark-paragraph)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
+;; C-x l to goto line
 (global-set-key "\C-xl" 'goto-line)
+;; toggle fullscreen with F11
 (defun toggle-fullscreen ()
   "Toggle full screen on X11"
   (interactive)
@@ -374,9 +376,10 @@
     (set-frame-parameter
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
-
 (global-set-key [f11] 'toggle-fullscreen)
-
+;; disable suspention with C-z
+(global-unset-key "\C-z")
+(global-set-key "\C-z" 'scroll-down)
 
 ;; =========================
 ;; miscellaneous preferences
