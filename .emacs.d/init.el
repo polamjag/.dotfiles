@@ -387,7 +387,10 @@
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (setq-default tab-width 4)
 (setq default-tab-width 4)
-
+(custom-set-variables
+ '(read-file-name-completion-ignore-case t))
+(require 'flex-autopair)
+(flex-autopair-mode 1)
 
 
 ;; ==================
