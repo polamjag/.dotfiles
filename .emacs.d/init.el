@@ -3,6 +3,7 @@
 ;;
 ;; a table of contents
 ;;   +- common load-path
+;;   +- Marmalade snippets
 ;;   +- commands
 ;;   +- modes
 ;;   +- set color scheme
@@ -10,12 +11,23 @@
 ;;   +- enable ibus-mozc as emacs-mozc
 ;;   +- keybindings
 ;;   +- miscellaneous preferences
-;;   +- Marmalade snippets
+
 
 ;; ================
 ;; common load-path
 ;; ================
 (add-to-list 'load-path "~/.emacs.d/")
+
+
+;; ==================
+;; Marmalade snippets
+;; ==================
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(define-obsolete-variable-alias 'last-command-char 'last-command-event "at least 19.34") 
 
 
 ;; ========
@@ -393,20 +405,15 @@
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
 (require 'flex-autopair)
-(flex-autopair-mode 1)
-
-
-;; ==================
-;; Marmalade snippets
-;; ==================
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
-
-(define-obsolete-variable-alias 'last-command-char 'last-command-event "at least 19.34") 
-
-
+(flex-autopair-mode t)
+(setq flex-autopair-conditions
+      `(;; Insert matching pair.
+        (openp . pair)
+        ;; Skip self.
+        ((and closep
+              (eq (char-after) last-command-event)) . skip)
+        (closep . self)
+        ))
 ;; undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode t)
