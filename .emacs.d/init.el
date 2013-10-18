@@ -423,6 +423,12 @@
 (require 'auto-complete)
 (global-auto-complete-mode t)
 
+ (add-to-list 'load-path "~/.emacs.d/auto-java-complete/")
+ (require 'ajc-java-complete-config)
+ (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+ (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+ 
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

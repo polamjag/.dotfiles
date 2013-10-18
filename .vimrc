@@ -21,7 +21,7 @@ set laststatus=2
 set ignorecase
 set incsearch
 set hlsearch
-highlight LineNr ctermbg=grey ctermfg=darkgrey
+highlight LineNr ctermbg=grey ctermfg=black
 highlight ZenkakuSpace cterm=underline ctermfg=blue
 set lcs=tab:>.
 set list
