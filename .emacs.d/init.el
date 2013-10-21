@@ -42,13 +42,6 @@
 ;; =====
 ;; modes
 ;; =====
-;; markdowm-mode
-(add-to-list 'load-path "~/.emacs.d/markdown-mode/")
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 ;; php-mode
 (autoload 'php-mode "~/.emacs.d/php-mode.el"
    "Editing PHP scripts" t)
@@ -392,6 +385,10 @@
 ;; disable suspention with C-z
 (global-unset-key "\C-z")
 (global-set-key "\C-z" 'scroll-down)
+;; open buffer list in current pane
+(global-unset-key "\C-x\C-b")
+(global-set-key "\C-x\C-b" 'buffer-menu)
+
 
 ;; =========================
 ;; miscellaneous preferences
