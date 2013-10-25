@@ -4,6 +4,8 @@
 # enable emacs-like keybind
 bindkey -e
 
+tabs -2
+
 # ==========
 # completion
 # ==========
