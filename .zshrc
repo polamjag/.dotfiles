@@ -298,6 +298,7 @@ alias -g W='| wc'
 
 # alias
 alias e='emacs -nw'
+alias history='history -f'
 alias h='history'
 alias ha='history-all'
 alias ls='ls --color'
