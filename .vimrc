@@ -22,7 +22,10 @@ set ignorecase
 set incsearch
 set hlsearch
 set relativenumber
-highlight LineNr ctermbg=grey ctermfg=black
+highlight LineNr ctermfg=white
 highlight ZenkakuSpace cterm=underline ctermfg=blue
 set lcs=tab:>.
 set list
+colorscheme ron
+set wrap linebreak nolist
+set mouse=a
