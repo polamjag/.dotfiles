@@ -1,7 +1,7 @@
 # .zshrc
 # polamjag <indirectgeeks@gmail.com>
 
-if [ -r ~/.zshenv ] ; then
+if [ -e ~/.zshenv ] ; then
 	source ~/.zshenv
 fi
 
@@ -142,7 +142,7 @@ export G_FILENAME_ENCODING=@locale
 # coloring for ls
 if [ -e ~/.dir_colors ] ; then
 	eval $(dircolors -b ~/.dir_colors)
-if
+fi
 
 # ===================== #
 # aliases and key binds #
@@ -178,3 +178,4 @@ alias gst='git branch -a ; echo ; git status'
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
+
