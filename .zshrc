@@ -1,6 +1,10 @@
 # .zshrc
 # polamjag <indirectgeeks@gmail.com>
 
+if [ -r ~/.zshenv ] ; then
+	source ~/.zshenv
+fi
+
 # enable emacs-like keybind
 bindkey -e
 # tab width in shell
@@ -136,8 +140,9 @@ limit coredumpsize 0
 export G_FILENAME_ENCODING=@locale
 
 # coloring for ls
-eval $(dircolors -b ~/.dir_colors)
-
+if [ -e ~/.dir_colors ] ; then
+	eval $(dircolors -b ~/.dir_colors)
+if
 
 # ===================== #
 # aliases and key binds #
@@ -166,8 +171,8 @@ alias lla='ls -lh -a -F'
 alias pse='ps aux | grep'
 alias tm='tmux'
 alias free='free -m'
-alias goog='w3m https://www.google.co.jp/'
-alias gst='git status'
+alias goog='w3m https://www.google.co.jp/ -cookie'
+alias gst='git branch -a ; echo ; git status'
 
 # configs for well-used keys
 bindkey "^[[3~" delete-char
