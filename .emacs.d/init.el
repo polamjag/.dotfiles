@@ -397,8 +397,8 @@
 (global-auto-revert-mode 1)
 (require 'uniquify)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-(setq-default tab-width 4)
-(setq default-tab-width 4)
+(setq-default tab-width 2)
+(setq default-tab-width 2)
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
 (require 'flex-autopair)
