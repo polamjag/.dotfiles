@@ -67,11 +67,13 @@ autoload -U add-zsh-hook
 # main prompt
 PROMPT="
 %F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
-%B%#%b "
+%(?.%F{white}.%F{red})%B%#%b%f "
+#`(){ if [[ %? -ne 0 ]] ; then ; %F{yellow} ; else ; ; fi }`%B%#%b "
 # config for right prompt which shows VCSs; Version Control Systems
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+
 precmd_1 () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
