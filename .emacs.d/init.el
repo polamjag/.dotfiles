@@ -10,7 +10,7 @@
 ;;   +- window and apperance preferences
 ;;   +- enable ibus-mozc as emacs-mozc
 ;;   +- keybindings
-;;   +- miscellaneous preferences
+;;   `- miscellaneous preferences
 
 
 ;; ================
