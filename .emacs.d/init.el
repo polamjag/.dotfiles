@@ -119,7 +119,7 @@
  ;; MMM-mode
  '(mmm-default-submode-face ((t (:foreground nil :background "#000000")))))
 ;; font family / font face
-(set-face-attribute 'default nil :family "Ricty" :height 130)
+(set-face-attribute 'default nil :family "Ricty" :height 120)
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 ;; set ratio of font between zenkaku and hankaku
 ;;(setq face-font-rescale-alist '(("Ricty" . 1.2)))

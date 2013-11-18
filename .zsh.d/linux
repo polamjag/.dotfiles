@@ -1,0 +1,10 @@
+# coloring for ls
+if [ -e ~/.dir_colors ] ; then
+	eval $(dircolors -b ~/.dir_colors)
+fi
+
+alias ls='ls --color'
+alias l='ls -CFa'
+alias ll='ls -lh -F'
+alias lla='ls -lh -a -F'
+

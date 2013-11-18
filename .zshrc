@@ -64,14 +64,20 @@ function history-all { history -E 1 }
 autoload -U promptinit ; promptinit
 autoload -U colors     ; colors
 autoload -U add-zsh-hook
+ip_addr_disp () {
+		if [ -e `which ip` ] ; then
+				ip addr | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)
+		fi
+}
 # main prompt
 PROMPT="
-%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
+%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b) @`ip_addr_disp`: 
 %(?.%F{white}.%F{red}^)%B%#%b%f "
+
 # config for right prompt which shows VCSs; Version Control Systems
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+zstyle ':vcs_info:*' formats '%s:%b'
+zstyle ':vcs_info:*' actionformats '%s:%b|%a'
 precmd_1 () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
@@ -140,10 +146,6 @@ limit coredumpsize 0
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 
-# coloring for ls
-if [ -e ~/.dir_colors ] ; then
-	eval $(dircolors -b ~/.dir_colors)
-fi
 
 # ===================== #
 # aliases and key binds #
@@ -165,10 +167,6 @@ alias e='emacs -nw'
 alias history='history -f'
 alias h='history'
 alias ha='history-all'
-alias ls='ls --color'
-alias l='ls -CFa'
-alias ll='ls -lh -F'
-alias lla='ls -lh -a -F'
 alias pse='ps aux | grep'
 alias tm='tmux'
 alias free='free -m'
@@ -180,3 +178,17 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 
+# =========================== #
+# load external configulation #
+# =========================== #
+case ${OSTYPE} in
+    darwin*)
+        source $HOME/.zsh.d/bsd
+        ;;
+		freebsd*)
+				source $HOME/.zsh.d/bsd
+				;;
+    linux*)
+        source $HOME/.zsh.d/linux
+        ;;
+esac
