@@ -1,8 +1,8 @@
 [user]
 	name = polamjag
-	email = indirectgeeks@gmail.com
+	email = s@polamjag.info
 [core]
-	editor = emacs
+	editor = vim 
 	pager = less --raw
 [color]
 	ui = true
