@@ -66,12 +66,13 @@ autoload -U colors     ; colors
 autoload -U add-zsh-hook
 ip_addr_disp () {
 		if [ -e `which ip` ] ; then
+				echo -n '@'
 				ip addr | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)
 		fi
 }
 # main prompt
 PROMPT="
-%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b) @`ip_addr_disp`: 
+%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
 %(?.%F{white}.%F{red}^)%B%#%b%f "
 
 # config for right prompt which shows VCSs; Version Control Systems
