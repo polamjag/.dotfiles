@@ -56,7 +56,12 @@ setopt hist_no_store
 setopt hist_expand  # expand history in completion
 # output all histories 
 function history-all { history -E 1 }
-
+# enable completion from history
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
 
 # ====== #
 # prompt #
@@ -147,6 +152,8 @@ limit coredumpsize 0
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 
+export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
+
 
 # ===================== #
 # aliases and key binds #
@@ -193,3 +200,4 @@ case ${OSTYPE} in
         source $HOME/.zsh.d/linux
         ;;
 esac
+

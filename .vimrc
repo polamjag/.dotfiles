@@ -30,3 +30,8 @@ set list
 colorscheme ron
 set wrap linebreak nolist
 set mouse=a
+set display=lastline
+set autoread
+set hidden
+set backspace=indent,eol,start
+set visualbell
