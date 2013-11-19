@@ -27,7 +27,6 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-(define-obsolete-variable-alias 'last-command-char 'last-command-event "at least 19.34") 
 
 
 ;; ========
@@ -42,21 +41,6 @@
 ;; =====
 ;; modes
 ;; =====
-;; php-mode
-(autoload 'php-mode "~/.emacs.d/php-mode.el"
-   "Editing PHP scripts" t)
-(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
-;; wc-mode
-(require 'wc-mode)
-;; ocaml-mode
-(setq auto-mode-alist
-      (cons '("\\.ml[iylp]?\$" . caml-mode) auto-mode-alist))
-(autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
-(autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
-(if window-system (require 'caml-font))
-(setq inferior-caml-program "/usr/local/bin/ocaml")
-;; startup/setup anything.el
-;;(require 'anything-startup)
 ;; flymake for java 
 (require 'flymake)
 (add-hook 'java-mode-hook 'flymake-mode-on)
@@ -69,65 +53,25 @@
 ;; ================
 ;; set color scheme
 ;; ================
-(deftheme molokai
-  "Molokai color theme")
-(custom-theme-set-faces
- 'molokai
- ;; Backgroud, charactors, cursor
- '(cursor ((t (:foreground "#F8F8F0"))))
- '(default ((t (:background "#1B1D1E" :foreground "#F8F8F2"))))
- ;; Selected regions
- '(region ((t (:background "#403D3D"))))
- ;; Mode line
- '(mode-line ((t (:foreground "#F8F8F2" :background "#000000"
-                  :box (:line-width 1 :color "#000000" :style released-button)))))
- '(mode-line-buffer-id ((t (:foreground nil :background nil))))
- '(mode-line-inactive ((t (:foreground "#BCBCBC" :background "#333333"
-                           :box (:line-width 1 :color "#333333")))))
- ;; Highlight
- '(highlight ((t (:foreground "#000000" :background "#C4BE89"))))
- '(hl-line ((t (:background "#293739"))))
- ;; Names of function
- '(font-lock-function-name-face ((t (:foreground "#FFFFFF"))))
- ;; Names and content of variables
- '(font-lock-variable-name-face ((t (:foreground "#FFFFFF"))))
- '(font-lock-string-face ((t (:foreground "#E6DB74"))))
- ;; Specified keywords
- '(font-lock-keyword-face ((t (:foreground "#F92672"))))
- ;; Boolean
- '(font-lock-constant-face((t (:foreground "#AE81BC"))))
- ;; Parens
- '(show-paren-match-face ((t (:foreground "#1B1D1E" :background "#FD971F"))))
- '(paren-face ((t (:foreground "#A6E22A" :background nil))))
- ;; Comments
- '(font-lock-comment-face ((t (:foreground "#c4c1bD"))))
- ;; CSS
- '(css-selector ((t (:foreground "#66D9EF"))))
- '(css-property ((t (:foreground "#FD971F"))))
- ;; nXML-mode
- ;; Names of tag
- '(nxml-element-local-name ((t (:foreground "#F92672"))))
- ;; Attributes
- '(nxml-attribute-local-name ((t (:foreground "#66D9EF"))))
- ;; Tag delimiters
- '(nxml-tag-delimiter ((t (:foreground "#A6E22A"))))
- ;; DOCTYPE declaration
- '(nxml-markup-declaration-delimiter ((t (:foreground "#74715D"))))
- ;; dired
- '(dired-directory ((t (:foreground "#A6E22A"))))
- '(dired-symlink ((t (:foreground "#66D9EF"))))
- ;; MMM-mode
- '(mmm-default-submode-face ((t (:foreground nil :background "#000000")))))
-;; font family / font face
+(load-theme 'manoj-dark t)
 (set-face-attribute 'default nil :family "Ricty" :height 120)
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 ;; set ratio of font between zenkaku and hankaku
-;;(setq face-font-rescale-alist '(("Ricty" . 1.2)))
-;;;###autoload
-(when load-file-name
-  (add-to-list 'custom-theme-load-path
-               (file-name-as-directory (file-name-directory load-file-name))))
-(provide-theme 'molokai)
+(setq face-font-rescale-alist '(("Ricty" . 1.0)))
+(defvar colorscheme-mode-status "dark")
+(defun toggle-colorscheme ()
+  "Toggle colorscheme dark or day"
+	(interactive)
+  (if (string= colorscheme-mode-status "dark")
+			(progn
+				(load-theme 'adwaita t)
+				(setq colorscheme-mode-status "light"))
+		(progn (load-theme 'manoj-dark t)
+					 (setq colorscheme-mode-status "dark"))
+		)
+	)
+(global-set-key [f9] 'toggle-colorscheme)
+
 
 
 ;; =================================
@@ -146,10 +90,9 @@
 (setq visible-bell t)
 ;; set opacity of editor window
 (set-frame-parameter nil 'alpha 90)
-;; display line number
-(setq linum-delay t)
-(defadvice linum-schedule (around my-linum-schedule () activate)
-  (run-with-idle-timer 0.2 nil #'linum-update-current))
+;; rainbow-delimiters-mode
+(require 'rainbow-delimiters)
+(global-rainbow-delimiters-mode t)
 ;; highlight current line
 (defface hlline-face
   '((((class color)
@@ -242,8 +185,6 @@
    ;; nyan-mode uses nyan cat as an alternative to %p
    ;; (:eval (when nyan-mode (list (nyan-create))))
    ))
-
-
 ;; Helper function
 (defun shorten-directory (dir max-length)
   "Show up to `max-length' characters of a directory name `dir'."
@@ -257,9 +198,6 @@
     (when path
       (setq output (concat ".../" output)))
     output))
-
-
-
 (set-face-attribute 'mode-line nil
     :foreground "gray80" :background "gray10"
     :inverse-video nil
@@ -272,8 +210,6 @@
     :weight 'extra-light
     :height 120
     :box '(:line-width 2 :color "gray30" :style nil))
-
-
 ;; Extra mode line faces
 (make-face 'mode-line-read-only-face)
 (make-face 'mode-line-modified-face)
@@ -285,7 +221,6 @@
 (make-face 'mode-line-process-face)
 (make-face 'mode-line-80col-face)
 (make-face 'mode-line-delim-face-1)
-
 (set-face-attribute 'mode-line-read-only-face nil
     :inherit 'mode-line-face
     :foreground "#4271ae"
@@ -299,7 +234,7 @@
     :inherit 'mode-line-face
     :weight 'extra-light
     :height 110
-    :foreground "gray90")
+    :foreground "#888888")
 (set-face-attribute 'mode-line-filename-face nil
     :inherit 'mode-line-face
     :foreground "#eab700"
@@ -309,7 +244,7 @@
     :family "Menlo")
 (set-face-attribute 'mode-line-mode-face nil
     :inherit 'mode-line-face
-    :foreground "white")
+    :foreground "#cccccc")
 (set-face-attribute 'mode-line-minor-mode-face nil
     :inherit 'mode-line-mode-face
     :foreground "gray60"
@@ -424,20 +359,4 @@
  (require 'ajc-java-complete-config)
  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
  (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
- 
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
- '(custom-enabled-themes (quote (wheatgrass))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
