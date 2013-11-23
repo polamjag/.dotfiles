@@ -31,7 +31,6 @@ setopt auto_resume           # resume suspended command automatically
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 zstyle ':completion:*' use-cache true        # cache completion
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} 
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:default' menu select=1 # select completion with arrow keys
@@ -214,3 +213,6 @@ case ${OSTYPE} in
         source $HOME/.zsh.d/linux
         ;;
 esac
+
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} 
