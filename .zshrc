@@ -85,7 +85,7 @@ ip_addr_disp () {
 }
 ssh_prefix () {
   if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
-    echo -n "%F{red}%B-=> %b%f"
+    echo -n "%F{magenta}%B-=> %b%f"
   else
     echo -n ""
   fi
