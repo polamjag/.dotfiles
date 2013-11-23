@@ -1,5 +1,5 @@
 # .zshrc
-# polamjag <indirectgeeks@gmail.com>
+# polamjag <s@polamjag.info>
 
 if [ -e ~/.zshenv ] ; then
 	source ~/.zshenv
@@ -10,23 +10,15 @@ bindkey -e
 # tab width in shell
 tabs -2
 
+autoload colors ; colors
+
 
 # ========== #
 # completion #
 # ========== #
 autoload -U compinit ; compinit
-# enable coloring for completion
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-# enable coloring for completion of kill command
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
-# ignore case for completion
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*:default' menu select=1 # select completion with arrow keys
-zstyle ':completion:*' use-cache true        # cache completion
-zstyle ':completion:*:processes' command 'ps x'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colored file completion
-
 setopt list_packed           # display completion compactly
+setopt listpacked
 unsetopt auto_remove_slash
 setopt auto_param_slash      # append '/' at tail of directory in completion automatically
 setopt mark_dirs             
@@ -36,6 +28,22 @@ setopt auto_list             # display with list of all completion with ^I
 setopt auto_menu             # complete automatically with key press of completion-key
 setopt auto_param_keys       # complete parens automatically
 setopt auto_resume           # resume suspended command automatically
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
+zstyle ':completion:*' use-cache true        # cache completion
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} 
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:default' menu select=1 # select completion with arrow keys
+zstyle ':completion:*:messages' format '%F{green}%d'
+zstyle ':completion:*:warnings' format '%F{magenta}No matches for:''%F{YELLOW} %d'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{yellow}%B%d: %b%f'
+zstyle ':completion:*:processes' command 'ps x'
+zstyle ':completion:*' group-name ''
+# enable coloring for completion of kill command
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
+
 compdef mosh=ssh             # override mosh completion with ssh
 
 
@@ -49,7 +57,7 @@ setopt extended_history
 setopt append_history
 setopt inc_append_history
 setopt share_history
-setopt hist_ignore_dups      # ignore same command as above
+setopt hist_ignore_dups  # ignore same command as above
 unsetopt hist_verify
 setopt hist_reduce_blanks
 setopt hist_no_store 
@@ -63,34 +71,41 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
+
 # ====== #
 # prompt #
 # ====== #
 autoload -U promptinit ; promptinit
-autoload -U colors     ; colors
 autoload -U add-zsh-hook
+setopt correct
 ip_addr_disp () {
-		if [ -e `which ip` ] ; then
-				echo -n '@'
-				ip addr | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)
-		fi
+  if [ -e `which ip` ] ; then
+    echo -n '@'
+    ip addr | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)
+  fi
+}
+ssh_prefix () {
+  if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
+    echo -n "%F{red}%B-=> %b%f"
+  else
+    echo -n ""
+  fi
 }
 # main prompt
 PROMPT="
-%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
+`ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
 %(?.%F{white}.%F{red}^)%B%#%b%f "
-
 # config for right prompt which shows VCSs; Version Control Systems
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '%s:%b'
-zstyle ':vcs_info:*' actionformats '%s:%b|%a'
+zstyle ':vcs_info:*' formats '@%s:%b'
+zstyle ':vcs_info:*' actionformats '@%s:%b|%a'
 precmd_1 () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-add-zsh-hook precmd precmd_1
-RPROMPT="%B%1(v|%F{magenta}%1v%f|)%b"
+} ; add-zsh-hook precmd precmd_1
+RPROMPT="%F{blue}%B%1(v|%1v|)%b%f"
+SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%r%f [nyae]?%b '
 
 
 # =============================== #
@@ -101,7 +116,6 @@ setopt auto_pushd
 setopt pushd_ignore_dups 
 setopt pushd_to_home  
 setopt pushd_silent  
-# pop command
 alias pd='popd'
 alias gd='dirs -v; echo -n "select number: ";
 read newdir; cd +"$newdir" '
@@ -135,20 +149,19 @@ setopt cdable_vars sh_word_split
 setopt rm_star_wait
 unsetopt no_clobber
 setopt no_unset # don't allow using of undefined variables
+setopt interactive_comments
 
 # configure behaviour of less (ref. man less)
 LESS=-M
 export LESS
-if type /usr/bin/lesspipe &>/dev/null
-then
-LESSOPEN="| /usr/bin/lesspipe '%s'"
-LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
-export LESSOPEN LESSCLOSE
+if type /usr/bin/lesspipe &>/dev/null ; then
+  LESSOPEN="| /usr/bin/lesspipe '%s'"
+  LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
+  export LESSOPEN LESSCLOSE
 fi
 
 umask 022
 ulimit -s unlimited
-limit coredumpsize 0
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 
@@ -160,7 +173,6 @@ export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
 # ===================== #
 # alias for fix of less with colored output
 alias less='less --raw -R'
-
 # global aliases with pipe
 alias -g L='| less'
 alias -g H='| head'
@@ -169,22 +181,24 @@ alias -g G='| grep'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
-
-# alias
+# general aliases
 alias e='emacs -nw'
+if [ -e `which vim` ] ; then
+  alias vi='vim' ; fi
 alias history='history -f'
 alias h='history'
 alias ha='history-all'
 alias pse='ps aux | grep'
 alias tm='tmux'
+alias le='less'
 alias free='free -m'
 alias goog='w3m https://www.google.co.jp/ -cookie'
 alias gst='git branch -a ; echo ; git status'
-
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
+
 
 # =========================== #
 # load external configulation #
@@ -200,4 +214,3 @@ case ${OSTYPE} in
         source $HOME/.zsh.d/linux
         ;;
 esac
-

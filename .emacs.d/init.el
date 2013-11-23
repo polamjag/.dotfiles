@@ -84,6 +84,8 @@
   (set-scroll-bar-mode t) ;; enable X scroll bar
   (tool-bar-mode -1)      ;; disable tool bar
   ))
+;; disable menubar
+(menu-bar-mode -1)
 ;; disable welcome message
 (setq inhibit-startup-message t)
 ;; enable visual bell (disable beep)
