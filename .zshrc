@@ -93,7 +93,7 @@ ssh_prefix () {
 # main prompt
 PROMPT="
 `ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
-%(?.%F{white}.%F{red}^)%B%#%b%f "
+%(?.%F{default}.%F{red}^)%B%#%b%f "
 # config for right prompt which shows VCSs; Version Control Systems
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '@%s:%b'
@@ -149,7 +149,6 @@ setopt rm_star_wait
 unsetopt no_clobber
 setopt no_unset # don't allow using of undefined variables
 setopt interactive_comments
-
 # configure behaviour of less (ref. man less)
 LESS=-M
 export LESS
@@ -158,14 +157,22 @@ if type /usr/bin/lesspipe &>/dev/null ; then
   LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
   export LESSOPEN LESSCLOSE
 fi
-
 umask 022
 ulimit -s unlimited
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
-
 export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
 
+# ================== #
+# command line stack #
+# ================== #
+show_buffer_stack() {
+    POSTDISPLAY="
+    stack: $LBUFFER"
+      zle push-line
+}
+zle -N show_buffer_stack
+bindkey "^[q" show_buffer_stack
 
 # ===================== #
 # aliases and key binds #
