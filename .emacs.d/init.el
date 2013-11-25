@@ -1,11 +1,8 @@
-;; init.el: initial configurator for emacs
-;; polamjag <indirectgeeks@gmail.com>
+;; init.el - polamjag <s@polamjag.info>
 ;;
-;; a table of contents
 ;;   +- common load-path
-;;   +- Marmalade snippets
-;;   +- commands
-;;   +- modes
+;;   +- Marmalade and auto-install snippets
+;;   +- modes initialization
 ;;   +- set color scheme
 ;;   +- window and apperance preferences
 ;;   +- enable ibus-mozc as emacs-mozc
@@ -19,28 +16,23 @@
 (add-to-list 'load-path "~/.emacs.d/")
 
 
-;; ==================
-;; Marmalade snippets
-;; ==================
+;; ===================================
+;; Marmalade and auto-install snippets
+;; ===================================
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
+(require 'auto-install)
+(auto-install-update-emacswiki-package-name t)
+(auto-install-compatibility-setup)
 
 
-;; ========
-;; commands
-;; ========
-;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
-;;(require 'auto-install)
-;;(auto-install-update-emacswiki-package-name t)
-;;(auto-install-compatibility-setup)
-
-
-;; =====
-;; modes
-;; =====
+;; ====================
+;; modes initialization
+;; ====================
 ;; flymake for java 
 (require 'flymake)
 (add-hook 'java-mode-hook 'flymake-mode-on)
@@ -48,6 +40,22 @@
   (list "javac" (list (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-with-folder-structure))))
 (add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
+;; flymake for ruby
+;; Invoke ruby with '-c' to get syntax checking
+(defun flymake-ruby-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+         (local-file  (file-relative-name
+                       temp-file
+                       (file-name-directory buffer-file-name))))
+    (list "ruby" (list "-c" local-file))))
+(push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+(add-hook
+ 'ruby-mode-hook
+ '(lambda ()
+		(if (not (null buffer-file-name)) (flymake-mode))))
 
 
 ;; ================
@@ -108,21 +116,16 @@
   "*Face used by hl-line.")
 (setq hl-line-face 'hlline-face)
 (global-hl-line-mode)
-;; popwin: improve behaviour of popup buffer
+;; popwin
 (setq pop-up-windows nil)
-(require 'popwin nil t)
-(when (require 'popwin nil t)
-  (setq anything-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
-  (push '("*Completions*" :height 0.4) popwin:special-display-config)
-  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
-  )
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
+(setq popwin:popup-window-position 'bottom)
 ;;
 (if (boundp 'window-system)
   (setq default-frame-alist
     (append (list
-	     '(top . 60)
+						 '(top . 60)
 	     '(left . 140)
 	     '(width . 80)
 	     '(height . 35)
@@ -356,9 +359,34 @@
 ;;(auto-complete-mode)
 (require 'auto-complete)
 (global-auto-complete-mode t)
+;; auto-complete java
+(add-to-list 'load-path "~/.emacs.d/auto-java-complete/")
+(require 'ajc-java-complete-config)
+(add-hook 'java-mode-hook 'ajc-java-complete-mode)
+(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 
- (add-to-list 'load-path "~/.emacs.d/auto-java-complete/")
- (require 'ajc-java-complete-config)
- (add-hook 'java-mode-hook 'ajc-java-complete-mode)
- (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+(defun credmp/flymake-display-err-minibuf () 
+  "Displays the error/warning for the current line in the minibuffer"
+  (interactive)
+  (let* ((line-no             (flymake-current-line-no))
+         (line-err-info-list  (nth 0 (flymake-find-err-info flymake-err-info line-no)))
+         (count               (length line-err-info-list))
+         )
+    (while (> count 0)
+      (when line-err-info-list
+        (let* ((file       (flymake-ler-file (nth (1- count) line-err-info-list)))
+               (full-file  (flymake-ler-full-file (nth (1- count) line-err-info-list)))
+               (text (flymake-ler-text (nth (1- count) line-err-info-list)))
+               (line       (flymake-ler-line (nth (1- count) line-err-info-list))))
+          (message "[%s] %s" line text)
+          )
+        )
+      (setq count (1- count)))))
 
+
+
+
+;; helm setting
+(require 'helm-config)
+(global-set-key (kbd "C-c h") 'helm-mini)
+(helm-mode 1)
