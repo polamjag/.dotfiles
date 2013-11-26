@@ -1,8 +1,7 @@
-# .zshrc
-# polamjag <s@polamjag.info>
+# .zshrc - polamjag <s@polamjag.info>
 
 if [ -e ~/.zshenv ] ; then
-	source ~/.zshenv
+		source ~/.zshenv
 fi
 
 # enable emacs-like keybind
@@ -20,12 +19,12 @@ autoload -U compinit ; compinit
 setopt list_packed           # display completion compactly
 setopt listpacked
 unsetopt auto_remove_slash
-setopt auto_param_slash      # append '/' at tail of directory in completion automatically
+setopt auto_param_slash      # append '/' at tail of directory
 setopt mark_dirs             
-setopt list_types            # display type of files in completion list as ls -F
+setopt list_types            # display type of files in completion list
 unsetopt menu_complete
 setopt auto_list             # display with list of all completion with ^I
-setopt auto_menu             # complete automatically with key press of completion-key
+setopt auto_menu             # complete automatically with key press
 setopt auto_param_keys       # complete parens automatically
 setopt auto_resume           # resume suspended command automatically
 
@@ -42,8 +41,8 @@ zstyle ':completion:*:processes' command 'ps x'
 zstyle ':completion:*' group-name ''
 # enable coloring for completion of kill command
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
-
-compdef mosh=ssh             # override mosh completion with ssh
+# completion overrides
+compdef mosh=ssh
 
 
 # ======= #
@@ -94,7 +93,7 @@ ssh_prefix () {
 PROMPT="
 `ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
 %(?.%F{default}.%F{red}^)%B%#%b%f "
-# config for right prompt which shows VCSs; Version Control Systems
+# config for right prompt which shows VCS
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '@%s:%b'
 zstyle ':vcs_info:*' actionformats '@%s:%b|%a'
@@ -153,9 +152,9 @@ setopt interactive_comments
 LESS=-M
 export LESS
 if type /usr/bin/lesspipe &>/dev/null ; then
-  LESSOPEN="| /usr/bin/lesspipe '%s'"
-  LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
-  export LESSOPEN LESSCLOSE
+		LESSOPEN="| /usr/bin/lesspipe '%s'"
+		LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
+		export LESSOPEN LESSCLOSE
 fi
 umask 022
 ulimit -s unlimited
@@ -163,16 +162,18 @@ ulimit -s unlimited
 export G_FILENAME_ENCODING=@locale
 export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
 
+
 # ================== #
 # command line stack #
 # ================== #
 show_buffer_stack() {
     POSTDISPLAY="
     stack: $LBUFFER"
-      zle push-line
+    zle push-line
 }
 zle -N show_buffer_stack
 bindkey "^[q" show_buffer_stack
+
 
 # ===================== #
 # aliases and key binds #
@@ -195,9 +196,9 @@ alias history='history -f'
 alias h='history'
 alias ha='history-all'
 alias pse='ps aux | grep'
-alias tm='tmux'
 alias le='less'
 alias free='free -m'
+alias a='cd ../'
 alias goog='w3m https://www.google.co.jp/ -cookie'
 alias gst='git branch -a ; echo ; git status'
 # configs for well-used keys
