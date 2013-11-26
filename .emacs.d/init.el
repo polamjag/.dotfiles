@@ -22,6 +22,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
 (package-initialize)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/auto-install/"))
@@ -56,7 +57,12 @@
  'ruby-mode-hook
  '(lambda ()
 		(if (not (null buffer-file-name)) (flymake-mode))))
-
+(require 'ruby-end)
+(add-hook 'ruby-mode-hook
+  '(lambda ()
+    (abbrev-mode 1)
+		(electric-indent-mode t)
+    (electric-layout-mode t)))
 
 ;; ================
 ;; set color scheme
@@ -121,6 +127,7 @@
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
 (setq popwin:popup-window-position 'bottom)
+(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
 ;;
 (if (boundp 'window-system)
   (setq default-frame-alist
@@ -355,8 +362,7 @@
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-
-;;(auto-complete-mode)
+;; auto-complete-mode
 (require 'auto-complete)
 (global-auto-complete-mode t)
 ;; auto-complete java
@@ -384,9 +390,14 @@
       (setq count (1- count)))))
 
 
-
-
-;; helm setting
+;; ============
+;; helm configs
+;; ============
 (require 'helm-config)
 (global-set-key (kbd "C-c h") 'helm-mini)
 (helm-mode 1)
+(global-set-key (kbd "C-c z") 'helm-resume)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+(global-set-key (kbd "C-c j") 'helm-M-x)
+
+
