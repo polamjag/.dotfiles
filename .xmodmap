@@ -3,3 +3,9 @@ remove Lock = Caps_Lock
 keysym Escape = Caps_Lock
 keysym Caps_Lock = Escape
 add Lock = Caps_Lock
+
+! Set Muhenkan to Super_L
+keysym Muhenkan = Super_L
+
+! Set Henkan to Esc
+keysym Henkan = Escape
