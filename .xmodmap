@@ -9,3 +9,4 @@ keysym Muhenkan = Super_L
 
 ! Set Henkan to Esc
 keysym Henkan = Escape
+
