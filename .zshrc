@@ -198,10 +198,12 @@ alias ha='history-all'
 alias pse='ps aux | grep'
 alias le='less'
 alias free='free -m'
-alias a='cd ../'
+alias a='cd ../ ;'
 alias md='mkdir'
 alias goog='w3m https://www.google.co.jp/ -cookie'
 alias gst='git branch -a ; echo ; git status'
+alias gcm='git commit -m'
+alias ga='git add'
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
