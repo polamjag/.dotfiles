@@ -7,5 +7,5 @@ clone this repo into your machine and run symlinker.sh to make symbolic link of 
 
 ## LICENSE
 * other scripts are under public domain.
-* .emacs.d has been moved to https://github.com/polamjag/configs
+* .emacs.d has been moved to https://github.com/polamjag/.emacs.d
 
