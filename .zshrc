@@ -203,8 +203,7 @@ function extract() {
     *.tar) tar xvf $1;;
     *.arj) unarj $1;;
   esac
-}
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
+} ; alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 # general aliases
 alias e='emacs -nw'
 if [ -e `which vim` ] ; then
@@ -217,11 +216,27 @@ alias le='less'
 alias free='free -m'
 alias a='cd ../ ;'
 alias md='mkdir'
-alias goog='w3m https://www.google.co.jp/ -cookie'
+function search_google() {
+	if [ "${1:+itfmayuge}" = 'itfmayuge' ] ; then
+		query_str=$1
+		shift
+		while [ "${1:+itfmayuge}" = 'itfmayuge' ] ; do
+			query_str="$query_str+$1"
+			if [ "${2:+itfmayuge}" = 'itfmayuge' ] ; then
+				shift
+			else
+				break
+			fi
+		done
+		w3m "https://www.google.co.jp/search?q=$query_str" -cookie
+	else
+		w3m 'https://www.google.co.jp/' -cookie
+	fi
+}
+alias goog='search_google'
 function grep_rec() {
   grep -r $1 .
-}
-alias s='grep_rec'
+} ; alias s='grep_rec'
 alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'
 alias ga='git add'

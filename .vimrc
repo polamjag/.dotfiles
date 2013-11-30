@@ -35,3 +35,7 @@ set autoread
 set hidden
 set backspace=indent,eol,start
 set visualbell
+
+" Keybindings
+inoremap <C-c> <Esc>
+
