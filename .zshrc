@@ -103,7 +103,7 @@ precmd_1 () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 } ; add-zsh-hook precmd precmd_1
 RPROMPT="%F{blue}%B%1(v|%1v|)%b%f"
-SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%r%f [nyae]?%b '
+SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
 
 
 # =============================== #
@@ -218,6 +218,10 @@ alias free='free -m'
 alias a='cd ../ ;'
 alias md='mkdir'
 alias goog='w3m https://www.google.co.jp/ -cookie'
+function grep_rec() {
+  grep -r $1 .
+}
+alias s='grep_rec'
 alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'
 alias ga='git add'
