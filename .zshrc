@@ -193,7 +193,7 @@ function extract() {
 				*.gz) gzip -dc $1;;
 				*.bz2) bzip2 -dc $1;;
 				*.Z) uncompress $1;;
-    *.tar) tar xvf $1;;
+        *.tar) tar xvf $1;;
 				*.arj) unarj $1;;
 		esac
 } ; alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
@@ -236,6 +236,7 @@ alias ga='git add'
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
+bindkey -r '^X'
 
 
 # =========================== #
