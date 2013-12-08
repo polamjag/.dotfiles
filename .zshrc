@@ -1,8 +1,7 @@
-# .zshrc - polamjag <s@polamjag.info>
+# .zshrc
 
 if [ -e ~/.zshenv ] ; then
-		source ~/.zshenv
-fi
+		source ~/.zshenv ; fi
 
 # enable emacs-like keybind
 bindkey -e
@@ -76,18 +75,12 @@ bindkey "^N" history-beginning-search-forward-end
 autoload -U promptinit ; promptinit
 autoload -U add-zsh-hook
 setopt correct
-ip_addr_disp () {
-  if [ -e `which ip` ] ; then
-    echo -n '@'
-    ip addr | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)
-  fi
-}
 ssh_prefix () {
-  if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
-    echo -n "%F{magenta}%B-=> %b%f"
-  else
-    echo -n ""
-  fi
+		if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
+				echo -n "%F{magenta}%B-=> %b%f"
+		else
+				echo -n ""
+		fi
 }
 # main prompt
 PROMPT="
@@ -190,24 +183,24 @@ alias -g A='| awk'
 alias -g W='| wc'
 # extract archived file easily
 function extract() {
-  case $1 in
-    *.tar.gz|*.tgz) tar xzvf $1;;
-    *.tar.xz) tar Jxvf $1;;
-    *.zip) unzip $1;;
-    *.lzh) lha e $1;;
-    *.tar.bz2|*.tbz) tar xjvf $1;;
-    *.tar.Z) tar zxvf $1;;
-    *.gz) gzip -dc $1;;
-    *.bz2) bzip2 -dc $1;;
-    *.Z) uncompress $1;;
+		case $1 in
+				*.tar.gz|*.tgz) tar xzvf $1;;
+				*.tar.xz) tar Jxvf $1;;
+				*.zip) unzip $1;;
+				*.lzh) lha e $1;;
+				*.tar.bz2|*.tbz) tar xjvf $1;;
+				*.tar.Z) tar zxvf $1;;
+				*.gz) gzip -dc $1;;
+				*.bz2) bzip2 -dc $1;;
+				*.Z) uncompress $1;;
     *.tar) tar xvf $1;;
-    *.arj) unarj $1;;
-  esac
+				*.arj) unarj $1;;
+		esac
 } ; alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 # general aliases
 alias e='emacs -nw'
-if [ -e `which vim` ] ; then
-  alias vi='vim' ; fi
+if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
+		alias vi='vim' ; fi
 alias history='history -f'
 alias h='history'
 alias ha='history-all'
@@ -217,25 +210,24 @@ alias free='free -m'
 alias a='cd ../ ;'
 alias md='mkdir'
 function search_google() {
-	if [ "${1:+itfmayuge}" = 'itfmayuge' ] ; then
-		query_str=$1
-		shift
-		while [ "${1:+itfmayuge}" = 'itfmayuge' ] ; do
-			query_str="$query_str+$1"
-			if [ "${2:+itfmayuge}" = 'itfmayuge' ] ; then
-				shift
-			else
-				break
-			fi
-		done
-		w3m "https://www.google.co.jp/search?q=$query_str" -cookie
-	else
-		w3m 'https://www.google.co.jp/' -cookie
-	fi
-}
-alias goog='search_google'
+    if [ "${1:+itfmayuge}" = 'itfmayuge' ] ; then
+        query_str=$1
+        shift
+        while [ "${1:+itfmayuge}" = 'itfmayuge' ] ; do
+            query_str="$query_str+$1"
+            if [ "${2:+itfmayuge}" = 'itfmayuge' ] ; then
+                shift
+            else
+                break
+            fi
+        done
+        w3m "https://www.google.co.jp/search?q=$query_str" -cookie
+    else
+        w3m 'https://www.google.co.jp/' -cookie
+    fi
+} ; alias goog='search_google'
 function grep_rec() {
-  grep -r $1 .
+		grep -r $1 .
 } ; alias s='grep_rec'
 alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'

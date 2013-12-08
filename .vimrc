@@ -28,6 +28,7 @@ highlight ZenkakuSpace cterm=underline ctermfg=blue
 set lcs=tab:>.
 set list
 colorscheme ron
+set cursorline
 set wrap linebreak nolist
 set mouse=a
 set display=lastline
@@ -38,4 +39,11 @@ set visualbell
 
 " Keybindings
 inoremap <C-c> <Esc>
-
+noremap ; :
+noremap : ;
+inoremap <C-e> <END>
+inoremap <C-a> <HOME>
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
