@@ -12,11 +12,34 @@ cd ${shdir}
 
 for filepath in ${shdir}/.*
 do
-    if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" ] ; then
+    if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepayh != "${shdir}/.gitconfig" ] ; then
 				echo "creating link: ${filepath} -> ${HOME}"
 				ln -s ${filepath} ${HOME}
     fi
 done
+
+  
+function setup_gitconfig() {
+    ln -s .gitconfig $HOME
+}
+
+if [ ! -e $HOME/.gitconfig ] ; then
+    echo "Use .gitconfig? (y/n)"
+    case read in
+        y)
+            setup_gitconfig
+            ;;
+        Y)
+            setup_gitconfig
+            ;;
+        yes)
+            setup_gitconfig
+            ;;
+        *)
+            ;;
+    esac
+fi
+
 
 function setup_emacsd() {
 		echo "Cloning .emacs.d ..."
