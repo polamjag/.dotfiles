@@ -161,7 +161,7 @@ export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
 # ================== #
 show_buffer_stack() {
     POSTDISPLAY="
-    stack: $LBUFFER"
+--> stack: $LBUFFER"
     zle push-line
 }
 zle -N show_buffer_stack
@@ -254,5 +254,5 @@ case ${OSTYPE} in
         ;;
 esac
 
-
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} 
+if [ "${LS_COLORS:+itfmayuge}" = 'itfmayuge' ] ; then
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} ; fi
