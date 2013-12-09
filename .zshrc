@@ -232,6 +232,7 @@ function grep_rec() {
 alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'
 alias ga='git add'
+alias rbkup='rsync --progress -avr'
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
