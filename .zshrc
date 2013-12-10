@@ -238,6 +238,13 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 bindkey -r '^X'
+# C-l to clear terminal and rehash
+clear-screen-rehash() {
+        zle clear-screen
+        rehash
+        zle reset-prompt
+} ; zle -N clear-screen-rehash
+bindkey '^L' clear-screen-rehash
 
 
 # =========================== #
