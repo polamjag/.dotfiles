@@ -3,8 +3,8 @@ if [ -e ~/.dir_colors ] ; then
 	eval $(dircolors -b ~/.dir_colors)
 fi
 
-alias ls='ls --color'
-alias l='ls -CFa'
-alias ll='ls -lh -F'
-alias lla='ls -lh -a -F'
+alias ls='ls -F --color'
+alias l='ls -Ca'
+alias ll='ls -lhF'
+alias lla='ls -lhaF'
 
