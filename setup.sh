@@ -12,7 +12,7 @@ cd ${shdir}
 
 for filepath in ${shdir}/.*
 do
-    if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepayh != "${shdir}/.gitconfig" ] ; then
+    if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" ] ; then
 				echo "creating link: ${filepath} -> ${HOME}"
 				ln -s ${filepath} ${HOME}
     fi

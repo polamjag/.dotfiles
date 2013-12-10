@@ -154,6 +154,8 @@ ulimit -s unlimited
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
+if [ -e $HOME/bin ] ; then
+    PATH=$PATH:$HOME/bin ; fi
 
 
 # ================== #
