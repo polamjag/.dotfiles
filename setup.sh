@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 # setup.sh - setting up dotfiles
 # create symbolic link of dotfiles in which same with this script in your home directory
