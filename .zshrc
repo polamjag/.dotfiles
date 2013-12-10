@@ -233,7 +233,7 @@ alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'
 alias ga='git add'
 alias rbkup='rsync --progress -avr'
-alias dirsize='du -h . | grep -n 1'
+alias dirsize='du -h . | tail -n 1'
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
