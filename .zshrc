@@ -76,11 +76,11 @@ autoload -U promptinit ; promptinit
 autoload -U add-zsh-hook
 setopt correct
 ssh_prefix () {
-		if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
-				echo -n "%F{magenta}%B-=> %b%f"
-		else
-				echo -n ""
-		fi
+    if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
+        echo -n "%F{magenta}%B-=> %b%f"
+    else
+        echo -n ""
+    fi
 }
 # main prompt
 PROMPT="
