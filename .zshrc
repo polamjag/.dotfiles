@@ -201,6 +201,7 @@ function extract() {
 alias e='emacs -nw'
 if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
 		alias vi='vim' ; fi
+alias v='vi'
 alias history='history -f'
 alias h='history'
 alias ha='history-all'
