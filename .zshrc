@@ -230,7 +230,7 @@ function search_google() {
     fi
 } ; alias goog='search_google'
 function grep_rec() {
-		grep -r $1 .
+    grep -r $1 .
 } ; alias s='grep_rec'
 alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'
@@ -244,9 +244,9 @@ bindkey "^[[4~" end-of-line
 bindkey -r '^X'
 # C-l to clear terminal and rehash
 clear-screen-rehash() {
-        zle clear-screen
-        rehash
-        zle reset-prompt
+    zle clear-screen
+    rehash
+    zle reset-prompt
 } ; zle -N clear-screen-rehash
 bindkey '^L' clear-screen-rehash
 
@@ -258,9 +258,9 @@ case ${OSTYPE} in
     darwin*)
         source $HOME/.zsh.d/bsd
         ;;
-		freebsd*)
-				source $HOME/.zsh.d/bsd
-				;;
+    freebsd*)
+        source $HOME/.zsh.d/bsd
+        ;;
     linux*)
         source $HOME/.zsh.d/linux
         ;;
