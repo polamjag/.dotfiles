@@ -1,7 +1,7 @@
 # .zshrc
 
 if [ -e ~/.zshenv ] ; then
-		source ~/.zshenv ; fi
+    source ~/.zshenv ; fi
 
 # enable emacs-like keybind
 bindkey -e
@@ -145,9 +145,9 @@ setopt interactive_comments
 LESS=-M
 export LESS
 if type /usr/bin/lesspipe &>/dev/null ; then
-		LESSOPEN="| /usr/bin/lesspipe '%s'"
-		LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
-		export LESSOPEN LESSCLOSE
+    LESSOPEN="| /usr/bin/lesspipe '%s'"
+    LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
+    export LESSOPEN LESSCLOSE
 fi
 umask 022
 ulimit -s unlimited
@@ -185,24 +185,24 @@ alias -g A='| awk'
 alias -g W='| wc'
 # extract archived file easily
 function extract() {
-		case $1 in
-				*.tar.gz|*.tgz) tar xzvf $1;;
-				*.tar.xz) tar Jxvf $1;;
-				*.zip) unzip $1;;
-				*.lzh) lha e $1;;
-				*.tar.bz2|*.tbz) tar xjvf $1;;
-				*.tar.Z) tar zxvf $1;;
-				*.gz) gzip -dc $1;;
-				*.bz2) bzip2 -dc $1;;
-				*.Z) uncompress $1;;
+    case $1 in
+        *.tar.gz|*.tgz) tar xzvf $1;;
+        *.tar.xz) tar Jxvf $1;;
+        *.zip) unzip $1;;
+        *.lzh) lha e $1;;
+        *.tar.bz2|*.tbz) tar xjvf $1;;
+        *.tar.Z) tar zxvf $1;;
+        *.gz) gzip -dc $1;;
+        *.bz2) bzip2 -dc $1;;
+        *.Z) uncompress $1;;
         *.tar) tar xvf $1;;
-				*.arj) unarj $1;;
-		esac
+        *.arj) unarj $1;;
+    esac
 } ; alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 # general aliases
 alias e='emacs -nw'
 if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
-		alias vi='vim' ; fi
+    alias vi='vim' ; fi
 alias v='vi'
 alias history='history -f'
 alias h='history'
