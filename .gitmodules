@@ -1,3 +1,0 @@
-[submodule ".emacs.d/auto-java-complete"]
-	path = .emacs.d/auto-java-complete
-	url = https://github.com/emacs-java/auto-java-complete.git
