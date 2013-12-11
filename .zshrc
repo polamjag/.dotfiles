@@ -84,18 +84,22 @@ ssh_prefix () {
 }
 # main prompt
 PROMPT="
-`ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b): 
+`ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b)
 %(?.%F{default}.%F{red}!)%B%#%b%f "
 # config for right prompt which shows VCS
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '@%s:%b'
-zstyle ':vcs_info:*' actionformats '@%s:%b|%a'
+zstyle ':vcs_info:*' formats '%c%u (%s-%b)'
+zstyle ':vcs_info:*' actionformats '%c%u (%s-%b|%a)'
+zstyle ':vcs_info:*' check-for-update true
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr "+"
+zstyle ':vcs_info:*' unstagedstr "-"
 precmd_1 () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 } ; add-zsh-hook precmd precmd_1
-RPROMPT="%F{blue}%B%1(v|%1v|)%b%f"
+RPROMPT="%F{yellow}%B%1(v|%1v|)%b%f"
 SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
 
 
