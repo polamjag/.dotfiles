@@ -268,16 +268,16 @@ chpwd() {
 		ls_abbrev
 }
 ls_abbrev() {
-		echo "-> in `pwd`: `ls -1 | wc -l` files; $((`ls -1a | wc -l` - 2)) files sum"
-		local cmd='ls -CF1'
-		if [ `ls -1 | wc -l` -gt 8 ] ; then
-				$cmd | head -n 4 | tr '\n' ' '
-				echo ''
-				echo '...'
-				$cmd | tail -n 4 | tr '\n' ' '
-				echo ''
-		else
-				$cmd | tr '\n' ' '
-				echo ''
-		fi
+    echo "-> in `pwd`: `ls -1 | wc -l` files; $((`ls -1a | wc -l` - 2)) files sum"
+    local cmd='ls -CF1'
+    if [ `ls -1 | wc -l` -gt 8 ] ; then
+        $cmd | head -n 4 | tr '\n' ' '
+        echo ''
+        echo '...'
+        $cmd | tail -n 4 | tr '\n' ' '
+        echo ''
+    else
+        $cmd | tr '\n' ' '
+        echo ''
+    fi
 }
