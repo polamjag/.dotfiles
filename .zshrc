@@ -1,7 +1,16 @@
 # .zshrc
 
+# load external configulation first
 if [ -e ~/.zshenv ] ; then
     source ~/.zshenv ; fi
+case ${OSTYPE} in
+    freebsd*|darwin*)
+        source $HOME/.zsh.d/bsd
+        ;;
+    linux*)
+        source $HOME/.zsh.d/linux
+        ;;
+esac
 
 # enable emacs-like keybind
 bindkey -e
@@ -9,7 +18,6 @@ bindkey -e
 tabs -2
 
 autoload colors ; colors
-
 
 # ========== #
 # completion #
@@ -38,6 +46,8 @@ zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:descriptions' format '%F{yellow}%B%d: %b%f'
 zstyle ':completion:*:processes' command 'ps x'
 zstyle ':completion:*' group-name ''
+if [ "${LS_COLORS:+itfmayuge}" = 'itfmayuge' ] ; then
+		zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} ; fi
 # enable coloring for completion of kill command
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
 # completion overrides
@@ -174,9 +184,9 @@ zle -N show_buffer_stack
 bindkey "^[q" show_buffer_stack
 
 
-# ===================== #
-# aliases and key binds #
-# ===================== #
+# ==================================== #
+# aliases, keybinds and hooked actions #
+# ==================================== #
 # alias for fix of less with colored output
 alias less='less --raw -R'
 # global aliases with pipe
@@ -253,22 +263,25 @@ clear-screen-rehash() {
     zle reset-prompt
 } ; zle -N clear-screen-rehash
 bindkey '^L' clear-screen-rehash
+# chpwd / cd hook
+chpwd() {
+		ls_abbrev
+}
+ls_abbrev() {
+		echo "-> in `pwd`: `ls -1 | wc -l` files; $((`ls -1a | wc -l` - 2)) files sum"
+		local cmd='ls -CF1'
+		if [ `ls -1 | wc -l` -gt 8 ] ; then
+				$cmd | head -n 4 | tr '\n' ' '
+				echo ''
+				echo '...'
+				$cmd | tail -n 4 | tr '\n' ' '
+				echo ''
+		else
+				$cmd | tr '\n' ' '
+				echo ''
+		fi
+}
 
 
-# =========================== #
-# load external configulation #
-# =========================== #
-case ${OSTYPE} in
-    darwin*)
-        source $HOME/.zsh.d/bsd
-        ;;
-    freebsd*)
-        source $HOME/.zsh.d/bsd
-        ;;
-    linux*)
-        source $HOME/.zsh.d/linux
-        ;;
-esac
 
-if [ "${LS_COLORS:+itfmayuge}" = 'itfmayuge' ] ; then
-  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} ; fi
+
