@@ -281,7 +281,3 @@ ls_abbrev() {
 				echo ''
 		fi
 }
-
-
-
-
