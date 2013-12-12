@@ -1,0 +1,37 @@
+#!/bin/sh
+
+xmodmap_dir="$HOME/.xmodmap.d"
+
+if [ ! "${1:+heyyeyaaeyaaaeyaeyaa}" = heyyeyaaeyaaaeyaeyaa ] ; then
+    index=0
+    for filepath in $xmodmap_dir/* ; do
+        xmodmap_files+=($filepath) 
+				echo "$index: $filepath"
+        index=`expr $index + 1`
+    done
+    while [ true ] ; do
+        echo -n "Config to apply (0-`expr $index - 1`): "
+        read ans
+        if [ $ans -gt -1 -a $ans -lt $index ] ; then
+            echo "Applying ${xmodmap_files[$ans]}..."
+            xmodmap "${xmodmap_files[$ans]}"
+            break
+        else
+            echo "Wrong input: $ans"
+        fi
+    done
+else
+    if [ ! -e $xmodmap_dir ] ; then
+        echo '"There is no xmodmap file in home directory.'
+    else
+        if [ -e $xmodmap_dir/$1 ] ; then
+            echo "Loading keymap: $1"
+            xmodmap $xmodmap_dir/$1
+        else
+            echo "There is no keymap file named $1"
+            echo "Abort"
+            exit 1
+        fi
+    fi
+fi
+

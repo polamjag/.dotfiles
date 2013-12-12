@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ -e $1 ] ; then
+		if [ ! $2 ] ; then
+				detex $1 | tr -d '\n' | wc -m
+		else
+				cat $1 | \
+						sed -e 's/\\[a-zA-Z0-9]*[:space:]\[*[a-zA-Z0-9,._= \\\w<>@:;-]*\]*{*[a-zA-Z0-9,._= \\]*}*//g' | \
+            sed -e 's/\\[a-zA-Z0-9]*[:space:]?\"[A-Za-z0-9]*\"//g' | \
+				    sed -e 's/\"\w*\"//g' | \
+						tr -d '\n' | \
+						wc -m
+		fi
+else
+		echo 'No such file: $1'
+fi
