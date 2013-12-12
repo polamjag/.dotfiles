@@ -251,6 +251,7 @@ alias gcm='git commit -m'
 alias ga='git add'
 alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
+alias pi='ping 8.8.8.8'
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
@@ -263,12 +264,12 @@ clear-screen-rehash() {
     zle reset-prompt
 } ; zle -N clear-screen-rehash
 bindkey '^L' clear-screen-rehash
-# chpwd / cd hook
+# chpwd / cd command hook
 chpwd() {
-		ls_abbrev
+    ls_abbrev
 }
 ls_abbrev() {
-    echo "-> in `pwd`: `ls -1 | wc -l` files; $((`ls -1a | wc -l` - 2)) files sum"
+    echo "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: $fg_bold[cyan]`ls -1 | wc -l` files; $((`ls -1a | wc -l` - 2)) files sum$reset_color"
     local cmd='ls -CF1'
     if [ `ls -1 | wc -l` -gt 8 ] ; then
         $cmd | head -n 4 | tr '\n' ' '
