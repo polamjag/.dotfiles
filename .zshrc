@@ -271,14 +271,10 @@ chpwd() {
 ls_abbrev() {
     echo "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: $fg_bold[cyan]`ls -1 | wc -l` files; $((`ls -1a | wc -l` - 2)) files sum$reset_color"
     local cmd='ls -CF1'
+    $cmd | head -n 4 | tr '\n' ' '
+    echo ''
     if [ `ls -1 | wc -l` -gt 8 ] ; then
-        $cmd | head -n 4 | tr '\n' ' '
-        echo ''
-        echo '...'
-        $cmd | tail -n 4 | tr '\n' ' '
-        echo ''
-    else
-        $cmd | tr '\n' ' '
-        echo ''
-    fi
+        echo '...' ; fi
+    if [ `ls -1 | wc -l` -gt 4 ] ; then
+        $cmd | tail -n 4 | tr '\n' ' ' ; echo '' ; fi 
 }
