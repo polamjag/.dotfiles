@@ -3,11 +3,11 @@
 xmodmap_dir="$HOME/.xmodmap.d"
 
 if [ ! "${1:+heyyeyaaeyaaaeyaeyaa}" = heyyeyaaeyaaaeyaeyaa ] ; then
-		# interactive mode
-		index=0
+    # interactive mode
+    index=0
     for filepath in $xmodmap_dir/* ; do
         xmodmap_files+=($filepath) 
-				echo "$index: $filepath"
+        echo "$index: $filepath"
         index=`expr $index + 1`
     done
     while [ true ] ; do
@@ -22,19 +22,19 @@ if [ ! "${1:+heyyeyaaeyaaaeyaeyaa}" = heyyeyaaeyaaaeyaeyaa ] ; then
         fi
     done
 else
-		# apply args
-		while [ true ]; do
-				if [ -e $xmodmap_dir/$1 ] ; then
-						echo "Loading keymap: $1"
-						xmodmap $xmodmap_dir/$1
-				else
-						echo "Error: There is no keymap file named $1"
-						exit 1
-				fi
-				if [ "${2:+heyyeyaaeyaaaeyaeyaa}" = heyyeyaaeyaaaeyaeyaa ] ; then
-						shift
-				else
-						break
-				fi
+    # apply args
+    while [ true ]; do
+        if [ -e $xmodmap_dir/$1 ] ; then
+            echo "Loading keymap: $1"
+            xmodmap $xmodmap_dir/$1
+        else
+            echo "Error: There is no keymap file named $1"
+            exit 1
+        fi
+        if [ "${2:+heyyeyaaeyaaaeyaeyaa}" = heyyeyaaeyaaaeyaeyaa ] ; then
+            shift
+        else
+            break
+        fi
     done
 fi
