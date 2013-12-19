@@ -96,6 +96,7 @@ ssh_prefix () {
 PROMPT="
 `ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b)
 %(?.%F{default}.%F{red}!)%B%#%b%f "
+zle_highlight=(isearch:standout)
 # config for right prompt which shows VCS
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '%c%u (%s-%b)'
@@ -187,8 +188,12 @@ bindkey "^[q" show_buffer_stack
 # ==================================== #
 # aliases, keybinds and hooked actions #
 # ==================================== #
-# alias for fix of less with colored output
+# fix options
 alias less='less --raw -R'
+alias grep='grep --color'
+alias history='history -f'
+alias free='free -m'
+alias w3m='w3m -F -S'
 # global aliases with pipe
 alias -g L='| less'
 alias -g H='| head'
@@ -197,7 +202,7 @@ alias -g G='| grep'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
-# extract archived file easily
+# extract archives
 function extract() {
     case $1 in
         *.tar.gz|*.tgz) tar xzvf $1;;
@@ -213,17 +218,15 @@ function extract() {
         *.arj) unarj $1;;
     esac
 } ; alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
-# general aliases
+# other general aliases
 alias e='emacs -nw'
 if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
     alias vi='vim' ; fi
 alias v='vi'
-alias history='history -f'
 alias h='history'
 alias ha='history-all'
 alias pse='ps aux | grep'
 alias le='less'
-alias free='free -m'
 alias a='cd ../ ;'
 alias md='mkdir'
 function search_google() {
