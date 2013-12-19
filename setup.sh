@@ -1,8 +1,5 @@
 #!/bin/sh
-
 # setup.sh - setting up dotfiles
-# create symbolic link of dotfiles in which same with this script in your home directory
-# NOTICE: this script processes only files whose name begin with . (dot)
 
 echo -e "Creating symbolic link of dotfiles ..."
 
