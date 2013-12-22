@@ -1,0 +1,4 @@
+! Override CapsLock with Control_L
+remove Lock = Caps_Lock
+add Control = Caps_Lock
+keysym Caps_Lock = Control_L
