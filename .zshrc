@@ -254,7 +254,7 @@ alias gcm='git commit -m'
 alias ga='git add'
 alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
-alias pi='ping 8.8.8.8'
+alias pi='ping 8.8.8.8 -c 10'
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
