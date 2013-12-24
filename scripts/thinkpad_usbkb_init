@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+xinput set-prop "pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint" "Evdev Wheel Emulation" 1
+xmodmap ~/.xmodmap
+
