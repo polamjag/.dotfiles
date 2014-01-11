@@ -1,3 +1,5 @@
+#!/bin/sh
+
 url='https://www.google.com'
 
 if [ $1 = '-l' ] ; then
