@@ -178,7 +178,7 @@ if [ -e $HOME/bin ] ; then
 # ================== #
 show_buffer_stack() {
     POSTDISPLAY="
---> stack: $LBUFFER"
+++> $LBUFFER"
     zle push-line
 }
 zle -N show_buffer_stack
