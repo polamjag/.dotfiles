@@ -89,32 +89,4 @@ case $answer in
         ;;
 esac
 
-# ~/.config: for GUI apps
-setup_dot_config () {
-    if [ ! -d ${HOME}/.config ] ; then
-        mkdir ${HOME}/.config
-    fi
-    for filepath in ${shdir}/config/* ; do
-        echo "creating link: ${filepath} -> ${HOME}/.config/"
-        ln -s ${filepath} ${HOME}/.config/
-    done
-}
-echo -n "Copy .config (y/n) "
-read answer
-case $answer in
-    y)
-        setup_dot_config
-        ;;
-    Y)
-        setup_dot_config
-        ;;
-    yes)
-        setup_dot_config
-        ;;
-    *)
-        echo "Aborted copying .config"
-        ;;
-esac
-
-
 echo "Finished setup"
