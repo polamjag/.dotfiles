@@ -1,0 +1,5 @@
+#!/bin/sh
+
+LC_CTYPE="ja_JP.UTF-8"
+emacs
+
