@@ -249,6 +249,7 @@ function search_google() {
 function grep_rec() {
     grep -r $1 .
 } ; alias s='grep_rec'
+alias f='find . | grep'
 alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'
 alias ga='git add'
