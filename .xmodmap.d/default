@@ -1,0 +1,10 @@
+keycode 108 = Mode_switch Alt_R
+
+keycode  24 = q Q less Q
+keycode  25 = w W greater W
+keycode  26 = e E question E
+
+keycode  38 = a A comma A
+keycode  39 = s S period S
+keycode  40 = d D slash D
+
