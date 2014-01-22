@@ -190,7 +190,7 @@ bindkey "^[q" show_buffer_stack
 # ==================================== #
 # fix options
 alias less='less --raw -R'
-alias grep='grep --color'
+alias grep='grep --color=always'
 alias history='history -f'
 alias free='free -m'
 alias w3m='w3m -F -S'

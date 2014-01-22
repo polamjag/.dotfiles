@@ -7,3 +7,8 @@ alias ls='ls -F --color'
 alias l='ls -Ca'
 alias ll='ls -lhF'
 alias lla='ls -lhaF'
+
+if [ `which exo-open` ] ; then
+    alias open='exo-open'
+fi
+
