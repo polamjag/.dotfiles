@@ -229,23 +229,7 @@ alias pse='ps aux | grep'
 alias le='less'
 alias a='cd ../ ;'
 alias md='mkdir'
-function search_google() {
-    if [ "${1:+itfmayuge}" = 'itfmayuge' ] ; then
-        query_str=$1
-        shift
-        while [ "${1:+itfmayuge}" = 'itfmayuge' ] ; do
-            query_str="$query_str+$1"
-            if [ "${2:+itfmayuge}" = 'itfmayuge' ] ; then
-                shift
-            else
-                break
-            fi
-        done
-        w3m "https://www.google.co.jp/search?q=$query_str" -cookie
-    else
-        w3m 'https://www.google.co.jp/' -cookie
-    fi
-} ; alias goog='search_google'
+alias goog='search_google'
 function grep_rec() {
     grep -r $1 .
 } ; alias s='grep_rec'
