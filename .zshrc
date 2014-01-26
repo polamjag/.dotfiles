@@ -229,7 +229,6 @@ alias pse='ps aux | grep'
 alias le='less'
 alias a='cd ../ ;'
 alias md='mkdir'
-alias goog='search_google'
 function grep_rec() {
     grep -r $1 .
 } ; alias s='grep_rec'
