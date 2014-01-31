@@ -2,5 +2,5 @@
 
 LC_CTYPE="ja_JP.UTF-8"
 LANG="ja_JP.UTF-8"
-emacs
+emacs $1
 
