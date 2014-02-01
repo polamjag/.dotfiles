@@ -8,12 +8,30 @@ shdir="$(cd $(dirname $0) && pwd)"
 cd ${shdir}
 
 # common files
-for filepath in ${shdir}/.* ; do
-    if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" ] ; then
-        echo "creating link: ${filepath} -> ${HOME}"
-        ln -s ${filepath} ${HOME}
-    fi
-done
+function setup_dotfiles() {
+    for filepath in ${shdir}/.* ; do
+        if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" ] ; then
+            echo "creating link: ${filepath} -> ${HOME}"
+            ln -s ${filepath} ${HOME}
+        fi
+    done
+}
+echo -n "Setup dotfiles? (y/n) "
+read $answer
+case $answer in
+    y)
+        setup_dotfiles
+        ;;
+    Y)
+        setup_dotfiles
+        ;;
+    yes)
+        setup_dotfiles
+        ;;
+    *)
+        echo
+        ;;
+esac
 
 # .gitconfig
 function setup_gitconfig() {
@@ -37,7 +55,7 @@ if [ ! -e $HOME/.gitconfig ] ; then
     esac
 fi
 
-# .emacs.d
+ .emacs.d
 function setup_emacsd() {
     echo "Cloning .emacs.d ..."
     cd $HOME
@@ -67,12 +85,12 @@ setup_shellscripts_to_bin () {
     if [ ! -d ${HOME}/bin ] ; then
         mkdir ${HOME}/bin
     fi
-    for filepath in ${shdir}/scripts/* ; do
+    for filepath in ${shdir}/bin/* ; do
         echo "creating link: ${filepath} -> ${HOME}/bin/"
         ln -s ${filepath} ${HOME}/bin/
     done
 }
-echo -n "Copy shell scripts into ~/bin? (y/n) "
+echo -n "Copy shell scripts **for console** into ~/bin? (y/n) "
 read answer
 case $answer in
     y)
@@ -85,8 +103,36 @@ case $answer in
         setup_shellscripts_to_bin
         ;;
     *)
-        echo "Aborted copying shell scripts"
+        echo 
+        ;;
+esac
+
+# ~/bin; my shell scripts
+setup_shellscripts_x_to_bin () {
+    if [ ! -d ${HOME}/bin ] ; then
+        mkdir ${HOME}/bin
+    fi
+    for filepath in ${shdir}/bin_x/* ; do
+        echo "creating link: ${filepath} -> ${HOME}/bin/"
+        ln -s ${filepath} ${HOME}/bin/
+    done
+}
+echo -n "Copy shell scripts **for X Desktop Environment** into ~/bin? (y/n) "
+read answer
+case $answer in
+    y)
+        setup_shellscripts_x_to_bin
+        ;;
+    Y)
+        setup_shellscripts_x_to_bin
+        ;;
+    yes)
+        setup_shellscripts_x_to_bin
+        ;;
+    *)
+        echo
         ;;
 esac
 
 echo "Finished setup"
+
