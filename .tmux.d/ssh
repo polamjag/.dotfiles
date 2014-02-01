@@ -1,5 +1,7 @@
 set-option -g prefix C-x
+unbind C-x
 
 if 'test "${SSH_CONNECTION:+mayuge}" = mayuge'   'set -g status-bg black'
 if 'test "${SSH_CONNECTION:+mayuge}" = mayuge'   'set -g status-fg white'
 if 'test "${SSH_CONNECTION:+mayuge}" = mayuge'   'set -g window-status-bg black'
+
