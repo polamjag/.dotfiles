@@ -55,7 +55,7 @@ if [ ! -e $HOME/.gitconfig ] ; then
     esac
 fi
 
- .emacs.d
+# setting up .emacs.d by cloning my repo
 function setup_emacsd() {
     echo "Cloning .emacs.d ..."
     cd $HOME
