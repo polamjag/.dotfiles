@@ -17,7 +17,7 @@ function setup_dotfiles() {
     done
 }
 echo -n "Setup dotfiles? (y/n) "
-read $answer
+read answer
 case $answer in
     y)
         setup_dotfiles
