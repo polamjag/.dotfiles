@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ "${1+itfmayuge}" = itfmayuge ] ; then
-    ping $1 -c 10
+    ping -c 10 $1 
 else
-    ping 8.8.8.8 -c 10
+    ping -c 10 8.8.8.8 
 fi
 
