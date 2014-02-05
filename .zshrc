@@ -94,8 +94,8 @@ ssh_prefix () {
 }
 # main prompt
 PROMPT="
-`ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f%b)
-%(?.%F{default}.%F{red}!)%B%#%b%f "
+`ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f)%(?..%F{red} [$!])%(1j.%F{magenta} *%j bg*%f.)
+%#%b%f "
 zle_highlight=(isearch:standout)
 # config for right prompt which shows VCS
 autoload -Uz vcs_info
