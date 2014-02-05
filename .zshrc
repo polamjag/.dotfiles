@@ -1,7 +1,7 @@
 # .zshrc
 
 # load external configulation first
-if [ -e ~/.zshenv ] ; then
+if [ -e ${HOME}/.zshenv ] ; then
     source ~/.zshenv ; fi
 case ${OSTYPE} in
     freebsd*|darwin*)
@@ -12,10 +12,8 @@ case ${OSTYPE} in
         ;;
 esac
 
-# enable emacs-like keybind
 bindkey -e
-# tab width in shell
-tabs -2
+tabs -2 # tab width in shell
 
 autoload colors ; colors
 
@@ -69,7 +67,6 @@ unsetopt hist_verify
 setopt hist_reduce_blanks
 setopt hist_no_store 
 setopt hist_expand  # expand history in completion
-# output all histories 
 function history-all { history -E 1 }
 # enable completion from history
 autoload history-search-end
@@ -97,7 +94,7 @@ PROMPT="
 `ssh_prefix`%F{green}%B%~%b%f (%B%F{yellow}%M%f::%F{cyan}%n%f)%(?..%F{red} [$!])%(1j.%F{magenta} *%j bg*%f.)
 %#%b%f "
 zle_highlight=(isearch:standout)
-# config for right prompt which shows VCS
+# config for right prompt for VCS
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '%c%u (%s-%b)'
 zstyle ':vcs_info:*' actionformats '%c%u (%s-%b|%a)'
