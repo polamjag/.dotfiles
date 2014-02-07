@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # setup.sh - setting up dotfiles
 
 echo -e "Creating symbolic link of dotfiles ..."
