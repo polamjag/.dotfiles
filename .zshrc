@@ -233,6 +233,7 @@ alias f='find . | grep'
 alias gst='git branch -a ; echo ; git status'
 alias gcm='git commit -m'
 alias ga='git add'
+alias gld='git log --graph --decorate --oneline'
 alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
 # configs for well-used keys
