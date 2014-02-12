@@ -3,19 +3,19 @@
 
 function ssh_sign() {
     echo -n \#\[fg=white,bg=black,bold\]\(\#\[fg=green\]SSH\#\[fg=white\]\)
-		echo -n \#\[fg=cyan\]`whoami`\#\[fg=white\]\@\#\[fg=yellow\]`hostname`\#\[fg=white\]\ 
+    echo -n \#\[fg=cyan\]`whoami`\#\[fg=white\]\@\#\[fg=yellow\]`hostname`\#\[fg=white\]\ 
 }
 function load_average() {
     echo -n \#\[fg=white,bg=magenta,bold\]\ 
-		echo -n \(`uptime | grep -oE \[0-9\]\[.\]\[0-9\]\[0-9\]`\)\ 
+    echo -n \(`uptime | grep -oE \[0-9\]\[.\]\[0-9\]\[0-9\]`\)\ 
 }
 function ip_address() {
     echo -n \#[fg=white,bg=blue,bold]\ 
     if [ `which ip` ] ; then
         echo -n `ip addr | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep brd | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)`\ 
     elif [ `which ifconfig` ] ; then
-				echo -n ''
-		fi
+        echo -n ''
+    fi
 }
 function cpu_temp() {
     echo -n \#\[fg=white,bg=red,bold\]\ 
@@ -37,7 +37,7 @@ if [ "$1" = left ] ; then
     # left status bar expansion for SSH
     if [ "${SSH_CONNECTION:+mayuge}" = "mayuge" ] ; then
         ssh_sign
-		fi
+    fi
 elif [ "$1" = right ] ; then 
     # right status bar
     # display both (non-SSH and SSH session)
