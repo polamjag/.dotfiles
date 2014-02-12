@@ -2,7 +2,7 @@
 # tmux status bar configuration
 
 function ssh_sign() {
-    echo -n \(\#\[fg=green,bold\]SSH\#\[fg=white\]\)
+    echo -n \#\[fg=white,bg=black,bold\]\(\#\[fg=green\]SSH\#\[fg=white\]\)
 		echo -n \#\[fg=cyan\]`whoami`\#\[fg=white\]\@\#\[fg=yellow\]`hostname`\#\[fg=white\]\ 
 }
 function load_average() {
@@ -51,5 +51,7 @@ elif [ "$1" = right ] ; then
         acpi_battery
     fi
 fi
+
+# reset format
 echo -n \#\[default\]
 
