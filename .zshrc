@@ -191,6 +191,7 @@ alias grep='grep --color=always'
 alias history='history -f'
 alias free='free -m'
 alias w3m='w3m -F -S'
+alias hd='hexdump -C'
 # global aliases with pipe
 alias -g L='| less'
 alias -g H='| head'
