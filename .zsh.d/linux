@@ -8,6 +8,7 @@ alias l='ls -Ca'
 alias ll='ls -lhF'
 alias lla='ls -lhaF'
 alias lar='ls -aR'
+alias lr='ls -R'
 
 if [ -e /usr/bin/exo-open -o -e /bin/exo-open ] ; then
     alias open='exo-open'
