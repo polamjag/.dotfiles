@@ -221,6 +221,7 @@ alias e='emacs -nw'
 if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
     alias vi='vim' ; fi
 alias v='vi'
+alias sl='ls'
 alias h='history'
 alias ha='history-all'
 alias pse='ps aux | grep'
