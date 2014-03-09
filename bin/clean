@@ -1,3 +1,4 @@
+#!/bin/bash
 rm *~
-rm .*.swp
+rm .*.sw[a-z]
 
