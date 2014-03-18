@@ -96,8 +96,8 @@ PROMPT="
 zle_highlight=(isearch:standout)
 # config for right prompt for VCS
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '%c%u (%s-%b)'
-zstyle ':vcs_info:*' actionformats '%c%u (%s-%b|%a)'
+zstyle ':vcs_info:*' formats '%c%u (%s:%b)'
+zstyle ':vcs_info:*' actionformats '%c%u (%s:%b|%a)'
 zstyle ':vcs_info:*' check-for-update true
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "+"

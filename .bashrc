@@ -17,6 +17,6 @@ esac
 
 set -o emacs
 
-PS1="\[\n\e[1;32m\W\e[1;37m (\e[1;33m\H\e[1;37m::\e[1;36m\u\e[1;37m) (b)\n$\e[0m \]"
+PS1="\[\n\e[1;32m\W\e[1;37m b(\e[1;33m\H\e[1;37m::\e[1;36m\u\e[1;37m)\n$\e[0m \]"
 
 bind '"\C-l": clear-screen ; hash -r'
