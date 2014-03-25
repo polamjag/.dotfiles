@@ -2,7 +2,7 @@
 # tmux status bar configuration
 
 function ssh_sign() {
-    echo -n \#\[fg=white,bg=black,bold\]\(\#\[fg=green\]SSH\#\[fg=white\]\)
+    echo -n \#\[fg=green,bg=black,bold\]ssh\#\[fg=white\]\:
     echo -n \#\[fg=cyan\]`whoami`\#\[fg=white\]\@\#\[fg=yellow\]`hostname`\#\[fg=white\]\ 
 }
 function load_average() {
