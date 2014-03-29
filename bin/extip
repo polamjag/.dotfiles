@@ -3,7 +3,7 @@
 ipaddr_site="http://ipecho.net/plain"
 
 if [ -x `which curl` ] ; then
-  curl $ipaddr_site 
+  curl -s $ipaddr_site 
   echo
 elif [ -x `which wget` ] ; then
   wget -O - $ipaddr_site | grep -ow "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}"
