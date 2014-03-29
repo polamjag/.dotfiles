@@ -257,7 +257,7 @@ chpwd() {
     ls_abbrev
 }
 ls_abbrev() {
-    echo "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: $fg_bold[cyan]`ls -1 | wc -l` files; $((`ls -1a | wc -l` - 2)) files sum$reset_color"
+    echo "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: $fg_bold[cyan]`ls -1 | wc -l` files + $((`ls -1a | wc -l` - `ls -1 | wc -l` - 2)) hidden files$reset_color"
     local cmd='ls -CF1'
     $cmd | head -n 4 | tr '\n' ' '
     echo ''
