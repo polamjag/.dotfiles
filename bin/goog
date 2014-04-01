@@ -25,7 +25,7 @@ if [ "${1:+itfmayuge}" = 'itfmayuge' ] ; then
             break
         fi
     done
-    w3m "${url}/search?q=$query_str" -cookie
+    exec w3m "${url}/search?q=$query_str" -cookie
 else
-    w3m $url -cookie
+    exec w3m $url -cookie
 fi
