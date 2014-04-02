@@ -236,6 +236,7 @@ function grep_rec() {
 } ; alias s='grep_rec'
 alias f='find . | grep'
 alias gst='git branch -a && echo && git status'
+alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch"'
 alias gcm='git commit -m'
 alias ga='git add'
 alias gld='git log --graph --decorate --oneline'
