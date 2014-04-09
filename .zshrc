@@ -241,9 +241,11 @@ alias gst='git branch -a && echo && git status'
 alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch" | cat'
 alias gcm='git commit -m'
 alias ga='git add'
+alias grm='git reset HEAD'
 alias gld='git log --graph --decorate --oneline'
 alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
+alias zzz='exec zsh'
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
