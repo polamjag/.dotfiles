@@ -1,6 +1,4 @@
-# .zshrc
-
-# load external configulation first
+# force load of external configulation
 if [ -e ${HOME}/.zshenv ] ; then
     source ~/.zshenv ; fi
 case ${OSTYPE} in
@@ -102,11 +100,11 @@ zstyle ':vcs_info:*' check-for-update true
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "+"
 zstyle ':vcs_info:*' unstagedstr "-"
-precmd_1 () {
+precmd_githook () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-} ; add-zsh-hook precmd precmd_1
+} ; add-zsh-hook precmd precmd_githook
 RPROMPT="%F{yellow}%B%1(v|%1v|)%b%f"
 SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
 
@@ -185,67 +183,10 @@ bindkey "^[q" show_buffer_stack
 # ==================================== #
 # aliases, keybinds and hooked actions #
 # ==================================== #
-# fix options
-alias less='less --raw -R'
-alias grep='grep --color=always'
-alias history='history -f'
-alias free='free -m'
-alias w3m='w3m -F -S'
-alias hd='hexdump -C'
-alias cal='cal -s'
-# global aliases with pipe
-alias -g L='| less'
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g S='| sed'
-alias -g A='| awk'
-alias -g W='| wc'
-# extract archives
-function extract() {
-    case $1 in
-        *.tar.gz|*.tgz) tar xzvf $1;;
-        *.tar.xz) tar Jxvf $1;;
-        *.zip) unzip $1;;
-        *.lzh) lha e $1;;
-        *.tar.bz2|*.tbz) tar xjvf $1;;
-        *.tar.Z) tar zxvf $1;;
-        *.gz) gzip -dc $1;;
-        *.bz2) bzip2 -dc $1;;
-        *.Z) uncompress $1;;
-        *.tar) tar xvf $1;;
-        *.arj) unarj $1;;
-    esac
-} ; alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
-# other general aliases
-alias e='emacs -nw'
-if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
-    alias vi='vim' ; fi
-alias v='vi'
-alias sl='ls'
-alias h='history'
-alias ha='history-all'
-alias g='git'
-alias pse='ps aux | grep'
-alias ipa='ip a'
-alias usdo='sudo'
-alias le='less'
-alias a='cd ../ ;'
-alias md='mkdir'
-function grep_rec() {
-    grep -r $1 .
-} ; alias s='grep_rec 2>/dev/null'
-alias ser='grep_rec'
-alias f='find . | grep'
-alias gst='git branch -a && echo && git status'
-alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch" | cat'
-alias gcm='git commit -m'
-alias ga='git add'
-alias grm='git reset HEAD'
-alias gld='git log --graph --decorate --oneline'
-alias rbkup='rsync --progress -avr'
-alias dirsize='du -h . | tail -n 1'
-alias zzz='exec zsh'
+source $HOME/.zsh.d/alias/option
+source $HOME/.zsh.d/alias/pipe
+source $HOME/.zsh.d/alias/general
+source $HOME/.zsh.d/alias/git
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
