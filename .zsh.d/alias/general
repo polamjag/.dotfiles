@@ -1,5 +1,5 @@
 alias e='emacs -nw'
-if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
+if [ -x '/bin/vim' -o -x '/usr/bin/vim' ] ; then
     alias vi='vim' ; fi
 alias v='vi'
 alias sl='ls'
@@ -11,6 +11,7 @@ alias ipa='ip a'
 alias usdo='sudo'
 alias le='less'
 alias a='cd ../ ;'
+alias b='cd -'
 alias md='mkdir'
 function grep_rec() {
     grep -r $1 .
