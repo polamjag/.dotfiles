@@ -14,7 +14,13 @@ alias a='cd ../ ;'
 alias b='cd -'
 alias md='mkdir'
 function grep_rec() {
-    grep -r $1 .
+		if [ $# -eq 1 ] ; then
+				grep -r $1 .
+		elif [ $# -eq 2 ] ; then
+				grep -r $2 $1
+		else
+				echo "usage: s|grep_rec (directory) query"
+		fi
 } ; alias s='grep_rec 2>/dev/null'
 alias ser='grep_rec'
 alias f='find . | grep'
