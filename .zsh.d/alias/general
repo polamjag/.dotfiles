@@ -12,8 +12,12 @@ alias usdo='sudo'
 alias le='less'
 alias tm='tmux -2'
 alias a='cd ../ ;'
-alias b='cd -'
+alias b='cd - ;'
 alias md='mkdir'
+function tmp() {
+    mkdir /tmp/$1
+    cd /tmp/$1
+}
 function grep_rec() {
 		if [ $# -eq 1 ] ; then
 				grep -r $1 .
