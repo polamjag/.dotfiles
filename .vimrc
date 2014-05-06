@@ -81,4 +81,9 @@ inoremap <C-l> <Right>
 inoremap <C-f> <Left>
 inoremap <C-b> <Right>
 inoremap <C-d> <Delete>
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up>   gk
 nnoremap <Space> <PageDown>
+nnoremap <S-SPACE> <PageUp>
