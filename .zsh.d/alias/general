@@ -15,8 +15,12 @@ alias a='cd ../ ;'
 alias b='cd - ;'
 alias md='mkdir'
 function tmp() {
-    mkdir /tmp/$1
-    cd /tmp/$1
+    if [ -n "$1" ] ; then
+        mkdir /tmp/$1
+        cd /tmp/$1
+    else
+        cd ./tmp/
+    fi
 }
 function grep_rec() {
 		if [ $# -eq 1 ] ; then
