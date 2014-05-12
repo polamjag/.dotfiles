@@ -1,5 +1,5 @@
 alias e='emacs -nw'
-if [ -e '/bin/vim' -o -e '/usr/bin/vim' ] ; then
+if [ -x '/bin/vim' -o -x '/usr/bin/vim' ] ; then
     alias vi='vim' ; fi
 alias v='vi'
 alias sl='ls'
@@ -10,10 +10,35 @@ alias pse='ps aux | grep'
 alias ipa='ip a'
 alias usdo='sudo'
 alias le='less'
+alias tm='tmux -2'
 alias a='cd ../ ;'
+alias b='cd - ;'
 alias md='mkdir'
+function tmp() {
+    if [ -n "$1" ] ; then
+        mkdir /tmp/$1
+        cd /tmp/$1
+    else
+        cd ./tmp/
+    fi
+}
+function clone() {
+    if [ -d $HOME/dev/ ] ; then
+        cd $HOME/dev/
+        git clone $1
+    elif [ -d $HOME/git/ ] ; then
+        cd $HOME/git/
+        git clone $1
+    fi
+}
 function grep_rec() {
-    grep -r $1 .
+		if [ $# -eq 1 ] ; then
+				grep -r $1 .
+		elif [ $# -eq 2 ] ; then
+				grep -r $2 $1
+		else
+				echo "usage: s|grep_rec (directory) query"
+		fi
 } ; alias s='grep_rec 2>/dev/null'
 alias ser='grep_rec'
 alias f='find . | grep'
