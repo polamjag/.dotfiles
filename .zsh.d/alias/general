@@ -22,6 +22,15 @@ function tmp() {
         cd ./tmp/
     fi
 }
+function clone() {
+    if [ -d $HOME/dev/ ] ; then
+        cd $HOME/dev/
+        git clone $1
+    elif [ -d $HOME/git/ ] ; then
+        cd $HOME/git/
+        git clone $1
+    fi
+}
 function grep_rec() {
 		if [ $# -eq 1 ] ; then
 				grep -r $1 .
