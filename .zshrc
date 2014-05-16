@@ -23,7 +23,7 @@ setopt list_packed           # display completion compactly
 setopt listpacked
 unsetopt auto_remove_slash
 setopt auto_param_slash      # append '/' at tail of directory
-setopt mark_dirs             
+setopt mark_dirs
 setopt list_types            # display type of files in completion list
 unsetopt menu_complete
 setopt auto_list             # display with list of all completion with ^I
@@ -53,7 +53,7 @@ compdef mosh=ssh
 # ======= #
 # history #
 # ======= #
-HISTFILE=$HOME/.zsh_history 
+HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt extended_history
@@ -63,7 +63,7 @@ setopt share_history
 setopt hist_ignore_dups  # ignore same command as above
 unsetopt hist_verify
 setopt hist_reduce_blanks
-setopt hist_no_store 
+setopt hist_no_store
 setopt hist_expand  # expand history in completion
 function history-all { history -E 1 }
 # enable completion from history
@@ -112,11 +112,11 @@ SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
 # =============================== #
 # settings for moving directories #
 # =============================== #
-setopt auto_cd 
-setopt auto_pushd 
-setopt pushd_ignore_dups 
-setopt pushd_to_home  
-setopt pushd_silent  
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_to_home
+setopt pushd_silent
 alias pd='popd'
 alias gd='dirs -v; echo -n "select number: ";
 read newdir; cd +"$newdir" '
@@ -211,5 +211,5 @@ ls_abbrev() {
     if [ `ls -1 | wc -l` -gt 8 ] ; then
         echo '...' ; fi
     if [ `ls -1 | wc -l` -gt 4 ] ; then
-        $cmd | tail -n 4 | tr '\n' ' ' ; echo '' ; fi 
+        $cmd | tail -n 4 | tr '\n' ' ' ; echo '' ; fi
 }
