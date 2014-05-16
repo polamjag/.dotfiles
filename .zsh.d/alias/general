@@ -40,6 +40,11 @@ function grep_rec() {
 				echo "usage: s|grep_rec (directory) query"
 		fi
 } ; alias s='grep_rec 2>/dev/null'
+function cmdlist() {
+    cmds=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
+      -executable -type f -printf '%P\n'`
+    echo "$cmds"$'\n' | sort -u
+}
 alias ser='grep_rec'
 alias f='find . | grep'
 alias rbkup='rsync --progress -avr'
