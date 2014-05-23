@@ -50,6 +50,13 @@ alias f='find . | grep'
 alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
 alias zzz='exec zsh'
+function o() {
+    if [ $# -eq 1 ] ; then
+        open $1
+    else
+        open .
+    fi
+}
 # extract archives
 function extract() {
     case $1 in
