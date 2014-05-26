@@ -73,3 +73,13 @@ function extract() {
         *.arj) unarj $1;;
     esac
 } ; alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
+function crun() {
+    wd=`pwd`
+    d=`uuidgen`
+    mkdir /tmp/$d
+    cd /tmp/$d
+    vim test.c
+    gcc test.c
+    ./a.out
+    cd $wd
+}
