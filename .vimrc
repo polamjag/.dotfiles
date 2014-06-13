@@ -18,8 +18,8 @@ set showcmd
 set cmdheight=1
 set laststatus=2
 set ignorecase
+set smartcase
 set incsearch
-set hlsearch
 set relativenumber
 highlight LineNr ctermfg=white
 highlight ZenkakuSpace cterm=underline ctermfg=blue
@@ -34,6 +34,7 @@ set autoread
 set hidden
 set backspace=indent,eol,start
 set visualbell
+set wildmenu
 
 " status bar
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l,%c%V%8P
