@@ -1,3 +1,32 @@
+# root servers ([a-m].root-servers.net)
+## a (VeriSign)
+198.41.0.4  2001:503:BA3E::2:30
+## b (Information Sciences Institute)
+192.228.79.201  2001:478:65::53
+## c (Cogent Communications)
+192.33.4.12 2001:500:2::c
+## d (University of Maryland)
+199.7.91.13 2001:500:2d::d
+## e (NASA Ames Research Center)
+192.203.230.10  
+## f (Internet Systems Consortium, Inc.)
+192.5.5.241 2001:500:2f::f
+## g (U.S. DOD Network Information Center)
+192.112.36.4
+## h (U.S. Army Research Lab)
+128.63.2.53 2001:500:1::803f:235
+## i (Netnod (formerly Autonomica))
+192.36.148.17 2001:7fe::53
+## j (VeriSign)
+192.58.128.30 2001:503:C27::2:30
+## k (RIPE NCC)
+193.0.14.129  2001:7fd::1 
+## l (ICANN)
+199.7.83.42 2001:500:3::42
+## m (WIDE)
+202.12.27.33  2001:dc3::35
+
+
 # Public DNS memo
 
 ## Level3
