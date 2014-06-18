@@ -186,6 +186,7 @@ bindkey "^[q" show_buffer_stack
 source $HOME/.zsh.d/alias/option
 source $HOME/.zsh.d/alias/pipe
 source $HOME/.zsh.d/alias/general
+source $HOME/.zsh.d/alias/suffix
 source $HOME/.zsh.d/alias/git
 # configs for well-used keys
 bindkey "^[[3~" delete-char
