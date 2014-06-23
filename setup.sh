@@ -6,7 +6,7 @@ cd ${shdir}
 setup_dot() {
     echo "  Setting up dotfiles ..."
     for filepath in ${shdir}/.* ; do
-        if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" ] ; then
+        if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" -a $filepath != "${shdir}/.gitignore" ] ; then
             echo "    Creating link: ${filepath} -> ${HOME}"
             ln -s ${filepath} ${HOME}
         fi
