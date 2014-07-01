@@ -67,3 +67,13 @@ function crun() {
     ./a.out
     cd $wd
 }
+function addalias() {
+    if [ $# -ge 2 ] ; then 
+        target=$1
+        shift
+        echo $* >> $HOME/.zsh.d/alias/$target
+    else
+        echo "Usage: addalias <target> <alias>"
+        return 1
+    fi
+}
