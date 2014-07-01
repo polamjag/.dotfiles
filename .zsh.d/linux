@@ -16,3 +16,10 @@ if [ -e /usr/bin/exo-open -o -e /bin/exo-open ] ; then
     alias open='exo-open'
 fi
 
+pkgbuild-preview () {
+    if [ `curl -LI "https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/$1" -o /dev/null -w '%{http_code}\n' -s | grep 200` ] ; then
+        curl "https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/$1" | less
+    else
+        curl https://aur.archlinux.org/packages/`echo $1|sed -e "s/^\(.\{2\}\).*/\1/"`/$1/PKGBUILD | less
+    fi
+}
