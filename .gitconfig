@@ -8,3 +8,21 @@
 	ui = true
 [help]
 	autocorrect = 1
+[alias]
+  st  = status
+  ps  = push
+  pso = push origin
+  pl  = pull
+  br  = branch
+  bra = branch -a
+  ch  = checkout
+  a   = add
+  cm  = commit
+  cam = commit -a --amend
+  ld  = log --graph --decorate --oneline
+  lds = log --graph --decorate --oneline --stat
+  df  = diff
+  dfm = diff master
+  dfw = diff --color-words
+  dfc = diff --cached
+  dfs = diff --staged
