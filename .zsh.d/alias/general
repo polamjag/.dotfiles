@@ -2,6 +2,7 @@ alias e='emacs -nw'
 if [ -x '/bin/vim' -o -x '/usr/bin/vim' ] ; then
     alias vi='vim' ; fi
 alias v='vi'
+alias va='v -u $HOME/.vimrc.ext'
 alias sl='ls'
 alias h='history'
 alias ha='history-all'
