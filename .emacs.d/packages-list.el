@@ -16,7 +16,6 @@
     flymake-haskell-multi
     flymake-php
     flymake-ruby
-    flyphpcs
     flycheck
     flycheck-tip
     flex-autopair
