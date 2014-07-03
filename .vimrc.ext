@@ -79,6 +79,8 @@ set wrapscan
 
 set wrap
 
+set mouse=a
+
 set formatoptions=qrn1
 if v:version >= 730
     set colorcolumn=85
