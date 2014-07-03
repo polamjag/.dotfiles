@@ -16,11 +16,6 @@ setup_git() {
     echo "  Setting up .gitconfig ..."
     ln -s ${shdir}/.gitconfig $HOME
 }
-setup_emacsd() {
-    echo "  Cloning .emacs.d ..."
-    cd $HOME
-    git clone https://github.com/polamjag/.emacs.d.git
-}
 setup_bin () {
     echo "  Setting up ~/bin ..."
     if [ ! -d ${HOME}/bin ] ; then
@@ -45,7 +40,7 @@ setup_binx () {
 
 if [ $# -eq 1 -a "$1" = "--usage" ] ; then
     echo "$0 [--usage] [--force <args>]"
-    echo "args: dot, git, emacsd, bin, binx"
+    echo "args: dot, git, bin, binx"
     echo
     echo "e.g.: \`$0 --force dot git\`"
     exit 0
@@ -96,26 +91,6 @@ if [ ! -e $HOME/.gitconfig ] ; then
             setup_git
             ;;
         *)
-            ;;
-    esac
-fi
-
-# setting up .emacs.d by cloning my repo
-if [ ! -d ~/.emacs.d ] ; then
-    echo -n "Would you setup .emacs.d with github.com:polamjag/.emacs.d.git? (y/n) "
-    read answer
-    case $answer in
-        y)
-            setup_emacsd
-            ;;
-        Y)
-            setup_emacsd
-            ;;
-        yes)
-            setup_emacsd
-            ;;
-        *)
-            echo "Aborted cloning .emacs.d"
             ;;
     esac
 fi
