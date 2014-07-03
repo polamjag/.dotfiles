@@ -58,13 +58,13 @@ set visualbell
 set scrolloff=5
 
 if v:version >= 700
-    set cursorline
-    " highlight CursorLine guibg=lightblue ctermbg=lightgray
+  set cursorline
+  " highlight CursorLine guibg=lightblue ctermbg=lightgray
 endif
 
 "vim 7.3~
 if v:version >= 730
-    set undofile    "creating <FILENAME>.un~
+  set undofile    "creating <FILENAME>.un~
 endif
 
 nnoremap / /\v
