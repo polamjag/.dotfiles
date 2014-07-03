@@ -59,7 +59,6 @@ endif
 
 "vim 7.3~
 if v:version >= 730
-    set relativenumber  "showing relative column number
     set undofile    "creating <FILENAME>.un~
 endif
 
@@ -79,6 +78,8 @@ set formatoptions=qrn1
 if v:version >= 730
     set colorcolumn=85
 endif
+
+set relativenumber  "showing relative column number
 
 set encoding=utf-8
 set fileformats=unix,dos,mac
