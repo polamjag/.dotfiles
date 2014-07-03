@@ -1,4 +1,9 @@
-source /etc/vimrc
+if filereadable("/etc/vimrc")
+  source /etc/vimrc
+endif
+if filereadable("/etc/vim/vimrc")
+  source /etc/vim/vimrc
+endif
 
 set nocompatible
 filetype off
@@ -41,10 +46,10 @@ filetype plugin indent on
 "autocmd!
 "set modelines=5
 
-set tabstop=4
+set tabstop=2
 set expandtab
 set softtabstop=0
-set shiftwidth=4
+set shiftwidth=2
 set smarttab
 
 set number
