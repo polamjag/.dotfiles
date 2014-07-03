@@ -1,7 +1,7 @@
 source /etc/vimrc
 
 set nocompatible
-filetype off    
+filetype off
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -31,6 +31,7 @@ NeoBundle 'smartchr'
 NeoBundle 'tsaleh/vim-align'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'ack.vim'
+NeoBundle 'itchyny/landscape.vim'
 
 filetype plugin indent on
 
@@ -111,7 +112,9 @@ set backup
 set history=10000
 set updatetime=500
 
-syntax on 
+syntax on
+
+colorscheme landscape
 
 set cmdheight=1
 let g:lightline = {
