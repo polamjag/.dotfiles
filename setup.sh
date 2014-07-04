@@ -36,11 +36,18 @@ setup_binx () {
         ln -s ${filepath} ${HOME}/bin/
     done
 }
-
+setup_vim () {
+    echo "  Setting up ~/.vim/ ..."
+    cd $shdir
+    git submodule init
+    git submodule update
+    cd $shdir/.vim/vimproc
+    make
+}
 
 if [ $# -eq 1 -a "$1" = "--usage" ] ; then
     echo "$0 [--usage] [--force <args>]"
-    echo "args: dot, git, bin, binx"
+    echo "args: dot, git, bin, binx, vim"
     echo
     echo "e.g.: \`$0 --force dot git\`"
     exit 0
@@ -109,7 +116,7 @@ case $answer in
         setup_bin
         ;;
     *)
-        echo 
+        echo
         ;;
 esac
 
@@ -124,6 +131,23 @@ case $answer in
         ;;
     yes)
         setup_binx
+        ;;
+    *)
+        echo
+        ;;
+esac
+
+echo -n "Execute some commands to initialize vim environment? (y/n) "
+read answer
+case $answer in
+    y)
+        setup_vim
+        ;;
+    Y)
+        setup_vim
+        ;;
+    yes)
+        setup_vim
         ;;
     *)
         echo
