@@ -5,5 +5,5 @@ alias -g G='| grep'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
-if [ -x peco ] ; then
+if [ ! `which peco >/dev/null 2>&1` ] ; then
   alias -g P='| peco' ; fi
