@@ -16,7 +16,7 @@ alias a='cd ../ ;'
 alias b='cd - ;'
 alias md='mkdir'
 function tmp() {
-    if [ -n "$1" ] ; then
+    if [ $# -gt 0 ] ; then
         mkdir /tmp/$1
         cd /tmp/$1
     else
