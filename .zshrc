@@ -72,7 +72,26 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
-
+# integrate history filtering with peco
+if [ -x peco ] ; then
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history -n 1 | \
+      eval $tac | \
+      peco --query "$LBUFFER" | \
+      sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
+      )
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+fi
 
 # ====== #
 # prompt #
