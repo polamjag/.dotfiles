@@ -91,7 +91,7 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
-fi
+fi # end peco section
 
 # ====== #
 # prompt #
@@ -202,11 +202,13 @@ bindkey "^[q" show_buffer_stack
 # ==================================== #
 # aliases, keybinds and hooked actions #
 # ==================================== #
-source $HOME/.zsh.d/alias/option
-source $HOME/.zsh.d/alias/pipe
-source $HOME/.zsh.d/alias/general
-source $HOME/.zsh.d/alias/suffix
-source $HOME/.zsh.d/alias/git
+if [ -d $HOME/.zsh.d/ ] ; then
+    source $HOME/.zsh.d/alias/option
+    source $HOME/.zsh.d/alias/pipe
+    source $HOME/.zsh.d/alias/general
+    source $HOME/.zsh.d/alias/suffix
+    source $HOME/.zsh.d/alias/git
+fi
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
