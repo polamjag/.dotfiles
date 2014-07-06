@@ -1,3 +1,6 @@
+# ============- #
+# common config #
+# ============= #
 # force load of external configulation
 if [ -e ${HOME}/.zshenv ] ; then
     source ~/.zshenv ; fi
@@ -14,6 +17,7 @@ bindkey -e
 tabs -2 # tab width in shell
 
 autoload colors ; colors
+
 
 # ========== #
 # completion #
@@ -92,6 +96,7 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 fi # end peco section
+
 
 # ====== #
 # prompt #

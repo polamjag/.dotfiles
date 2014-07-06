@@ -65,8 +65,9 @@ if [ $# -gt 1 -a "$1" = "--force" ] ; then
     done
     exit 0
 fi
-echo -e "Creating symbolic link of dotfiles ..."
 
+# interactive mode
+echo -e "Creating symbolic link of dotfiles ..."
 
 # common files
 echo -n "Setup dotfiles? (y/n) "
