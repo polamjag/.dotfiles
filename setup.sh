@@ -11,6 +11,9 @@ setup_dot() {
             ln -s ${filepath} ${HOME}
         fi
     done
+    if [ ! -f $HOME/.zshenv ] ; then
+        cp $shdir/.zshenv.exam $HOME/.zshenv
+    fi
 }
 setup_git() {
     echo "  Setting up .gitconfig ..."
