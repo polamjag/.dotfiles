@@ -1,6 +1,8 @@
 # ============- #
 # common config #
 # ============= #
+if [ -d $HOME/bin ] ; then
+    PATH=$PATH:$HOME/bin ; fi
 case ${OSTYPE} in
     freebsd*|darwin*)
         source $HOME/.zsh.d/bsd
@@ -9,9 +11,6 @@ case ${OSTYPE} in
         source $HOME/.zsh.d/linux
         ;;
 esac
-
-if [ -d $HOME/bin -a ! `echo $PATH | grep $HOME/bin >/dev/null`] ; then
-    PATH=$PATH:$HOME/bin ; fi
 
 bindkey -e
 tabs -2 # tab width in shell
@@ -77,7 +76,7 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 # integrate history filtering with peco
-if [ -x peco ] ; then
+if [ ! `which peco >/dev/null 2>&1` ] ; then
 function peco-select-history() {
     local tac
     if which tac > /dev/null; then
