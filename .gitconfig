@@ -2,7 +2,7 @@
 	name = polamjag
 	email = s@polamjag.info
 [core]
-	editor = vim 
+	editor = vim
 	pager = less --raw
 [color]
 	ui = true
@@ -26,3 +26,4 @@
   dfw = diff --color-words
   dfc = diff --cached
   dfs = diff --staged
+  gr  = grep -np
