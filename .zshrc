@@ -1,9 +1,6 @@
 # ============- #
 # common config #
 # ============= #
-# force load of external configulation
-if [ -e ${HOME}/.zshenv ] ; then
-    source ~/.zshenv ; fi
 case ${OSTYPE} in
     freebsd*|darwin*)
         source $HOME/.zsh.d/bsd
@@ -12,6 +9,9 @@ case ${OSTYPE} in
         source $HOME/.zsh.d/linux
         ;;
 esac
+
+if [ -d $HOME/bin -a ! `echo $PATH | grep $HOME/bin >/dev/null`] ; then
+    PATH=$PATH:$HOME/bin ; fi
 
 bindkey -e
 tabs -2 # tab width in shell
@@ -188,8 +188,6 @@ ulimit -s unlimited
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
-if [ -e $HOME/bin ] ; then
-    PATH=$PATH:$HOME/bin ; fi
 
 
 # ================== #
