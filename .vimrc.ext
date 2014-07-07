@@ -37,6 +37,8 @@ NeoBundle 'tsaleh/vim-align'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'ack.vim'
 NeoBundle 'itchyny/landscape.vim'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'ruby-matchit'
 
 filetype plugin indent on
 
