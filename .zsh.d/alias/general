@@ -69,7 +69,7 @@ function crun() {
     cd $wd
 }
 function addalias() {
-    if [ $# -ge 2 ] ; then 
+    if [ $# -ge 2 ] ; then
         target=$1
         shift
         echo $* >> $HOME/.zsh.d/alias/$target
@@ -78,3 +78,4 @@ function addalias() {
         return 1
     fi
 }
+alias tmesg="watch 'dmesg | tail -n 100 | tac'"
