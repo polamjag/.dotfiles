@@ -2,6 +2,7 @@ alias e='emacs -nw'
 if [ -x '/bin/vim' -o -x '/usr/bin/vim' ] ; then
     alias vi='vim' ; fi
 alias v='vi'
+alias va='v -u $HOME/.vimrc.ext'
 alias sl='ls'
 alias h='history'
 alias ha='history-all'
@@ -15,7 +16,7 @@ alias a='cd ../ ;'
 alias b='cd - ;'
 alias md='mkdir'
 function tmp() {
-    if [ -n "$1" ] ; then
+    if [ $# -gt 0 ] ; then
         mkdir /tmp/$1
         cd /tmp/$1
     else
@@ -66,4 +67,14 @@ function crun() {
     gcc test.c
     ./a.out
     cd $wd
+}
+function addalias() {
+    if [ $# -ge 2 ] ; then 
+        target=$1
+        shift
+        echo $* >> $HOME/.zsh.d/alias/$target
+    else
+        echo "Usage: addalias <target> <alias>"
+        return 1
+    fi
 }

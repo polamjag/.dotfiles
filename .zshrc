@@ -1,6 +1,8 @@
-# force load of external configulation
-if [ -e ${HOME}/.zshenv ] ; then
-    source ~/.zshenv ; fi
+# ============- #
+# common config #
+# ============= #
+if [ -d $HOME/bin ] ; then
+    PATH=$PATH:$HOME/bin ; fi
 case ${OSTYPE} in
     freebsd*|darwin*)
         source $HOME/.zsh.d/bsd
@@ -14,6 +16,7 @@ bindkey -e
 tabs -2 # tab width in shell
 
 autoload colors ; colors
+
 
 # ========== #
 # completion #
@@ -72,6 +75,26 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
+# integrate history filtering with peco
+if [ ! `which peco >/dev/null 2>&1` ] ; then
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history -n 1 | \
+      eval $tac | \
+      peco --query "$LBUFFER" | \
+      sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
+      )
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+fi # end peco section
 
 
 # ====== #
@@ -164,8 +187,6 @@ ulimit -s unlimited
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
-if [ -e $HOME/bin ] ; then
-    PATH=$PATH:$HOME/bin ; fi
 
 
 # ================== #
@@ -183,11 +204,13 @@ bindkey "^[q" show_buffer_stack
 # ==================================== #
 # aliases, keybinds and hooked actions #
 # ==================================== #
-source $HOME/.zsh.d/alias/option
-source $HOME/.zsh.d/alias/pipe
-source $HOME/.zsh.d/alias/general
-source $HOME/.zsh.d/alias/suffix
-source $HOME/.zsh.d/alias/git
+if [ -d $HOME/.zsh.d/ ] ; then
+    source $HOME/.zsh.d/alias/option
+    source $HOME/.zsh.d/alias/pipe
+    source $HOME/.zsh.d/alias/general
+    source $HOME/.zsh.d/alias/suffix
+    source $HOME/.zsh.d/alias/git
+fi
 # configs for well-used keys
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line

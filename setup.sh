@@ -6,20 +6,18 @@ cd ${shdir}
 setup_dot() {
     echo "  Setting up dotfiles ..."
     for filepath in ${shdir}/.* ; do
-        if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" -a $filepath != "${shdir}/.gitignore" ] ; then
+        if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" -a $filepath != "${shdir}/.gitignore" -a $filepath != "${shdir}/.gitmodules"  -a $filepath != "${shdir}/.zshenv.exam" ] ; then
             echo "    Creating link: ${filepath} -> ${HOME}"
             ln -s ${filepath} ${HOME}
         fi
     done
+    if [ ! -f $HOME/.zshenv ] ; then
+        cp $shdir/.zshenv.exam $HOME/.zshenv
+    fi
 }
 setup_git() {
     echo "  Setting up .gitconfig ..."
     ln -s ${shdir}/.gitconfig $HOME
-}
-setup_emacsd() {
-    echo "  Cloning .emacs.d ..."
-    cd $HOME
-    git clone https://github.com/polamjag/.emacs.d.git
 }
 setup_bin () {
     echo "  Setting up ~/bin ..."
@@ -41,11 +39,18 @@ setup_binx () {
         ln -s ${filepath} ${HOME}/bin/
     done
 }
-
+setup_vim () {
+    echo "  Setting up ~/.vim/ ..."
+    cd $shdir
+    git submodule init
+    git submodule update
+    cd $shdir/.vim/vimproc
+    make
+}
 
 if [ $# -eq 1 -a "$1" = "--usage" ] ; then
     echo "$0 [--usage] [--force <args>]"
-    echo "args: dot, git, emacsd, bin, binx"
+    echo "args: dot, git, bin, binx, vim"
     echo
     echo "e.g.: \`$0 --force dot git\`"
     exit 0
@@ -60,8 +65,9 @@ if [ $# -gt 1 -a "$1" = "--force" ] ; then
     done
     exit 0
 fi
-echo -e "Creating symbolic link of dotfiles ..."
 
+# interactive mode
+echo -e "Creating symbolic link of dotfiles ..."
 
 # common files
 echo -n "Setup dotfiles? (y/n) "
@@ -100,26 +106,6 @@ if [ ! -e $HOME/.gitconfig ] ; then
     esac
 fi
 
-# setting up .emacs.d by cloning my repo
-if [ ! -d ~/.emacs.d ] ; then
-    echo -n "Would you setup .emacs.d with github.com:polamjag/.emacs.d.git? (y/n) "
-    read answer
-    case $answer in
-        y)
-            setup_emacsd
-            ;;
-        Y)
-            setup_emacsd
-            ;;
-        yes)
-            setup_emacsd
-            ;;
-        *)
-            echo "Aborted cloning .emacs.d"
-            ;;
-    esac
-fi
-
 # ~/bin
 echo -n "Copy shell scripts **for console** into ~/bin? (y/n) "
 read answer
@@ -134,7 +120,7 @@ case $answer in
         setup_bin
         ;;
     *)
-        echo 
+        echo
         ;;
 esac
 
@@ -149,6 +135,23 @@ case $answer in
         ;;
     yes)
         setup_binx
+        ;;
+    *)
+        echo
+        ;;
+esac
+
+echo -n "Execute some commands to initialize vim environment? (y/n) "
+read answer
+case $answer in
+    y)
+        setup_vim
+        ;;
+    Y)
+        setup_vim
+        ;;
+    yes)
+        setup_vim
         ;;
     *)
         echo
