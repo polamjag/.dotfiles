@@ -44,7 +44,7 @@ setup_vim () {
     cd $shdir
     git submodule init
     git submodule update
-    cd $shdir/.vim/vimproc
+    cd $shdir/.vim/bundle/vimproc
     make
 }
 
