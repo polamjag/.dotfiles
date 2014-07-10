@@ -11,14 +11,14 @@ function load_average() {
 }
 function ip_address() {
     echo -n \#[fg=white,bg=blue,bold]\ 
-    if [ `which ip` ] ; then
+    if where ip >/dev/null ; then
         echo -n `ip addr | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep brd | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)`\ 
-    elif [ `which ifconfig` ] ; then
+    elif where ip >/dev/null ; then
         echo -n `ifconfig | grep inet | grep -v 127.0.0.1 | grep -v \:\:1 | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)`\ 
     fi
 }
 function external_ip() {
-    if [ -x `which extip` >/dev/null 2>&1 ] ; then
+    if where extip >/dev/null ; then
         echo -n \#\[fg=white,bg=blue\]\ 
         extip | grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ 
         echo -n ' '
