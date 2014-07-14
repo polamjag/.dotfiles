@@ -1,6 +1,10 @@
 # ============- #
 # common config #
 # ============= #
+# workaround
+if [ -f $HOME/.zshenv ] ; then
+    source $HOME/.zshenv
+fi
 if [ -d $HOME/bin ] ; then
     PATH=$PATH:$HOME/bin ; fi
 case ${OSTYPE} in
