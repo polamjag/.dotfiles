@@ -249,10 +249,10 @@ let g:unite_enable_split_vertically = 0 "vertical split
 set tags=tags
 let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
 
-" 保存時に行末の空白を除去する
+" eliminate space at EOL
 autocmd BufWritePre * :%s/\s\+$//ge
 
-" keybindings
+" general keybindings
 inoremap <C-c> <Esc>
 noremap ; :
 noremap : ;
