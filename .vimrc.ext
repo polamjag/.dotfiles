@@ -118,7 +118,6 @@ set grepprg=internal
 
 set autowrite
 set hidden
-set backup
 set history=10000
 set updatetime=500
 
