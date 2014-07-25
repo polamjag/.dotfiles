@@ -1,0 +1,15 @@
+#!/bin/bash
+
+downloads_dir=$HOME/Downloads
+
+for filepath in $downloads_dir/* ; do
+  if [ -f "$filepath" ] ; then
+    file_date=`stat -c "%Y" "$filepath" | awk '{print strftime("%F",$1)}'`
+    if [ ! -d $downloads_dir/$file_date ] ; then
+      mkdir $downloads_dir/$file_date
+      echo "creating directory: $downloads_dir/$file_date"
+    fi
+    mv "$filepath" $downloads_dir/$file_date
+    echo "moving: $filepath -> $downloads_dir"
+  fi
+done
