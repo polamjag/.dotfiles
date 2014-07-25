@@ -2,10 +2,10 @@
 
 # initialization
 if expr "$1" : '[0-9]*' > /dev/null ; then
-    target_time=`expr $1 + 0`
+  target_time=`expr $1 + 0`
 else
-    echo "usage: timer [time in second]"
-    exit 1
+  echo "usage: timer [time in second]"
+  exit 1
 fi
 target_time_cols=$((`echo $target_time | wc -m`))
 current_time=0
@@ -15,36 +15,36 @@ echo "Timer for $target_time seconds started at `date` ..."
 term_width=0
 
 function echochars() {
-    for i in `seq 1 $1` ; do
-        echo -ne $2
-    done
+  for i in `seq 1 $1` ; do
+    echo -ne $2
+  done
 }
 
 # mainloop
 while true ; do
-    # display
-    # format: 123 / 456 sec [####----------] <= fill terminal width
-    # area for progress bar: width - (cols of target_time)*2 - 3 - 5 - 1
-    
-    # remove last displayed content
-    echochars $term_width "\b"
+  # display
+  # format: 123 / 456 sec [####----------] <= fill terminal width
+  # area for progress bar: width - (cols of target_time)*2 - 3 - 5 - 1
+  
+  # remove last displayed content
+  echochars $term_width "\b"
 
-    # output
-    term_width=`tput cols`
-    progressbar_width=$(($term_width - $target_time_cols * 2 - 9))
-    printf "%${target_time_cols}d" $current_time
-    echo -n " / $target_time sec ["
-    done_width=$(($progressbar_width * $current_time / $target_time))
-    echochars $done_width '#'
-    echochars $(($progressbar_width - $done_width)) '-'
-    echo -n ']'
-    
-    # time calculation
-    current_time=$((`date +%s` - $start_time))
-    sleep 0.5
+  # output
+  term_width=`tput cols`
+  progressbar_width=$(($term_width - $target_time_cols * 2 - 9))
+  printf "%${target_time_cols}d" $current_time
+  echo -n " / $target_time sec ["
+  done_width=$(($progressbar_width * $current_time / $target_time))
+  echochars $done_width '#'
+  echochars $(($progressbar_width - $done_width)) '-'
+  echo -n ']'
+  
+  # time calculation
+  current_time=$((`date +%s` - $start_time))
+  sleep 0.5
 
-    if [ $current_time -gt $target_time ] ; then
-        break ; fi
+  if [ $current_time -gt $target_time ] ; then
+    break ; fi
 done
 
 echo ''
