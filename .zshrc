@@ -3,17 +3,17 @@
 # ============= #
 # workaround
 if [ -f $HOME/.zshenv ] ; then
-    source $HOME/.zshenv
+  source $HOME/.zshenv
 fi
 if [ -d $HOME/bin ] ; then
-    PATH=$PATH:$HOME/bin ; fi
+  PATH=$PATH:$HOME/bin ; fi
 case ${OSTYPE} in
-    freebsd*|darwin*)
-        source $HOME/.zsh.d/bsd
-        ;;
-    linux*)
-        source $HOME/.zsh.d/linux
-        ;;
+  freebsd*|darwin*)
+    source $HOME/.zsh.d/bsd
+    ;;
+  linux*)
+    source $HOME/.zsh.d/linux
+    ;;
 esac
 
 bindkey -e
@@ -26,20 +26,20 @@ autoload colors ; colors
 # completion #
 # ========== #
 autoload -U compinit ; compinit
-setopt list_packed           # display completion compactly
+setopt list_packed      # display completion compactly
 setopt listpacked
 unsetopt auto_remove_slash
-setopt auto_param_slash      # append '/' at tail of directory
+setopt auto_param_slash   # append '/' at tail of directory
 setopt mark_dirs
-setopt list_types            # display type of files in completion list
+setopt list_types      # display type of files in completion list
 unsetopt menu_complete
-setopt auto_list             # display with list of all completion with ^I
-setopt auto_menu             # complete automatically with key press
-setopt auto_param_keys       # complete parens automatically
-setopt auto_resume           # resume suspended command automatically
+setopt auto_list       # display with list of all completion with ^I
+setopt auto_menu       # complete automatically with key press
+setopt auto_param_keys    # complete parens automatically
+setopt auto_resume      # resume suspended command automatically
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
-zstyle ':completion:*' use-cache true        # cache completion
+zstyle ':completion:*' use-cache true    # cache completion
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:default' menu select=1 # select completion with arrow keys
@@ -67,11 +67,11 @@ setopt extended_history
 setopt append_history
 setopt inc_append_history
 setopt share_history
-setopt hist_ignore_dups  # ignore same command as above
+setopt hist_ignore_dups # ignore same command as above
 unsetopt hist_verify
 setopt hist_reduce_blanks
 setopt hist_no_store
-setopt hist_expand  # expand history in completion
+setopt hist_expand # expand history in completion
 function history-all { history -E 1 }
 # enable completion from history
 autoload history-search-end
@@ -80,21 +80,21 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 # integrate history filtering with peco
-if where peco >/dev/null ; then
+if hash peco >/dev/null ; then
 function peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(history -n 1 | \
-      eval $tac | \
-      peco --query "$LBUFFER" | \
-      sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
-      )
-    CURSOR=$#BUFFER
-    zle clear-screen
+  local tac
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+  BUFFER=$(history -n 1 | \
+   eval $tac | \
+   peco --query "$LBUFFER" | \
+   sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
+   )
+  CURSOR=$#BUFFER
+  zle clear-screen
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
@@ -108,11 +108,11 @@ autoload -U promptinit ; promptinit
 autoload -U add-zsh-hook
 setopt correct
 ssh_prefix () {
-    if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
-        echo -n "%F{magenta}%B-=> %b%f"
-    else
-        echo -n ""
-    fi
+  if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
+    echo -n "%F{magenta}%B-=> %b%f"
+  else
+    echo -n ""
+  fi
 }
 # main prompt
 PROMPT="
@@ -128,9 +128,9 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "+"
 zstyle ':vcs_info:*' unstagedstr "-"
 precmd_githook () {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+  psvar=()
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 } ; add-zsh-hook precmd precmd_githook
 RPROMPT="%F{yellow}%B%1(v|%1v|)%b%f"
 SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
@@ -182,9 +182,9 @@ setopt interactive_comments
 LESS=-M
 export LESS
 if type /usr/bin/lesspipe &>/dev/null ; then
-    LESSOPEN="| /usr/bin/lesspipe '%s'"
-    LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
-    export LESSOPEN LESSCLOSE
+  LESSOPEN="| /usr/bin/lesspipe '%s'"
+  LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
+  export LESSOPEN LESSCLOSE
 fi
 umask 022
 ulimit -s unlimited
@@ -197,9 +197,9 @@ export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
 # command line stack #
 # ================== #
 show_buffer_stack() {
-    POSTDISPLAY="
+  POSTDISPLAY="
 ++> $LBUFFER"
-    zle push-line
+  zle push-line
 }
 zle -N show_buffer_stack
 bindkey "^[q" show_buffer_stack
@@ -209,11 +209,11 @@ bindkey "^[q" show_buffer_stack
 # aliases, keybinds and hooked actions #
 # ==================================== #
 if [ -d $HOME/.zsh.d/ ] ; then
-    source $HOME/.zsh.d/alias/option
-    source $HOME/.zsh.d/alias/pipe
-    source $HOME/.zsh.d/alias/general
-    source $HOME/.zsh.d/alias/suffix
-    source $HOME/.zsh.d/alias/git
+  source $HOME/.zsh.d/alias/option
+  source $HOME/.zsh.d/alias/pipe
+  source $HOME/.zsh.d/alias/general
+  source $HOME/.zsh.d/alias/suffix
+  source $HOME/.zsh.d/alias/git
 fi
 # configs for well-used keys
 bindkey "^[[3~" delete-char
@@ -222,22 +222,22 @@ bindkey "^[[4~" end-of-line
 bindkey -r '^X'
 # C-l to clear terminal and rehash
 clear-screen-rehash() {
-    zle clear-screen
-    rehash
-    zle reset-prompt
+  zle clear-screen
+  rehash
+  zle reset-prompt
 } ; zle -N clear-screen-rehash
 bindkey '^L' clear-screen-rehash
 # chpwd / cd command hook
 chpwd() {
-    ls_abbrev
+  ls_abbrev
 }
 ls_abbrev() {
-    echo "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: $fg_bold[cyan]`ls -1 | wc -l` files + $((`ls -1a | wc -l` - `ls -1 | wc -l` - 2)) hidden files$reset_color"
-    local cmd='ls -CF1'
-    $cmd | head -n 4 | tr '\n' ' '
-    echo ''
-    if [ `ls -1 | wc -l` -gt 8 ] ; then
-        echo '...' ; fi
-    if [ `ls -1 | wc -l` -gt 4 ] ; then
-        $cmd | tail -n 4 | tr '\n' ' ' ; echo '' ; fi
+  echo "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: $fg_bold[cyan]`ls -1 | wc -l` files + $((`ls -1a | wc -l` - `ls -1 | wc -l` - 2)) hidden files$reset_color"
+  local cmd='ls -CF1'
+  $cmd | head -n 4 | tr '\n' ' '
+  echo ''
+  if [ `ls -1 | wc -l` -gt 8 ] ; then
+    echo '...' ; fi
+  if [ `ls -1 | wc -l` -gt 4 ] ; then
+    $cmd | tail -n 4 | tr '\n' ' ' ; echo '' ; fi
 }
