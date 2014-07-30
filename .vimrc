@@ -35,6 +35,7 @@ set hidden
 set backspace=indent,eol,start
 set visualbell
 set wildmenu
+set scrolloff=5
 
 " status bar
 set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=%l,%c%V%8P
