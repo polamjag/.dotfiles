@@ -256,11 +256,4 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 # directory stack filtering
-function peco-dirstack () {
- cd `dirs -v | peco --prompt="Dir to go>" | sed -e "s/^[0-9]\+//g"`
- zle push-line
-
-}
-zle -N peco-dirstack
-bindkey '^x' peco-dirstack
 fi
