@@ -79,26 +79,6 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
-# integrate history filtering with peco
-if hash peco >/dev/null ; then
-function peco-select-history() {
-  local tac
-  if which tac > /dev/null; then
-    tac="tac"
-  else
-    tac="tail -r"
-  fi
-  BUFFER=$(history -n 1 | \
-   eval $tac | \
-   peco --query "$LBUFFER" | \
-   sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
-   )
-  CURSOR=$#BUFFER
-  zle clear-screen
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
-fi # end peco section
 
 
 # ====== #
@@ -220,6 +200,13 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 bindkey -r '^X'
+function kill-backward-blank-word() {
+  zle set-mark-command
+  zle vi-backward-blank-word
+  zle kill-region
+}
+zle -N kill-backward-blank-word
+bindkey '^Q' kill-backward-blank-word
 # C-l to clear terminal and rehash
 clear-screen-rehash() {
   zle clear-screen
@@ -232,12 +219,48 @@ chpwd() {
   ls_abbrev
 }
 ls_abbrev() {
-  echo "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: $fg_bold[cyan]`ls -1 | wc -l` files + $((`ls -1a | wc -l` - `ls -1 | wc -l` - 2)) hidden files$reset_color"
+  local items=`ls | wc -l`
+  local all_items=`ls -a | wc -l`
+  echo -n "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: "
+  echo "$fg_bold[cyan]$items items + $(($all_items - $items - 2)) hidden items$reset_color"
   local cmd='ls -CF1'
   $cmd | head -n 4 | tr '\n' ' '
   echo ''
-  if [ `ls -1 | wc -l` -gt 8 ] ; then
+  if [ $items -gt 8 ] ; then
     echo '...' ; fi
-  if [ `ls -1 | wc -l` -gt 4 ] ; then
+  if [ $items -gt 4 ] ; then
     $cmd | tail -n 4 | tr '\n' ' ' ; echo '' ; fi
 }
+
+
+# ================= #
+# peco integrations #
+# ================= #
+# history filtering with peco
+if hash peco >/dev/null ; then
+function peco-select-history() {
+  local tac
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+  BUFFER=$(history -n 1 | \
+   eval $tac | \
+   peco --query "$LBUFFER" | \
+   sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
+   )
+  CURSOR=$#BUFFER
+  zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+# directory stack filtering
+function peco-dirstack () {
+ cd `dirs -v | peco --prompt="Dir to go>" | sed -e "s/^[0-9]\+//g"`
+ zle push-line
+
+}
+zle -N peco-dirstack
+bindkey '^x' peco-dirstack
+fi
