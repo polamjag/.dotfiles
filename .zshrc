@@ -237,7 +237,7 @@ ls_abbrev() {
 # peco integrations #
 # ================= #
 # history filtering with peco
-if hash peco >/dev/null ; then
+if hash peco &>/dev/null ; then
 function peco-select-history() {
   local tac
   if which tac > /dev/null; then
