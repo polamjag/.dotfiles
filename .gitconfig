@@ -15,15 +15,20 @@
   pl  = pull
   br  = branch
   bra = branch -a
-  ch  = checkout
+  brc = checkout -b
+  cho = checkout
   a   = add
   cm  = commit
   cam = commit -a --amend
+  lp  = log -p
   ld  = log --graph --decorate --oneline
   lds = log --graph --decorate --oneline --stat
+  ldp = log --graph --decorate --oneline --stat -p
   df  = diff
   dfm = diff master
   dfw = diff --color-words
   dfc = diff --cached
   dfs = diff --staged
   gr  = grep -np
+[push]
+	default = matching
