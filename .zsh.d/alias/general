@@ -34,13 +34,13 @@ function clone() {
   fi
 }
 function grep_rec() {
-		if [ $# -eq 1 ] ; then
-				grep -r $1 .
-		elif [ $# -eq 2 ] ; then
-				grep -r $2 $1
-		else
-				echo "usage: s|grep_rec (directory) query"
-		fi
+  if [ $# -eq 1 ] ; then
+    grep -n -r $1 .
+  elif [ $# -eq 2 ] ; then
+    grep -n -r $2 $1
+  else
+    echo "usage: s|grep_rec (directory) query"
+  fi
 } ; alias s='grep_rec 2>/dev/null'
 function cmdlist() {
   cmds=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
