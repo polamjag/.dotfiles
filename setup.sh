@@ -18,6 +18,19 @@ setup_dot() {
 setup_git() {
   echo " Setting up .gitconfig ..."
   ln -s ${shdir}/.gitconfig $HOME
+  echo -n "Input name[polamjag]> "
+  read git_name
+  echo -n "Input mail addr[s@polamjag.info]> "
+  read git_mail
+  if [ "$git_name" = "\n" -a "$git_mail" = "\n" ] ; then
+    cat >>~/.gitconfig.local <<EOF
+[user]
+ user = ${git_name}
+ email = ${git_mail}
+EOF
+  else
+    cp ${shdir}/.gitconfig.local ~/
+  fi
 }
 setup_bin () {
   echo " Setting up ~/bin ..."
