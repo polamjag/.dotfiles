@@ -23,7 +23,7 @@ setup_git() {
   echo -n "Input mail addr[s@polamjag.info]> "
   read git_mail
   if [ "$git_name" = "\n" -a "$git_mail" = "\n" ] ; then
-    cat >>~/.gitconfig.local <<EOF
+    cat >>$HOME/.gitconfig.local <<EOF
 [user]
  user = ${git_name}
  email = ${git_mail}
