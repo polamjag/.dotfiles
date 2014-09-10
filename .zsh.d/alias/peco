@@ -1,3 +1,4 @@
+#!/bin/zsh
 function peco-systemd {
   local targetserv=`systemctl list-unit-files |
                     awk '{print $1}' |
