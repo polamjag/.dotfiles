@@ -1,9 +1,8 @@
-[user]
-	name = polamjag
-	email = s@polamjag.info
+[include]
+  path = .gitconfig.local
 [core]
-	editor = vim
-	pager = less --raw
+  editor = vim
+  pager = less --raw
 [color]
 	ui = true
 [help]
@@ -32,3 +31,5 @@
   gr  = grep -np
 [push]
 	default = matching
+[ghq]
+  root = ~/src
