@@ -72,6 +72,7 @@ unsetopt hist_verify
 setopt hist_reduce_blanks
 setopt hist_no_store
 setopt hist_expand # expand history in completion
+setopt histignorespace
 function history-all { history -E 1 }
 # enable completion from history
 autoload history-search-end
