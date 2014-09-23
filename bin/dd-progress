@@ -2,6 +2,8 @@
 if [ $# -lt 2 ] ; then
   echo "usage: dd-progress <from (if in dd)> <to (of in dd)> (flags)"
   echo "see man page or help of dd(1) to see flags."
+  echo
+  echo "example: dd-progress /dev/zero /dev/sdb count=2048"
   exit 2
 fi
 if ! hash pv >/dev/null 2>&1 ; then
