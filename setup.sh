@@ -1,6 +1,6 @@
 #!/bin/bash
 
-shdir="$(cd $(dirname $0) && pwd)"
+shdir="$(cd $(dirname $0) && pwd)" # where this script exists
 cd ${shdir}
 
 setup_dot() {
