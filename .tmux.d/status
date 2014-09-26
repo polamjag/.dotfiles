@@ -11,7 +11,7 @@ load_average() {
 }
 ip_address() {
   echo -n \#\[fg=white,bg=blue,bold\]' '
-  if type ip >/dev/null 2>&1 ; then
+  if type ip >/dev/null ; then
      echo -n `ip addr |
        grep inet |
        grep -v 127.0.0.1 |
@@ -19,8 +19,12 @@ ip_address() {
        grep brd |
        grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)/ |
        grep -oE \(\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\[.\]\[0-9\]\{1,3\}\)`' '
-  elif which ifconfig >/dev/null ; then
-    echo -n `ifconfig | grep -oE "inet [0-9.]{7,15}" | grep -v 127.0.0.1 | grep -v \:\:1 | sed "s/inet //g"`' '
+  elif type ifconfig >/dev/null ; then
+    echo -n `ifconfig |
+      grep -oE "inet [0-9.]{7,15}" |
+      grep -v 127.0.0.1 |
+      grep -v \:\:1 |
+      sed "s/inet //g"`' '
   fi
 }
 external_ip() {
