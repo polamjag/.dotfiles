@@ -5,8 +5,16 @@
 if [ -f $HOME/.zshenv ] ; then
   source $HOME/.zshenv
 fi
+# use ~/bin
 if [ -d $HOME/bin ] ; then
-  PATH=$PATH:$HOME/bin ; fi
+  PATH=$PATH:$HOME/bin
+fi
+# load rubygem executable
+local gem_bin_dir=`ls -d -1 $HOME/.gem/ruby/* | sort -r | tail -n 1`
+if [ -d "$gem_bin_dir" ] ; then
+  export PATH=$PATH:$gem_bin_dir/bin
+fi
+
 case ${OSTYPE} in
   freebsd*|darwin*)
     source $HOME/.zsh.d/bsd
