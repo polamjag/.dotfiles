@@ -37,7 +37,7 @@ cpu_temp() {
   fi
 }
 acpi_battery() {
-  if hash acpi && acpi | grep Battery >/dev/null ; then
+  if type acpi >/dev/null && acpi | grep Battery >/dev/null ; then
     if [ "`acpi -b | grep -oE Discharging`" = "Discharging" ] ; then
       echo -n \#\[fg=black,bg=yellow,bold\]' '
       echo -n `acpi -b | grep 'Battery' | grep -oE \[0-9\]\[0-9\]:\[0-9\]\*`
