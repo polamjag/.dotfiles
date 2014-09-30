@@ -5,8 +5,16 @@
 if [ -f $HOME/.zshenv ] ; then
   source $HOME/.zshenv
 fi
+# use ~/bin
 if [ -d $HOME/bin ] ; then
-  PATH=$PATH:$HOME/bin ; fi
+  PATH=$PATH:$HOME/bin
+fi
+# load rubygem executable
+local gem_bin_dir=`ls -d -1 $HOME/.gem/ruby/* | sort -r | tail -n 1`
+if [ -d "$gem_bin_dir" ] ; then
+  export PATH=$PATH:$gem_bin_dir/bin
+fi
+
 case ${OSTYPE} in
   freebsd*|darwin*)
     source $HOME/.zsh.d/bsd
@@ -72,6 +80,7 @@ unsetopt hist_verify
 setopt hist_reduce_blanks
 setopt hist_no_store
 setopt hist_expand # expand history in completion
+setopt histignorespace
 function history-all { history -E 1 }
 # enable completion from history
 autoload history-search-end
