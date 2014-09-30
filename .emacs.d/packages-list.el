@@ -4,22 +4,22 @@
 
 (defvar installing-package-list
   '(
-		;; package managing
-		el-get
-		;; language specific
+    ;; package managing
+    el-get
+    ;; language specific
     markdown-mode
     haskell-mode
     yaml-mode
-		cider
-		php-mode
-		ruby-block
+    cider
+    php-mode
+    ruby-block
     ruby-end
     ruby-mode
-		web-mode
+    web-mode
     tuareg
-		caml
-		java-file-create
-		;; flymake / flycheck
+    caml
+    java-file-create
+    ;; flymake / flycheck
     flymake
     flymake-easy
     flymake-haskell-multi
@@ -27,10 +27,10 @@
     flymake-ruby
     flycheck
     flycheck-tip
-		;; git
-		egg
+    ;; git
+    egg
     magit
-		;; helm
+    ;; helm
     helm
     helm-ag
     helm-descbinds
@@ -38,16 +38,16 @@
     helm-git
     helm-git-grep
     helm-rb
-		helm-ghq
-		ac-helm
-		;; highlighting
+    helm-ghq
+    ac-helm
+    ;; highlighting
     highlight-symbol
-		flex-autopair
-		auto-highlight-symbol
+    flex-autopair
+    auto-highlight-symbol
     ;; misc
-		open-junk-file
+    open-junk-file
     all
-		auto-complete
+    auto-complete
     multiple-cursors
     smartrep
     expand-region
