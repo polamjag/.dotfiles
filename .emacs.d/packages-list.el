@@ -4,13 +4,22 @@
 
 (defvar installing-package-list
   '(
+		;; package managing
+		el-get
+		;; language specific
     markdown-mode
     haskell-mode
     yaml-mode
-    open-junk-file
-    all
-    auto-complete
-    ac-helm
+		cider
+		php-mode
+		ruby-block
+    ruby-end
+    ruby-mode
+		web-mode
+    tuareg
+		caml
+		java-file-create
+		;; flymake / flycheck
     flymake
     flymake-easy
     flymake-haskell-multi
@@ -18,11 +27,10 @@
     flymake-ruby
     flycheck
     flycheck-tip
-    flex-autopair
-    egg
-    el-get
+		;; git
+		egg
     magit
-    caml
+		;; helm
     helm
     helm-ag
     helm-descbinds
@@ -30,23 +38,24 @@
     helm-git
     helm-git-grep
     helm-rb
+		helm-ghq
+		ac-helm
+		;; highlighting
     highlight-symbol
-    java-file-create
+		flex-autopair
+		auto-highlight-symbol
+    ;; misc
+		open-junk-file
+    all
+		auto-complete
     multiple-cursors
-    php-mode
+    smartrep
+    expand-region
     popup
     popwin
     quickrun
     rainbow-delimiters
-    ruby-block
-    ruby-end
-    ruby-mode
-    smartrep
-    expand-region
-    auto-highlight-symbol
-    tuareg
     undo-tree
-    web-mode
     whitespace-cleanup-mode
     yasnippet
     ))
