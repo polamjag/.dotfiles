@@ -4,7 +4,7 @@ shdir="$(cd $(dirname $0) && pwd)" # where this script exists
 cd ${shdir}
 
 setup_dot() {
-  echo " Setting up dotfiles ..."
+  echo "[01;93m==> Setting up dotfiles ...[0m"
   for filepath in ${shdir}/.* ; do
     if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" -a $filepath != "${shdir}/.gitignore" -a $filepath != "${shdir}/.gitmodules" -a $filepath != "${shdir}/.zshenv.exam" ] ; then
       echo "  Creating link: ${filepath} -> ${HOME}"
@@ -16,7 +16,7 @@ setup_dot() {
   fi
 }
 setup_git() {
-  echo " Setting up .gitconfig ..."
+  echo "[01;93m==> Setting up .gitconfig ...[0m"
   ln -s ${shdir}/.gitconfig $HOME
   echo -n "Input name[polamjag]> "
   read git_name
@@ -33,7 +33,7 @@ EOF
   fi
 }
 setup_bin () {
-  echo " Setting up ~/bin ..."
+  echo "[01;93m==> Setting up ~/bin ...[0m"
   if [ ! -d ${HOME}/bin ] ; then
     mkdir ${HOME}/bin
   fi
@@ -43,7 +43,7 @@ setup_bin () {
   done
 }
 setup_binx () {
-  echo " Setting up ~/bin_x ..."
+  echo "[01;93m==> Setting up ~/bin_x ...[0m"
   if [ ! -d ${HOME}/bin ] ; then
     mkdir ${HOME}/bin
   fi
@@ -53,24 +53,30 @@ setup_binx () {
   done
 }
 setup_vim () {
-  echo " Setting up ~/.vim/ ..."
+  echo "[01;93m==> Setting up ~/.vim/ ...[0m"
   cd $shdir
   git submodule init
   git submodule update
   cd $shdir/.vim/bundle/vimproc
   make
 }
+setup_godepends () {
+  echo "[01;93m==> Setting up some go executables ...[0m"
+  # repo list here
+  go get github.com/peco/peco/cmd/peco
+  go get github.com/motemen/ghq
+}
 
 if [ $# -eq 1 -a "$1" = "--usage" ] ; then
   echo "$0 [--usage] [--force <args>]"
-  echo "args: dot, git, bin, binx, vim"
+  echo "args: dot, git, bin, binx, vim, godepends"
   echo
   echo "e.g.: \`$0 --force dot git\`"
   exit 0
 fi
 
 if [ $# -gt 1 -a "$1" = "--force" ] ; then
-  echo "Running in force mode"
+  echo -e "\x1B[01;95m-> Running in batch mode\x1B[0m"
   shift
   while [ $# -gt 0 ] ; do
     setup_$1
@@ -80,10 +86,10 @@ if [ $# -gt 1 -a "$1" = "--force" ] ; then
 fi
 
 # interactive mode
-echo -e "Creating symbolic link of dotfiles ..."
+echo -e "\x1B[01;95m-> Running in interactive mode\x1B[0m"
 
 # common files
-echo -n "Setup dotfiles? (y/n) "
+echo -n "[01;92m> Setup dotfiles? (y/n) [0m"
 read answer
 case $answer in
   y)
@@ -102,7 +108,7 @@ esac
 
 # .gitconfig
 if [ ! -e $HOME/.gitconfig ] ; then
-  echo -n "Use .gitconfig? (y/n) "
+  echo -n "[01;92m> Use .gitconfig? (y/n) [0m"
 		read $answer
   case $answer in
     y)
@@ -120,7 +126,7 @@ if [ ! -e $HOME/.gitconfig ] ; then
 fi
 
 # ~/bin
-echo -n "Copy shell scripts **for console** into ~/bin? (y/n) "
+echo -n "[01;92m> Copy shell scripts **for console** into ~/bin? (y/n) [0m"
 read answer
 case $answer in
   y)
@@ -137,7 +143,7 @@ case $answer in
     ;;
 esac
 
-echo -n "Copy shell scripts **for X Desktop Environment** into ~/bin? (y/n) "
+echo -n "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin? (y/n) [0m"
 read answer
 case $answer in
   y)
@@ -154,7 +160,7 @@ case $answer in
     ;;
 esac
 
-echo -n "Execute some commands to initialize vim environment? (y/n) "
+echo -n "[01;92m> Execute some commands to initialize vim environment? (y/n) [0m"
 read answer
 case $answer in
   y)
@@ -171,5 +177,22 @@ case $answer in
     ;;
 esac
 
-echo "Finished setup"
+echo -n "[01;92m> Install some go executables? (y/n) [0m"
+read answer
+case $answer in
+  y)
+    setup_godepends
+    ;;
+  Y)
+    setup_godepends
+    ;;
+  yes)
+    setup_godepends
+    ;;
+  *)
+    echo
+    ;;
+esac
+
+echo "-> Finished setup"
 
