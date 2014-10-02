@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 shdir="$(cd $(dirname $0) && pwd)" # where this script exists
 cd ${shdir}
