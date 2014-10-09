@@ -78,3 +78,7 @@
                :pkgname "emacs-java/auto-java-complete")
         ))
 (el-get 'sync)
+
+;; proofgeneral
+(if (file-readable-p "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el")
+		(load-file "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
