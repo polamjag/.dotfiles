@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # tmux status bar configuration
 
 ssh_sign() {

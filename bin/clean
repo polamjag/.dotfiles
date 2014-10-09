@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 rm ~*
 rm *~
 rm .*.sw[a-z]

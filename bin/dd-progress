@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 if [ $# -lt 2 ] ; then
   echo "usage: dd-progress <from (if in dd)> <to (of in dd)> (flags)"
   echo "see man page or help of dd(1) to see flags."
