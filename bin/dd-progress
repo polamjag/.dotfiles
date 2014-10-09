@@ -16,6 +16,18 @@ if [ ! -e "$1" ] ; then
   exit 1
 fi
 
+echo -e "run dd: \e[1;32m$1\e[0m -> \e[1;36m$2\e[0m"
+echo -n "type [OK] to run: "
+read answer
+case $answer in
+  OK)
+    ;;
+  *)
+    echo 'abort'
+    exit 2
+    ;;
+esac
+
 if [ $# -eq 2 ] ; then
   dd if="$1" | pv | dd of="$2"
 elif [ $# -gt 2 ] ; then
