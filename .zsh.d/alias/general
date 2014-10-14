@@ -85,3 +85,4 @@ alias dstat-cpu='dstat -Tclr'
 alias dstat-net='dstat -Tclnd'
 alias dstat-disk='dstat -Tcldr'
 alias delete-dead-symlink="find -L . -name . -o -type d -prune -o -type l -exec rm {} +"
+alias watch='watch -c'
