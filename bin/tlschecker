@@ -3,7 +3,17 @@
 # from http://superuser.com/questions/109213/is-there-a-tool-that-can-test-what-ssl-tls-cipher-suites-a-particular-website-of, with some modification
 
 # OpenSSL requires the port number.
-SERVER="$1"
+if [ "$1" = "" ] ; then
+  echo "abort"
+  exit 1
+fi
+
+if [ "`echo $1 | grep -oE :`" = ':' ] ; then
+  SERVER="$1"
+else
+  SERVER="$1:443"
+fi
+echo Target server: $SERVER
 DELAY="0.5"
 ciphers=$(openssl ciphers 'ALL:eNULL' | sed -e 's/:/ /g')
 
