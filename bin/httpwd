@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# thanks: https://gist.github.com/willurd/5720255
+
+port=8888
+
+if [ "$1" != '' ] ; then
+  port=$1
+fi
+
+echo "trying to serve on http://localhost:$port/ ..."
+
+if hash python &>/dev/null ; then
+  if [ `python --version | sed -e "s/[A-Za-z]* *\([0-9]\).*/\1/g"` = '3' ] ; then
+    # python 3
+    python -m http.server $port
+  elif [ `python --version | sed -e "s/[A-Za-z]* *\([0-9]\).*/\1/g"` = '2' ] ; then
+    # python 2
+    python -m SimpleHTTPServer $port
+  fi
+elif hash ruby &>/dev/null ; then
+  ruby -rwebrick -e "WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd).start"
+elif hash php &>/dev/null ; then
+  php -S localhost:$port
+else
+  echo "there are no commands to launch HTTP server!"
+  exit 1
+fi
+
