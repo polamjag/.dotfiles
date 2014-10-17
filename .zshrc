@@ -259,11 +259,19 @@ function peco-select-history() {
   else
     tac="tail -r"
   fi
-  BUFFER=$(history -n 1 | \
-   eval $tac | \
-   peco --query "$LBUFFER" | \
-   sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
-   )
+  if [ "$LBUFFER" = "" ] ; then
+    BUFFER=$(history -n 1 | \
+     eval $tac | \
+     peco --prompt='HIST>' | \
+     sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
+    )
+  else
+    BUFFER=$(history -n 1 | \
+     eval $tac | \
+     peco --query "$LBUFFER" --prompt='HIST>' | \
+     sed -e "s/^[0-9\/]\{8,10\}[ ]*[0-9\:]\{5\}[ ]*//g"
+    )
+  fi
   CURSOR=$#BUFFER
   zle clear-screen
 }
