@@ -205,7 +205,7 @@ if [ -d $HOME/.zsh.d/ ] ; then
   source $HOME/.zsh.d/alias/general
   source $HOME/.zsh.d/alias/suffix
   source $HOME/.zsh.d/alias/git
-  if hash peco >/dev/null 2>&1 ; then
+  if hash peco &>/dev/null ; then
     source $HOME/.zsh.d/alias/peco
   fi
 fi
@@ -254,7 +254,7 @@ ls_abbrev() {
 if hash peco &>/dev/null ; then
 function peco-select-history() {
   local tac
-  if which tac > /dev/null; then
+  if hash tac &>/dev/null; then
     tac="tac"
   else
     tac="tail -r"
