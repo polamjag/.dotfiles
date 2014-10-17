@@ -39,6 +39,7 @@ NeoBundle 'ack.vim'
 NeoBundle 'itchyny/landscape.vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'ruby-matchit'
+NeoBundle 'osyo-manga/vim-over'
 
 filetype plugin indent on
 
@@ -270,3 +271,5 @@ nnoremap <Down> gj
 nnoremap <Up>   gk
 nnoremap <Space> <PageDown>
 nnoremap <S-SPACE> <PageUp>
+
+noremap / :OverCommandLine<CR>
