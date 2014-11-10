@@ -6,9 +6,9 @@ clone this repo into your machine and run `/setup.sh` to make symbolic link of d
 
 ## dependencies
 
-### peco
+### some commands written in go
 
-install golang, set `$GOPATH` and run `go get github.com/lestrrat/peco/cmd/peco/` to setup peco.
+install golang, set `$GOPATH` and run `setup.sh --force godepends`
 
 ### some vim plugins (w/ NeoBundle)
 
