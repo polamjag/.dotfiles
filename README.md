@@ -12,7 +12,7 @@ install golang, set `$GOPATH` and run `setup.sh --force godepends`
 
 ### some vim plugins (w/ NeoBundle)
 
-execute `./setup.sh --force vim` and run `:NeoBundleInstall` in vim (with alias `va` in .zsh.d/alias/general) to install all plugins.
+execute `./setup.sh --force vim` to install all plugins.
 
 ## policy
 
