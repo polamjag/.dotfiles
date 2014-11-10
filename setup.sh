@@ -59,6 +59,7 @@ setup_vim () {
   git submodule update
   cd $shdir/.vim/bundle/vimproc
   make
+  zsh -ic "va -c 'NeoBundleInstall|q'"
 }
 setup_godepends () {
   echo "[01;93m==> Setting up some go executables ...[0m"
