@@ -29,6 +29,7 @@
   dfc = diff --cached
   dfs = diff --staged
   gr  = grep -np
+  submo-upgrade = submodule foreach 'git pull origin master'
 [push]
 	default = matching
 [ghq]
