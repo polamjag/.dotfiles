@@ -10,7 +10,9 @@ filetype off
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle/'))
+  call neobundle#begin(expand('~/.vim/bundle/'))
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#end()
 endif
 
 NeoBundle 'itchyny/lightline.vim'
@@ -46,8 +48,6 @@ filetype plugin indent on
 "==========================
 "init
 "==========================
-"autocmd!
-"set modelines=5
 
 set tabstop=2
 set expandtab
@@ -62,7 +62,6 @@ set scrolloff=5
 
 if v:version >= 700
   set cursorline
-  " highlight CursorLine guibg=lightblue ctermbg=lightgray
 endif
 
 "vim 7.3~
