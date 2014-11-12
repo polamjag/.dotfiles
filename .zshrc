@@ -10,7 +10,7 @@ if [ -d $HOME/bin ] ; then
   PATH=$PATH:$HOME/bin
 fi
 # load rubygem executable
-if [ -d "$HOME/.gem/" ] ; then
+if [ -d "$HOME/.gem/ruby" ] ; then
   local gem_bin_dir=`ls -d -1 $HOME/.gem/ruby/* | sort -r | tail -n 1`
   if [ -d "$gem_bin_dir" ] ; then
     export PATH=$PATH:$gem_bin_dir/bin
