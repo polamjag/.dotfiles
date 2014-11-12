@@ -11,7 +11,7 @@ if [ -d $HOME/bin ] ; then
 fi
 # load rubygem executable
 if [ -d "$HOME/.gem/ruby" ] ; then
-  local gem_bin_dir=`ls -d -1 $HOME/.gem/ruby/* | sort -r | tail -n 1`
+  local gem_bin_dir=$(ls -d -1 $HOME/.gem/ruby/* | sort -r | tail -n 1)
   if [ -d "$gem_bin_dir" ] ; then
     export PATH=$PATH:$gem_bin_dir/bin
   fi
@@ -106,10 +106,12 @@ ssh_prefix () {
   fi
 }
 # main prompt
+#(ssh_prefix)(      pwd      )   (    username   :: hostname  ) (     bg job(s) count     ) (  exit status  )
 PROMPT="
-`ssh_prefix`%F{green}%B%~%b%f %B(%F{yellow}%M%f::%F{cyan}%n%f)%(1j.%F{magenta} *%j bg*%f.)%(?..%F{red} [%?])
+$(ssh_prefix)%F{green}%B%~%b%f %B(%F{yellow}%M%f::%F{cyan}%n%f)%(1j.%F{magenta} *%j bg*%f.)%(?..%F{red} [%?])
 %#%b%f "
 zle_highlight=(isearch:standout)
+SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
 # config for right prompt for VCS
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '%c%u (%s:%b)'
@@ -124,7 +126,6 @@ precmd_githook () {
   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 } ; add-zsh-hook precmd precmd_githook
 RPROMPT="%F{yellow}%B%1(v|%1v|)%b%f"
-SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
 
 
 # =============================== #
@@ -233,9 +234,9 @@ chpwd() {
   ls_abbrev
 }
 ls_abbrev() {
-  local items=`ls | wc -l`
-  local all_items=`ls -a | wc -l`
-  echo -n "$fg_bold[green]->$reset_color in $fg_bold[green]`pwd`$reset_color: "
+  local items=$(ls | wc -l)
+  local all_items=$(ls -a | wc -l)
+  echo -n "$fg_bold[green]->$reset_color in $fg_bold[green]$(pwd)$reset_color: "
   echo "$fg_bold[cyan]$items items + $(($all_items - $items - 2)) hidden items$reset_color"
   local cmd='ls -CF1'
   $cmd | head -n 4 | tr '\n' ' '
