@@ -1,9 +1,18 @@
 alias g='git'
-alias gst='git branch -a && echo && git status'
 alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch" | cat'
 alias gcm='git commit -m'
 alias ga='git add'
 alias grm='git reset HEAD'
 alias gld='git log --graph --decorate --oneline'
 alias gg='git grep -np --color'
-alias gig='gitg || gitk || git gui'
+function gig() {
+  if hash giggle &>/dev/null ; then
+    giggle $@
+  elif hash gitg &>/dev/null ; then
+    gitg $@
+  elif hash gitk &>/dev/null ; then
+    gitk $@
+  elif hash git gui &>/dev/null ; then
+    git gui $@
+  fi
+}
