@@ -11,11 +11,11 @@ fi
 echo "trying to serve on http://localhost:$port/ ..."
 
 if hash python &>/dev/null ; then
-  if [ `python --version | sed -e "s/[A-Za-z]* *\([0-9]\).*/\1/g"` = '3' ] ; then
+  if [ $(python --version | sed -e "s/[A-Za-z]* *\([0-9]\).*/\1/g") = '3' ] ; then
     # python 3
     echo "exec: \`python -m http.server $port\` (expecting python3)"
     python -m http.server $port
-  elif [ `python --version | sed -e "s/[A-Za-z]* *\([0-9]\).*/\1/g"` = '2' ] ; then
+  elif [ $(python --version | sed -e "s/[A-Za-z]* *\([0-9]\).*/\1/g") = '2' ] ; then
     # python 2
     echo "exec: \`python -m SimpleHTTPServer $port\` (expecting python2)"
     python -m SimpleHTTPServer $port

@@ -2,7 +2,7 @@
 
 ssh_dir="$HOME/.ssh"
 
-key_to_add=`ls "$ssh_dir" | grep -v config | grep -v .pub | grep -v known_hosts | peco --prompt='PRVKEY>'`
+key_to_add=$(ls "$ssh_dir" | grep -v config | grep -v .pub | grep -v known_hosts | peco --prompt='PRVKEY>')
 
 if [ "$key_to_add" != "" ] ; then
   ssh-add "$ssh_dir/$key_to_add"
