@@ -236,8 +236,8 @@ chpwd() {
 ls_abbrev() {
   local items=$(ls | wc -l)
   local all_items=$(ls -a | wc -l)
-  echo -n "$fg_bold[green]->$reset_color in $fg_bold[green]$(pwd)$reset_color: "
-  echo "$fg_bold[cyan]$items items + $(($all_items - $items - 2)) hidden items$reset_color"
+  echo -n "$fg_bold[white]->$reset_color $fg_bold[green]$(pwd)$reset_color: "
+  echo "$fg_bold[cyan]$items items (+ $(($all_items - $items - 2)) hidden)$reset_color"
   local cmd='ls -CF1'
   $cmd | head -n 4 | tr '\n' ' '
   echo ''
