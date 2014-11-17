@@ -3,3 +3,4 @@
 *.swo
 /.vim/bundle/*
 /.vim/.netrwhist
+/.emacs.d/url/
