@@ -4,9 +4,9 @@
   editor = vim
   pager = less --raw
 [color]
-	ui = true
+  ui = true
 [help]
-	autocorrect = 1
+  autocorrect = 1
 [alias]
   st  = status
   ps  = push
