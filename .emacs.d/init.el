@@ -58,6 +58,14 @@
     (electric-layout-mode t)))
 
 
+;; ===============
+;; extending dired
+;; ===============
+(require 'dired+)
+(define-key dired-mode-map (kbd "(") 'dired-hide-details-mode)
+(define-key dired-mode-map (kbd ")") 'dired-hide-details-mode)
+
+
 ;; ================
 ;; set color scheme
 ;; ================
@@ -79,7 +87,6 @@
 		)
 	)
 (global-set-key [f9] 'toggle-colorscheme)
-
 
 
 ;; =================================
@@ -404,6 +411,7 @@
 ;; ============
 (require 'helm-config)
 (helm-mode 1)
+(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 (global-set-key (kbd "C-c z") 'helm-resume)
 (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
 (global-set-key (kbd "M-x") 'helm-M-x)
