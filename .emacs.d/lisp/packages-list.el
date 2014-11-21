@@ -45,6 +45,7 @@
     flex-autopair
     auto-highlight-symbol
     ;; misc
+    dired+
     open-junk-file
     all
     auto-complete

@@ -70,7 +70,7 @@
 ;; set color scheme
 ;; ================
 (load-theme 'manoj-dark t)
-(set-face-attribute 'default nil :family "Ricty" :height 120)
+(set-face-attribute 'default nil :family "Ricty" :height 110)
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 ;; set ratio of font between zenkaku and hankaku
 (setq face-font-rescale-alist '(("Ricty" . 1.0)))
