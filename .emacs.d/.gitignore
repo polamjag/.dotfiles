@@ -29,3 +29,5 @@ abbrev_defs
 ac-comphist.dat
 
 /session*
+
+/el-get/
