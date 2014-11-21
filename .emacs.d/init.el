@@ -109,7 +109,6 @@
 (set-frame-parameter nil 'alpha 90)
 ;; rainbow-delimiters-mode
 (require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode t)
 ;; highlight current line
 (defface hlline-face
   '((((class color)
