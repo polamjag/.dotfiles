@@ -46,6 +46,8 @@
     auto-highlight-symbol
     ;; misc
     dired+
+    ctags
+    ctags-update
     open-junk-file
     all
     auto-complete
