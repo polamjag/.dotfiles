@@ -49,12 +49,12 @@
 (add-hook
  'ruby-mode-hook
  '(lambda ()
-		(if (not (null buffer-file-name)) (flymake-mode))))
+    (if (not (null buffer-file-name)) (flymake-mode))))
 (require 'ruby-end)
 (add-hook 'ruby-mode-hook
   '(lambda ()
     (abbrev-mode 1)
-		(electric-indent-mode t)
+    (electric-indent-mode t)
     (electric-layout-mode t)))
 
 
@@ -70,22 +70,22 @@
 ;; set color scheme
 ;; ================
 (load-theme 'manoj-dark t)
-(set-face-attribute 'default nil :family "Ricty" :height 110)
+(set-face-attribute 'default nil :family "Ricty" :height 105)
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 ;; set ratio of font between zenkaku and hankaku
 (setq face-font-rescale-alist '(("Ricty" . 1.0)))
 (defvar colorscheme-mode-status "dark")
 (defun toggle-colorscheme ()
   "Toggle colorscheme dark or day"
-	(interactive)
+  (interactive)
   (if (string= colorscheme-mode-status "dark")
-			(progn
-				(load-theme 'adwaita t)
-				(setq colorscheme-mode-status "light"))
-		(progn (load-theme 'manoj-dark t)
-					 (setq colorscheme-mode-status "dark"))
-		)
-	)
+      (progn
+        (load-theme 'adwaita t)
+        (setq colorscheme-mode-status "light"))
+    (progn (load-theme 'manoj-dark t)
+           (setq colorscheme-mode-status "dark"))
+    )
+  )
 (global-set-key [f9] 'toggle-colorscheme)
 
 
@@ -132,12 +132,12 @@
 (if (boundp 'window-system)
   (setq default-frame-alist
     (append (list
-						 '(top . 60)
-	     '(left . 140)
-	     '(width . 80)
-	     '(height . 35)
-	     )
-	    default-frame-alist)))
+             '(top . 60)
+             '(left . 140)
+             '(width . 80)
+             '(height . 35)
+             )
+            default-frame-alist)))
 (setq initial-frame-alist default-frame-alist )
 ;; Mode line setup
 (setq-default
@@ -211,17 +211,17 @@
       (setq output (concat ".../" output)))
     output))
 (set-face-attribute 'mode-line nil
-    :foreground "gray80" :background "gray10"
-    :inverse-video nil
-    :weight 'normal
-    :height 120
-    :box '(:line-width 2 :color "gray10" :style nil))
+                    :foreground "gray80" :background "gray10"
+                    :inverse-video nil
+                    :weight 'normal
+                    :height 120
+                    :box '(:line-width 2 :color "gray10" :style nil))
 (set-face-attribute 'mode-line-inactive nil
-    :foreground "gray80" :background "gray30"
-    :inverse-video nil
-    :weight 'extra-light
-    :height 120
-    :box '(:line-width 2 :color "gray30" :style nil))
+                    :foreground "gray80" :background "gray30"
+                    :inverse-video nil
+                    :weight 'extra-light
+                    :height 120
+                    :box '(:line-width 2 :color "gray30" :style nil))
 ;; Extra mode line faces
 (make-face 'mode-line-read-only-face)
 (make-face 'mode-line-modified-face)
@@ -234,42 +234,42 @@
 (make-face 'mode-line-80col-face)
 (make-face 'mode-line-delim-face-1)
 (set-face-attribute 'mode-line-read-only-face nil
-    :inherit 'mode-line-face
-    :foreground "#4271ae"
-    :box '(:line-width 2 :color "#4271ae"))
+                    :inherit 'mode-line-face
+                    :foreground "#4271ae"
+                    :box '(:line-width 2 :color "#4271ae"))
 (set-face-attribute 'mode-line-modified-face nil
-    :inherit 'mode-line-face
-    :foreground "#c82829"
-    :background "#ffffff"
-    :box '(:line-width 2 :color "#c82829"))
+                    :inherit 'mode-line-face
+                    :foreground "#c82829"
+                    :background "#ffffff"
+                    :box '(:line-width 2 :color "#c82829"))
 (set-face-attribute 'mode-line-folder-face nil
-    :inherit 'mode-line-face
-    :weight 'extra-light
-    :height 110
-    :foreground "#888888")
+                    :inherit 'mode-line-face
+                    :weight 'extra-light
+                    :height 110
+                    :foreground "#888888")
 (set-face-attribute 'mode-line-filename-face nil
-    :inherit 'mode-line-face
-    :foreground "#eab700"
-    :weight 'bold)
+                    :inherit 'mode-line-face
+                    :foreground "#eab700"
+                    :weight 'bold)
 (set-face-attribute 'mode-line-position-face nil
-    :inherit 'mode-line-face
-    :family "Menlo")
+                    :inherit 'mode-line-face
+                    :family "Menlo")
 (set-face-attribute 'mode-line-mode-face nil
-    :inherit 'mode-line-face
-    :foreground "#cccccc")
+                    :inherit 'mode-line-face
+                    :foreground "#cccccc")
 (set-face-attribute 'mode-line-minor-mode-face nil
-    :inherit 'mode-line-mode-face
-    :foreground "gray60"
-    :height 100)
+                    :inherit 'mode-line-mode-face
+                    :foreground "gray60"
+                    :height 100)
 (set-face-attribute 'mode-line-process-face nil
-    :inherit 'mode-line-face
-    :foreground "#718c00")
+                    :inherit 'mode-line-face
+                    :foreground "#718c00")
 (set-face-attribute 'mode-line-80col-face nil
-    :inherit 'mode-line-position-face
-    :foreground "black" :background "#eab700")
+                    :inherit 'mode-line-position-face
+                    :foreground "black" :background "#eab700")
 (set-face-attribute 'mode-line-delim-face-1 nil
-    :inherit 'mode-line-face
-    :foreground "white")
+                    :inherit 'mode-line-face
+                    :foreground "white")
 
 
 ;; ===========
@@ -303,11 +303,10 @@
      (t (beginning-of-visual-line)))))
 (global-set-key "\C-a" 'beginning-of-visual-indented-line)
 (global-set-key "\C-e" 'end-of-visual-line)
-;; set C-h as Backspace and C-? as help-command, and modify M-?, M-h
-(global-set-key "\C-?" 'help-command)
+;; set C-h as Backspace and M-h as help-command
 (global-set-key "\M-?" 'mark-paragraph)
 (global-set-key "\C-h" 'delete-backward-char)
-(global-set-key "\M-h" 'backward-kill-word)
+(global-set-key "\M-h" 'help-command)
 ;; newline
 (global-set-key "\C-j" 'newline-and-indent)
 (global-set-key "\C-m" 'newline)
@@ -340,7 +339,7 @@
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
 (require 'uniquify)
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (setq-default tab-width 2)
 (setq-default default-tab-width 2)
 (setq-default indent-tab-mode nil)
@@ -360,8 +359,8 @@
 (setq-default delete-old-versions t)
 (setq make-backup-files t)
 (setq backup-directory-alist
-  (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backups"))
-    backup-directory-alist))
+      (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backups"))
+            backup-directory-alist))
 ;; undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode t)
@@ -399,9 +398,9 @@
 (global-set-key (kbd "C-M-,") 'er/contract-region)
 (global-set-key (kbd "<C-M-return>") 'mc/edit-lines)
 (smartrep-define-key
- global-map "C-." '(("C-n" . 'mc/mark-next-like-this)
-                    ("C-p" . 'mc/mark-previous-like-this)
-                    ("*"   . 'mc/mark-all-like-this)))
+    global-map "C-." '(("C-n" . 'mc/mark-next-like-this)
+                       ("C-p" . 'mc/mark-previous-like-this)
+                       ("*"   . 'mc/mark-all-like-this)))
 (require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
 (require 'highlight-symbol)
