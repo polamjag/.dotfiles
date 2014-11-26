@@ -35,6 +35,7 @@
     helm-ag
     helm-descbinds
     helm-flymake
+    helm-swoop
     helm-git
     helm-git-grep
     helm-rb
@@ -84,4 +85,4 @@
 
 ;; proofgeneral
 (if (file-readable-p "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el")
-		(load-file "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
+    (load-file "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
