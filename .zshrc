@@ -234,11 +234,10 @@ chpwd() {
   ls_abbrev
 }
 ls_abbrev() {
-  local items=$(ls | wc -l)
-  local all_items=$(ls -a | wc -l)
-  echo -n "$fg_bold[white]->$reset_color $fg_bold[green]$(pwd)$reset_color: "
-  echo "$fg_bold[cyan]$items items (+ $(($all_items - $items - 2)) hidden)$reset_color"
-  local cmd='ls -CF1'
+  items=$(ls | wc -l)
+  all_items=$(ls -a | wc -l)
+  echo "$fg_bold[white]->$reset_color $fg_bold[green]$(pwd)$reset_color: $fg_bold[cyan]$items items (+ $(($all_items - $items - 2)) hidden)$reset_color"
+  cmd='ls -CF1'
   $cmd | head -n 4 | tr '\n' ' '
   echo ''
   if [ $items -gt 8 ] ; then
