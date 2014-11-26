@@ -304,10 +304,10 @@
 (global-set-key "\C-a" 'beginning-of-visual-indented-line)
 (global-set-key "\C-e" 'end-of-visual-line)
 ;; set C-h as Backspace and C-? as help-command, and modify M-?, M-h
-(global-set-key (kbd "C-?") 'help-command)
-(global-set-key (kbd "M-?") 'mark-paragraph)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
+(global-set-key "\C-?" 'help-command)
+(global-set-key "\M-?" 'mark-paragraph)
+(global-set-key "\C-h" 'delete-backward-char)
+(global-set-key "\M-h" 'backward-kill-word)
 ;; C-x l to goto line
 (global-set-key "\C-xl" 'goto-line)
 ;; toggle fullscreen with F11
@@ -325,8 +325,8 @@
 ;; open buffer list in current pane
 (global-unset-key "\C-x\C-b")
 (global-set-key "\C-x\C-b" 'helm-mini)
-(global-set-key (kbd "C-x x") 'quickrun)
-(global-set-key (kbd "C-x j") 'quickrun-with-arg)
+(global-set-key "\C-xx" 'quickrun)
+(global-set-key "\C-xj" 'quickrun-with-arg)
 
 
 ;; =========================
