@@ -308,6 +308,11 @@
 (global-set-key "\M-?" 'mark-paragraph)
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-h" 'backward-kill-word)
+;; newline
+(global-set-key "\C-j" 'newline-and-indent)
+(global-set-key "\C-m" 'newline)
+;; workaround for backspace
+(global-set-key [backspace] 'delete-backward-char)
 ;; C-x l to goto line
 (global-set-key "\C-xl" 'goto-line)
 ;; toggle fullscreen with F11
