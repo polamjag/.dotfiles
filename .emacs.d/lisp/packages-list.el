@@ -19,6 +19,7 @@
     tuareg
     caml
     java-file-create
+    go-mode
     ;; flymake / flycheck
     flymake
     flymake-easy
