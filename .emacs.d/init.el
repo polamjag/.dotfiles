@@ -111,13 +111,12 @@
 (set-frame-parameter nil 'alpha 90)
 ;; rainbow-delimiters-mode
 (require 'rainbow-delimiters)
-(rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;; make rainbow-delimiters-mode more vivid
 (require 'cl-lib)
 (require 'color)
 (cl-loop
- for index from 1 to rainbow-delimiters-max-face-count
- do
+ for index from 1 to rainbow-delimiters-max-face-count do
  (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
    (cl-callf color-saturate-name (face-foreground face) 45)))
 ;; highlight current line
@@ -149,7 +148,7 @@
              '(height . 35)
              )
             default-frame-alist)))
-(setq initial-frame-alist default-frame-alist )
+(setq initial-frame-alist default-frame-alist)
 ;; Mode line setup
 (setq-default
  mode-line-position
