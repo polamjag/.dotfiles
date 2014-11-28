@@ -37,11 +37,11 @@
 ;; flymake for ruby
 ;; Invoke ruby with '-c' to get syntax checking
 (defun flymake-ruby-init ()
-  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-         (local-file  (file-relative-name
-                       temp-file
-                       (file-name-directory buffer-file-name))))
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
     (list "ruby" (list "-c" local-file))))
 (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
@@ -56,6 +56,8 @@
     (abbrev-mode 1)
     (electric-indent-mode t)
     (electric-layout-mode t)))
+;; web-mode
+(add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 
 
 ;; ===============
@@ -109,6 +111,15 @@
 (set-frame-parameter nil 'alpha 90)
 ;; rainbow-delimiters-mode
 (require 'rainbow-delimiters)
+(rainbow-delimiters-mode)
+;; make rainbow-delimiters-mode more vivid
+(require 'cl-lib)
+(require 'color)
+(cl-loop
+ for index from 1 to rainbow-delimiters-max-face-count
+ do
+ (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+   (cl-callf color-saturate-name (face-foreground face) 45)))
 ;; highlight current line
 (defface hlline-face
   '((((class color)
