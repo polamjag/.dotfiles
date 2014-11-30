@@ -58,6 +58,38 @@
     (electric-layout-mode t)))
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
+;; auto-complete-mode
+(require 'auto-complete)
+(global-auto-complete-mode t)
+(defun credmp/flymake-display-err-minibuf () 
+  "Displays the error/warning for the current line in the minibuffer"
+  (interactive)
+  (let* ((line-no             (flymake-current-line-no))
+         (line-err-info-list  (nth 0 (flymake-find-err-info flymake-err-info line-no)))
+         (count               (length line-err-info-list))
+         )
+    (while (> count 0)
+      (when line-err-info-list
+        (let* ((file       (flymake-ler-file (nth (1- count) line-err-info-list)))
+               (full-file  (flymake-ler-full-file (nth (1- count) line-err-info-list)))
+               (text (flymake-ler-text (nth (1- count) line-err-info-list)))
+               (line       (flymake-ler-line (nth (1- count) line-err-info-list))))
+          (message "[%s] %s" line text)
+          )
+        )
+      (setq count (1- count)))))
+
+
+;; ============
+;; helm configs
+;; ============
+(require 'helm-config)
+(helm-mode 1)
+(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+(global-set-key (kbd "C-c z") 'helm-resume)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
 
 ;; ===============
@@ -89,8 +121,8 @@
 ;; window and appearance preferences
 ;; =================================
 ;; font
-(defun set-font (font-name size) 
-  (set-face-attribute 'default nil :family font-name :height size)
+(defun set-font (font-name size)
+	(set-face-attribute 'default nil :family font-name :height size)
   (set-fontset-font nil 'japanese-jisx0208 (font-spec :family font-name))
   (setq face-font-rescale-alist '((font-name . 1.0))))
 (if (eq system-type 'gnu/linux) (set-font "Ricty" 105))
@@ -342,8 +374,12 @@
 ;; open buffer list in current pane
 (global-unset-key "\C-x\C-b")
 (global-set-key "\C-x\C-b" 'helm-mini)
+(global-set-key "\C-xg" 'helm-ghq)
 (global-set-key "\C-xx" 'quickrun)
 (global-set-key "\C-xj" 'quickrun-with-arg)
+;; magit
+(global-set-key "\C-cs" 'magit-status)
+(global-set-key "\C-cl" 'magit-log)
 
 
 ;; =========================
@@ -356,6 +392,7 @@
 (setq-default tab-width 2)
 (setq-default default-tab-width 2)
 (setq-default indent-tab-mode nil)
+()
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
 (require 'flex-autopair)
@@ -378,32 +415,9 @@
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-;; auto-complete-mode
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(defun credmp/flymake-display-err-minibuf () 
-  "Displays the error/warning for the current line in the minibuffer"
-  (interactive)
-  (let* ((line-no             (flymake-current-line-no))
-         (line-err-info-list  (nth 0 (flymake-find-err-info flymake-err-info line-no)))
-         (count               (length line-err-info-list))
-         )
-    (while (> count 0)
-      (when line-err-info-list
-        (let* ((file       (flymake-ler-file (nth (1- count) line-err-info-list)))
-               (full-file  (flymake-ler-full-file (nth (1- count) line-err-info-list)))
-               (text (flymake-ler-text (nth (1- count) line-err-info-list)))
-               (line       (flymake-ler-line (nth (1- count) line-err-info-list))))
-          (message "[%s] %s" line text)
-          )
-        )
-      (setq count (1- count)))))
 ;; popwin
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
-;;(push '(egg-status) popwin:special-display-config)
-(push '(egg-status-buffer-mode) popwin:special-display-config)
-(global-set-key (kbd "C-c s") 'egg-status)
 (require 'expand-region)
 (require 'multiple-cursors)
 (require 'smartrep)
@@ -420,15 +434,11 @@
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
-
-
-;; ============
-;; helm configs
-;; ============
-(require 'helm-config)
-(helm-mode 1)
-(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
-(global-set-key (kbd "C-c z") 'helm-resume)
-(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+(defun set-exec-path-from-shell-PATH ()
+	(interactive)
+  "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+(unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
