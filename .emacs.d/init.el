@@ -72,10 +72,6 @@
 ;; set color scheme
 ;; ================
 (load-theme 'manoj-dark t)
-(set-face-attribute 'default nil :family "Ricty" :height 105)
-(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
-;; set ratio of font between zenkaku and hankaku
-(setq face-font-rescale-alist '(("Ricty" . 1.0)))
 (defvar colorscheme-mode-status "dark")
 (defun toggle-colorscheme ()
   "Toggle colorscheme dark or day"
@@ -85,15 +81,21 @@
         (load-theme 'adwaita t)
         (setq colorscheme-mode-status "light"))
     (progn (load-theme 'manoj-dark t)
-           (setq colorscheme-mode-status "dark"))
-    )
-  )
+           (setq colorscheme-mode-status "dark"))))
 (global-set-key [f9] 'toggle-colorscheme)
 
 
 ;; =================================
 ;; window and appearance preferences
 ;; =================================
+;; font
+(defun set-font (font-name size) 
+  (set-face-attribute 'default nil :family font-name :height size)
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family font-name))
+  (setq face-font-rescale-alist '((font-name . 1.0))))
+(if (eq system-type 'gnu/linux) (set-font "Ricty" 105))
+(if (eq system-type 'darwin) (set-font "Monaco" 105))
+(if (eq system-type 'windows-nt) (set-font "Consolas" 95))
 ;; disable toolbar (buttons on top)
 (cond
  ((eq window-system 'x)
@@ -101,6 +103,7 @@
   (set-scroll-bar-mode t) ;; enable X scroll bar
   (tool-bar-mode -1)      ;; disable tool bar
   ))
+(if (eq system-type 'windows-nt) (tool-bar-mode -1))
 ;; disable menubar
 (menu-bar-mode -1)
 ;; disable welcome message
