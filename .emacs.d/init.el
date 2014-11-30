@@ -122,7 +122,7 @@
 ;; =================================
 ;; font
 (defun set-font (font-name size)
-	(set-face-attribute 'default nil :family font-name :height size)
+  (set-face-attribute 'default nil :family font-name :height size)
   (set-fontset-font nil 'japanese-jisx0208 (font-spec :family font-name))
   (setq face-font-rescale-alist '((font-name . 1.0))))
 (if (eq system-type 'gnu/linux) (set-font "Ricty" 105))
@@ -131,9 +131,8 @@
 ;; disable toolbar (buttons on top)
 (cond
  ((eq window-system 'x)
-  ;; when running on X 
-  (set-scroll-bar-mode t) ;; enable X scroll bar
-  (tool-bar-mode -1)      ;; disable tool bar
+  (set-scroll-bar-mode t)
+  (tool-bar-mode -1)
   ))
 (if (eq system-type 'windows-nt) (tool-bar-mode -1))
 ;; disable menubar
@@ -392,7 +391,6 @@
 (setq-default tab-width 2)
 (setq-default default-tab-width 2)
 (setq-default indent-tab-mode nil)
-()
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
 (require 'flex-autopair)
@@ -435,7 +433,7 @@
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 (defun set-exec-path-from-shell-PATH ()
-	(interactive)
+  (interactive)
   "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell."
   (interactive)
   (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
