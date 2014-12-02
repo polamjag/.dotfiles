@@ -374,6 +374,7 @@
 (global-unset-key "\C-x\C-b")
 (global-set-key "\C-x\C-b" 'helm-mini)
 (global-set-key "\C-xg" 'helm-ghq)
+(global-set-key "\C-c\C-s" 'helm-swoop)
 (global-set-key "\C-xx" 'quickrun)
 (global-set-key "\C-xj" 'quickrun-with-arg)
 ;; magit
