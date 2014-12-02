@@ -370,6 +370,9 @@
 ;; disable suspention with C-z
 (global-unset-key "\C-z")
 (global-set-key "\C-z" 'scroll-down)
+;; move for multiple lines
+(global-set-key (kbd "M-p") '(lambda () (interactive) (previous-line 5)))
+(global-set-key (kbd "M-n") '(lambda () (interactive) (next-line 5)))
 ;; open buffer list in current pane
 (global-unset-key "\C-x\C-b")
 (global-set-key "\C-x\C-b" 'helm-mini)
