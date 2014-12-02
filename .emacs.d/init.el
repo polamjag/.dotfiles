@@ -1,14 +1,10 @@
 ;; init.el
 
-;; ================
-;; common load-path
-;; ================
+;;; common load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 
-;; ===================================
-;; Marmalade and auto-install snippets
-;; ===================================
+;;; Marmalade and auto-install snippets
 (require 'package)
 (setq package-archives
       (append
@@ -24,9 +20,7 @@
 (require 'packages-list)
 
 
-;; ====================
-;; modes initialization
-;; ====================
+;;; modes initialization
 ;; flymake for java 
 (require 'flymake)
 (add-hook 'java-mode-hook 'flymake-mode-on)
@@ -80,9 +74,7 @@
       (setq count (1- count)))))
 
 
-;; ============
-;; helm configs
-;; ============
+;;; helm configs
 (require 'helm-config)
 (helm-mode 1)
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
@@ -92,17 +84,13 @@
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
 
-;; ===============
-;; extending dired
-;; ===============
+;;; extending dired
 (require 'dired+)
 (define-key dired-mode-map (kbd "(") 'dired-hide-details-mode)
 (define-key dired-mode-map (kbd ")") 'dired-hide-details-mode)
 
 
-;; ================
-;; set color scheme
-;; ================
+;;; set color scheme
 (load-theme 'manoj-dark t)
 (defvar colorscheme-mode-status "dark")
 (defun toggle-colorscheme ()
@@ -117,9 +105,7 @@
 (global-set-key [f9] 'toggle-colorscheme)
 
 
-;; =================================
-;; window and appearance preferences
-;; =================================
+;;; window and appearance preferences
 ;; font
 (defun set-font (font-name size)
   (set-face-attribute 'default nil :family font-name :height size)
@@ -316,9 +302,7 @@
                     :foreground "white")
 
 
-;; ===========
-;; keybindings
-;; ===========
+;;; keybindings
 ;; improve behavior of C-a (Home)
 (defun beginning-of-indented-line (current-point)
   (interactive "d")
@@ -385,9 +369,7 @@
 (global-set-key "\C-cl" 'magit-log)
 
 
-;; =========================
-;; miscellaneous preferences
-;; =========================
+;;; miscellaneous preferences
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
 (require 'uniquify)
