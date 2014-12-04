@@ -302,7 +302,7 @@
 				abbrev-mode
         helm-mode
 				egg-mode
-				))
+        ))
 (mapc (lambda (mode)
 				(setq minor-mode-alist
 							(cons (list mode "") (assq-delete-all mode minor-mode-alist))))
