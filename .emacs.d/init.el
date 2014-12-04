@@ -1,10 +1,8 @@
-;; init.el
-
-;;; common load-path
+;;;; common load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 
-;;; Marmalade and auto-install snippets
+;;;; Marmalade and auto-install snippets
 (require 'package)
 (setq package-archives
       (append
@@ -20,16 +18,15 @@
 (require 'packages-list)
 
 
-;;; modes initialization
-;; flymake for java 
+;;;; modes initialization
 (require 'flymake)
+;; flymake for java 
 (add-hook 'java-mode-hook 'flymake-mode-on)
 (defun my-java-flymake-init ()
   (list "javac" (list (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-with-folder-structure))))
 (add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
 ;; flymake for ruby
-;; Invoke ruby with '-c' to get syntax checking
 (defun flymake-ruby-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
                      'flymake-create-temp-inplace))
@@ -52,7 +49,6 @@
     (electric-layout-mode t)))
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
-;; auto-complete-mode
 (require 'auto-complete)
 (global-auto-complete-mode t)
 (defun credmp/flymake-display-err-minibuf () 
@@ -74,7 +70,7 @@
       (setq count (1- count)))))
 
 
-;;; helm configs
+;;;; helm configs
 (require 'helm-config)
 (helm-mode 1)
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
@@ -84,13 +80,13 @@
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
 
-;;; extending dired
+;;;; extending dired
 (require 'dired+)
 (define-key dired-mode-map (kbd "(") 'dired-hide-details-mode)
 (define-key dired-mode-map (kbd ")") 'dired-hide-details-mode)
 
 
-;;; set color scheme
+;;;; set color scheme
 (load-theme 'manoj-dark t)
 (defvar colorscheme-mode-status "dark")
 (defun toggle-colorscheme ()
@@ -105,7 +101,7 @@
 (global-set-key [f9] 'toggle-colorscheme)
 
 
-;;; window and appearance preferences
+;;;; window and appearance preferences
 ;; font
 (defun set-font (font-name size)
   (set-face-attribute 'default nil :family font-name :height size)
@@ -114,14 +110,13 @@
 (if (eq system-type 'gnu/linux) (set-font "Ricty" 105))
 (if (eq system-type 'darwin) (set-font "Monaco" 105))
 (if (eq system-type 'windows-nt) (set-font "Consolas" 95))
-;; disable toolbar (buttons on top)
+;; user interface
 (cond
  ((eq window-system 'x)
   (set-scroll-bar-mode t)
   (tool-bar-mode -1)
   ))
 (if (eq system-type 'windows-nt) (tool-bar-mode -1))
-;; disable menubar
 (menu-bar-mode -1)
 ;; disable welcome message
 (setq inhibit-startup-message t)
@@ -302,7 +297,7 @@
                     :foreground "white")
 
 
-;;; keybindings
+;;;; keybindings
 ;; improve behavior of C-a (Home)
 (defun beginning-of-indented-line (current-point)
   (interactive "d")
@@ -369,7 +364,7 @@
 (global-set-key "\C-cl" 'magit-log)
 
 
-;;; miscellaneous preferences
+;;;; miscellaneous preferences
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
 (require 'uniquify)
