@@ -295,6 +295,18 @@
 (set-face-attribute 'mode-line-delim-face-1 nil
                     :inherit 'mode-line-face
                     :foreground "white")
+;; hide some minor modes
+(setq my/hidden-minor-modes
+      '(undo-tree-mode
+				auto-complete-mode
+				abbrev-mode
+        helm-mode
+				egg-mode
+				))
+(mapc (lambda (mode)
+				(setq minor-mode-alist
+							(cons (list mode "") (assq-delete-all mode minor-mode-alist))))
+			my/hidden-minor-modes)
 
 
 ;;;; keybindings
