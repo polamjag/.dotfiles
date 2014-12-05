@@ -1,5 +1,5 @@
 alias e='emacs -nw'
-if [ -x '/bin/vim' -o -x '/usr/bin/vim' ] ; then
+if hash vim &>/dev/null ; then
   alias vi='vim' ; fi
 alias v='vi'
 alias va='v -u $HOME/.vimrc.ext'
@@ -33,21 +33,13 @@ function clone() {
     git clone $1
   fi
 }
-function grep_rec() {
-  if [ $# -eq 1 ] ; then
-    grep -n -r $1 .
-  elif [ $# -eq 2 ] ; then
-    grep -n -r $2 $1
-  else
-    echo "usage: s|grep_rec (directory) query"
-  fi
-} ; alias s='grep_rec 2>/dev/null'
+alias s='grec 2>/dev/null'
 function cmdlist() {
   cmds=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
    -executable -type f -printf '%P\n'`
   echo "$cmds"$'\n' | sort -u
 }
-alias ser='grep_rec'
+alias ser='grec'
 alias f='find . | grep'
 alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
