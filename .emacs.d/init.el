@@ -298,15 +298,15 @@
 ;; hide some minor modes
 (setq my/hidden-minor-modes
       '(undo-tree-mode
-				auto-complete-mode
-				abbrev-mode
+        auto-complete-mode
+        abbrev-mode
         helm-mode
-				egg-mode
+        egg-mode
         ))
 (mapc (lambda (mode)
-				(setq minor-mode-alist
-							(cons (list mode "") (assq-delete-all mode minor-mode-alist))))
-			my/hidden-minor-modes)
+        (setq minor-mode-alist
+              (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
+      my/hidden-minor-modes)
 
 
 ;;;; keybindings
@@ -433,3 +433,21 @@
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 (unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
+
+
+;;;; eshell
+(setq eshell-cmpl-ignore-case t)
+(setq eshell-ask-to-save-history (quote always))
+(setq eshell-cmpl-cycle-completions t)
+(setq eshell-hist-ignoredups t)
+(add-hook 'eshell-mode-hook
+          '(lambda ()
+             (progn
+               (define-key eshell-mode-map "\C-a" 'eshell-bol)
+               (define-key eshell-mode-map [up] 'previous-line)
+               (define-key eshell-mode-map [down] 'next-line)
+               (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
+               (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
+               (define-key eshell-mode-map [(meta return)] (select-toggle-fullscreen))
+               )
+             ))
