@@ -65,19 +65,17 @@
     ))
 
 (let ((not-installed (loop for x in installing-package-list
-                            when (not (package-installed-p x))
-                            collect x)))
+                           when (not (package-installed-p x))
+                           collect x)))
   (when not-installed
     (package-refresh-contents)
     (dolist (pkg not-installed)
-        (package-install pkg))))
+      (package-install pkg))))
 
-
-;;
 (require 'el-get)
 (setq el-get-sources
       '(
-        (:name anything-git-files
+        (:name auto-java-complete
                :type github
                :pkgname "emacs-java/auto-java-complete")
         ))
