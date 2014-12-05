@@ -1,3 +1,6 @@
+" ==============
+" initialization
+" ==============
 if filereadable("/etc/vimrc")
   source /etc/vimrc
 endif
@@ -15,6 +18,10 @@ if has('vim_starting')
   call neobundle#end()
 endif
 
+
+" ========
+" packages
+" ========
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'The-NERD-tree'
 NeoBundle 'The-NERD-Commenter'
@@ -45,12 +52,12 @@ NeoBundle 'osyo-manga/vim-over'
 
 filetype plugin indent on
 
-"==========================
-"init
-"==========================
 
-set tabstop=2
+" =======
+" general
+" =======
 set expandtab
+set tabstop=2
 set softtabstop=0
 set shiftwidth=2
 set smarttab
@@ -64,9 +71,8 @@ if v:version >= 700
   set cursorline
 endif
 
-"vim 7.3~
 if v:version >= 730
-  set undofile    "creating <FILENAME>.un~
+  set undofile    "create <FILENAME>.un~
 endif
 
 nnoremap / /\v
@@ -123,8 +129,10 @@ set updatetime=500
 
 syntax on
 
-colorscheme landscape
+autocmd BufWritePre * :%s/\s\+$//ge " eliminate space at EOL
 
+" colorscheme and status bar
+colorscheme landscape
 set cmdheight=1
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -151,9 +159,10 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " スニペットファイルの配置場所
 " let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
 
+
 " ==============
 " neocomplcache
-" Plugin key-mappings
+" plugin key-mappings
 " ==============
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
 smap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -242,14 +251,13 @@ endfunction
 let g:unite_source_file_mru_limit = 200
 let g:unite_enable_split_vertically = 0 "vertical split
 
-" =====================================================
-"" (ctags)
-" =====================================================
+"
+" =====
+" ctags
+" =====
 set tags=tags
 let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
 
-" eliminate space at EOL
-autocmd BufWritePre * :%s/\s\+$//ge
 
 " general keybindings
 inoremap <C-c> <Esc>
