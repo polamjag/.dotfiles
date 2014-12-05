@@ -29,7 +29,6 @@
     flycheck
     flycheck-tip
     ;; git
-    egg
     magit
     ;; helm
     helm
@@ -41,7 +40,6 @@
     helm-git-grep
     helm-rb
     helm-ghq
-    ac-helm
     ;; highlighting
     highlight-symbol
     flex-autopair
@@ -52,7 +50,8 @@
     ctags-update
     open-junk-file
     all
-    auto-complete
+    company
+    company-c-headers
     multiple-cursors
     smartrep
     expand-region

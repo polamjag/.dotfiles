@@ -49,8 +49,6 @@
     (electric-layout-mode t)))
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
-(require 'auto-complete)
-(global-auto-complete-mode t)
 (defun credmp/flymake-display-err-minibuf () 
   "Displays the error/warning for the current line in the minibuffer"
   (interactive)
@@ -75,7 +73,6 @@
 (helm-mode 1)
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 (global-set-key (kbd "C-c z") 'helm-resume)
-(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
@@ -433,3 +430,15 @@
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 (unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
+
+
+;;;; company-mode
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+(setq company-complete-on-edit t)
+(setq company-idle-delay 0)
+(setq company-auto-expand t)
+(global-set-key [backtab] 'company-complete)
+(define-key company-active-map "\t" 'company-expand-top)
+(define-key company-active-map "\C-m" 'company-expand-top)
+(define-key company-active-map (kbd "<return>") 'company-expand-top)
