@@ -460,7 +460,6 @@
                (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
                (define-key eshell-mode-map [(meta return)] (select-toggle-fullscreen))
 							 (define-key eshell-mode-map [TAB] 'company-complete)
-							 
 							 (require 'eshell-aliases)
                )
              ))
