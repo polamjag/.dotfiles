@@ -37,6 +37,7 @@
     helm-flymake
     helm-swoop
     helm-git
+		helm-ls-git
     helm-git-grep
     helm-rb
     helm-ghq

@@ -66,10 +66,10 @@
 
 ;;;; helm configs
 (require 'helm-config)
-(helm-mode 1)
-(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+(helm-mode t)
 (global-set-key (kbd "C-c z") 'helm-resume)
 (global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key "\C-c\C-k" 'helm-show-kill-ring)
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
 
@@ -117,6 +117,8 @@
 (setq visible-bell t)
 ;; set opacity of editor window
 (set-frame-parameter nil 'alpha 90)
+;;
+(show-paren-mode)
 ;; rainbow-delimiters-mode
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -356,9 +358,11 @@
 (global-set-key (kbd "M-n") '(lambda () (interactive) (next-line 5)))
 ;; open buffer list in current pane
 (global-unset-key "\C-x\C-b")
+;; helm
 (global-set-key "\C-x\C-b" 'helm-mini)
 (global-set-key "\C-xg" 'helm-ghq)
 (global-set-key "\C-c\C-s" 'helm-swoop)
+(global-set-key "\C-c\C-g" 'helm-git-grep)
 (global-set-key "\C-xx" 'quickrun)
 (global-set-key "\C-xj" 'quickrun-with-arg)
 ;; magit
@@ -438,6 +442,10 @@
 
 
 ;;;; eshell
+(global-set-key (kbd "C-=") '(lambda ()
+															 (interactive)
+															 (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))
+															 ))
 (setq eshell-cmpl-ignore-case t)
 (setq eshell-ask-to-save-history (quote always))
 (setq eshell-cmpl-cycle-completions t)
@@ -451,5 +459,8 @@
                (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
                (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
                (define-key eshell-mode-map [(meta return)] (select-toggle-fullscreen))
+							 (define-key eshell-mode-map [TAB] 'company-complete)
+							 
+							 (require 'eshell-aliases)
                )
              ))
