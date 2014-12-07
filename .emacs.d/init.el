@@ -67,7 +67,6 @@
 ;;;; helm configs
 (require 'helm-config)
 (helm-mode 1)
-(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 (global-set-key (kbd "C-c z") 'helm-resume)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
