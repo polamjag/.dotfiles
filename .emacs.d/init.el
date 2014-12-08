@@ -70,7 +70,7 @@
 (global-set-key (kbd "C-c z") 'helm-resume)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key "\C-c\C-k" 'helm-show-kill-ring)
-(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+(define-key isearch-mode-map (kbd "C-o") 'helm-swoop-from-isearch)
 
 
 ;;;; extending dired
@@ -460,6 +460,7 @@
                (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
                (define-key eshell-mode-map [(meta return)] (select-toggle-fullscreen))
 							 (define-key eshell-mode-map [TAB] 'company-complete)
+							 (define-key eshell-mode-map "\C-j" 'eshell-send-input)
 							 (require 'eshell-aliases)
                )
              ))
