@@ -439,6 +439,7 @@
 (define-key company-active-map "\t" 'company-expand-top)
 (define-key company-active-map "\C-m" 'company-expand-top)
 (define-key company-active-map (kbd "<return>") 'company-expand-top)
+(define-key company-active-map "\C-j" 'company-complete-selection)
 
 
 ;;;; eshell
