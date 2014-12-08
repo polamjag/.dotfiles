@@ -1,0 +1,15 @@
+#!/bin/sh
+
+targetserv=$(systemctl list-unit-files |
+                  awk '{print $1}' |
+                  tail -n+2 |
+                  sed -e "s/^[0-9]*//g" |
+                  peco --prompt="Service>")
+operation=`echo -e "start\nrestart\nstatus\nenable\ndisable\nreload\nlist-jobs\nwatch-status" | peco --prompt='Action>'`
+echo "--> sudo systemctl $operation $targetserv"
+if [ "$operation" = 'watch-status' ] ; then
+  BUFFER="sudo watch systemctl status $targetserv"
+else
+  BUFFER="sudo systemctl $operation $targetserv"
+fi
+CURSOR=$#BUFFER
