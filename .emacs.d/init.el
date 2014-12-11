@@ -70,7 +70,7 @@
 (global-set-key (kbd "C-c z") 'helm-resume)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key "\C-c\C-k" 'helm-show-kill-ring)
-(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+(define-key isearch-mode-map (kbd "C-o") 'helm-swoop-from-isearch)
 
 
 ;;;; extending dired
@@ -439,13 +439,14 @@
 (define-key company-active-map "\t" 'company-expand-top)
 (define-key company-active-map "\C-m" 'company-expand-top)
 (define-key company-active-map (kbd "<return>") 'company-expand-top)
+(define-key company-active-map "\C-j" 'company-complete-selection)
 
 
 ;;;; eshell
 (global-set-key (kbd "C-=") '(lambda ()
-															 (interactive)
-															 (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))
-															 ))
+                               (interactive)
+                               (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))
+                               ))
 (setq eshell-cmpl-ignore-case t)
 (setq eshell-ask-to-save-history (quote always))
 (setq eshell-cmpl-cycle-completions t)
@@ -459,7 +460,8 @@
                (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
                (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
                (define-key eshell-mode-map [(meta return)] (select-toggle-fullscreen))
-							 (define-key eshell-mode-map [TAB] 'company-complete)
-							 (require 'eshell-aliases)
+               (define-key eshell-mode-map [TAB] 'company-complete)
+               (define-key eshell-mode-map "\C-j" 'eshell-send-input)
+               (require 'eshell-aliases)
                )
              ))

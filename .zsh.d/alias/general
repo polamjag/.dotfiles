@@ -16,67 +16,21 @@ alias tmn='tmux confirm-before "new-s"'
 alias a='cd ../ ;'
 alias b='cd - ;'
 alias md='mkdir'
-function tmp() {
-  if [ $# -gt 0 ] ; then
-    mkdir /tmp/$1
-    cd /tmp/$1
-  else
-    cd ./tmp/
-  fi
-}
-function clone() {
-  if [ -d $HOME/dev/ ] ; then
-    cd $HOME/dev/
-    git clone $1
-  elif [ -d $HOME/git/ ] ; then
-    cd $HOME/git/
-    git clone $1
-  fi
-}
 alias s='grec 2>/dev/null'
-function cmdlist() {
-  cmds=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
-   -executable -type f -printf '%P\n'`
-  echo "$cmds"$'\n' | sort -u
-}
 alias ser='grec'
 alias f='find . | grep'
 alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
-alias zzz='exec zsh'
-function o() {
-  if [ $# -eq 1 ] ; then
-    open $1
-  else
-    open .
-  fi
-}
-function crun() {
-  wd=`pwd`
-  d=`uuidgen`
-  mkdir /tmp/$d
-  cd /tmp/$d
-  vim test.c
-  gcc test.c
-  ./a.out
-  cd $wd
-}
-function addalias() {
-  if [ $# -ge 2 ] ; then
-    target=$1
-    shift
-    echo $* >> $HOME/.zsh.d/alias/$target
-  else
-    echo "Usage: addalias <target> <alias>"
-    return 1
-  fi
-}
-alias tmesg="watch 'dmesg | tail -n 100 | tac'"
-alias dstat-full='dstat -Tclmdrn'
-alias dstat-mem='dstat -Tclm'
-alias dstat-cpu='dstat -Tclr'
-alias dstat-net='dstat -Tclnd'
-alias dstat-disk='dstat -Tcldr'
+alias zzz="exec zsh"
+alias tmesg="watch \"dmesg | tail -n 100 | tac\""
+alias dstat-full="dstat -Tclmdrn"
+alias dstat-mem="dstat -Tclm"
+alias dstat-cpu="dstat -Tclr"
+alias dstat-net="dstat -Tclnd"
+alias dstat-disk="dstat -Tcldr"
 alias delete-dead-symlink="find -L . -name . -o -type d -prune -o -type l -exec rm {} +"
-alias watch='watch -c'
-alias paste-ghq-get='xclip -o | xargs -I{} ghq get {}'
+alias watch="watch -c"
+alias paste-ghq-get="xclip -o | xargs -I{} ghq get {}"
+alias g="git"
+alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch" | cat'
+alias gp='peco-ghq'

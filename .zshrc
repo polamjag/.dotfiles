@@ -205,10 +205,6 @@ if [ -d $HOME/.zsh.d/ ] ; then
   source $HOME/.zsh.d/alias/pipe
   source $HOME/.zsh.d/alias/general
   source $HOME/.zsh.d/alias/suffix
-  source $HOME/.zsh.d/alias/git
-  if hash peco &>/dev/null ; then
-    source $HOME/.zsh.d/alias/peco
-  fi
 fi
 # configs for well-used keys
 bindkey "^[[3~" delete-char

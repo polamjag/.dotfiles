@@ -1,0 +1,4 @@
+#!/bin/sh
+
+repo=$(ghq list | peco --prompt 'REPO>')
+ghq look "$repo"
