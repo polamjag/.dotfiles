@@ -3,12 +3,32 @@
 shdir="$(cd $(dirname $0) && pwd)" # where this script exists
 cd ${shdir}
 
+make_symlink() {
+  target="${2}"$(basename "$1")
+	if [ -e "${target}" ] ; then
+    echo -n "file ${target} already exists. rename it and create symlink of new one[Y/n]?: "
+    read ans
+    if [ "$ans" != "n\n" ] ; then
+      mv "$target" "${target}.old"
+    fi
+    ln -s "$1" "$2"
+  fi
+}
+
 setup_dot() {
   echo "[01;93m==> Setting up dotfiles ...[0m"
   for filepath in ${shdir}/.* ; do
-    if [ \( -f $filepath -o -d $filepath \) -a $filepath != "${shdir}/." -a $filepath != "${shdir}/.." -a $filepath != "${shdir}/.git" -a $filepath != "${shdir}/.gitconfig" -a $filepath != "${shdir}/.gitignore" -a $filepath != "${shdir}/.gitmodules" -a $filepath != "${shdir}/.zshenv.exam" ] ; then
+    if [ \( -f $filepath -o -d $filepath \) -a \
+      $filepath != "${shdir}/." -a \
+      $filepath != "${shdir}/.." -a \
+      $filepath != "${shdir}/.git" -a \
+      $filepath != "${shdir}/.gitconfig" -a \
+      $filepath != "${shdir}/.gitignore" -a \
+      $filepath != "${shdir}/.gitmodules" -a \
+      $filepath != "${shdir}/.zshenv.exam" \
+    ] ; then
       echo "  Creating link: ${filepath} -> ${HOME}"
-      ln -s ${filepath} ${HOME}
+      make_symlink "${filepath}" "${HOME}/"
     fi
   done
   if [ ! -f $HOME/.zshenv ] ; then
@@ -39,7 +59,7 @@ setup_bin () {
   fi
   for filepath in ${shdir}/bin/* ; do
     echo "  Creating link: ${filepath} -> ${HOME}/bin/"
-    ln -s ${filepath} ${HOME}/bin/
+    make_symlink "${filepath}" "${HOME}/bin/"
   done
 }
 setup_binx () {
@@ -49,7 +69,7 @@ setup_binx () {
   fi
   for filepath in ${shdir}/bin_x/* ; do
     echo "  Creating link: ${filepath} -> ${HOME}/bin/"
-    ln -s ${filepath} ${HOME}/bin/
+    make_symlink "${filepath}" "${HOME}/bin/"
   done
 }
 setup_vim () {
@@ -69,16 +89,13 @@ setup_godepends () {
 }
 
 if [ $# -eq 1 -a "$1" = "--usage" ] ; then
-  echo "$0 [--usage] [--force <args>]"
+  echo "$0 [--usage] [<args>]"
   echo "args: dot, git, bin, binx, vim, godepends"
   echo
-  echo "e.g.: \`$0 --force dot git\`"
+  echo "e.g.: \`$0 dot git\`"
   exit 0
-fi
-
-if [ $# -gt 1 -a "$1" = "--force" ] ; then
+elif [ $# -gt 0 ] ; then
   echo -e "\x1B[01;95m-> Running in batch mode\x1B[0m"
-  shift
   while [ $# -gt 0 ] ; do
     setup_$1
     shift
