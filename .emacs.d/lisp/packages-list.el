@@ -11,6 +11,8 @@
     haskell-mode
     yaml-mode
     cider
+    clojure-mode
+    slamhound
     php-mode
     ruby-block
     ruby-end
