@@ -48,7 +48,7 @@ NeoBundle 'ack.vim'
 NeoBundle 'itchyny/landscape.vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'ruby-matchit'
-NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'haya14busa/incsearch.vim'
 
 filetype plugin indent on
 
@@ -279,4 +279,6 @@ nnoremap <Up>   gk
 nnoremap <Space> <PageDown>
 nnoremap <S-SPACE> <PageUp>
 
-noremap / :OverCommandLine<CR>
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
