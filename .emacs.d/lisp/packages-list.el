@@ -5,7 +5,7 @@
 (defvar installing-package-list
   '(
     ;; package managing
-    el-get
+    ;el-get
     ;; language specific
     markdown-mode
     haskell-mode
@@ -70,19 +70,21 @@
 (let ((not-installed (loop for x in installing-package-list
                            when (not (package-installed-p x))
                            collect x)))
-  (when not-installed
+  (if (< (length not-installed) 0)
     (package-refresh-contents)
     (dolist (pkg not-installed)
-      (package-install pkg))))
+			(progn (package-install pkg)(print not-installed)))))
 
-(require 'el-get)
-(setq el-get-sources
-      '(
-        (:name auto-java-complete
-               :type github
-               :pkgname "emacs-java/auto-java-complete")
-        ))
-(el-get 'sync)
+
+
+;(require 'el-get)
+;(setq el-get-sources
+;      '(
+;        (:name auto-java-complete
+;               :type github
+;               :pkgname "emacs-java/auto-java-complete")
+;        ))
+;(el-get 'sync)
 
 ;; proofgeneral
 (if (file-readable-p "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el")
