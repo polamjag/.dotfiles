@@ -45,6 +45,20 @@
     (electric-layout-mode t)))
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(defun my-web-mode-hook ()
+  "Hooks for web-mode"
+  (setq web-mode-markup-indent-offset 2)
+	(setq web-mode-css-indent-offset 2)
+	(setq web-mode-code-indent-offset 2)
+  (setq web-mode-script-offset 2)
+  (setq web-mode-php-offset 2)
+	(setq web-mode-html-offset 2)
+	(setq web-mode-style-padding 2)
+	(setq web-mode-script-padding 2)
+	(setq indent-tabs-mode nil)
+	(setq tab-width 2))
+(add-hook 'web-mode-hook  'my-web-mode-hook)
 (defun credmp/flymake-display-err-minibuf () 
   "Displays the error/warning for the current line in the minibuffer"
   (interactive)
