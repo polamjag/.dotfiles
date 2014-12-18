@@ -449,11 +449,13 @@
 (setq company-complete-on-edit t)
 (setq company-idle-delay 0)
 (setq company-auto-expand t)
+(global-set-key "\C-cc" 'global-company-mode)
 (global-set-key [backtab] 'company-complete)
 (define-key company-active-map "\t" 'company-expand-top)
 (define-key company-active-map "\C-m" 'company-expand-top)
 (define-key company-active-map (kbd "<return>") 'company-expand-top)
 (define-key company-active-map "\C-j" 'company-complete-selection)
+
 
 
 ;;;; eshell
