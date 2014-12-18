@@ -382,6 +382,15 @@
 ;; magit
 (global-set-key "\C-cs" 'magit-status)
 (global-set-key "\C-cl" 'magit-log)
+;;
+(defun other-window-or-split (val)
+  (interactive)
+  (when (one-window-p)
+    (split-window-vertically))
+  (other-window val))
+(global-set-key (kbd "<C-tab>") (lambda () (interactive) (other-window-or-split 1)))
+(global-set-key (kbd "<C-S-tab>") (lambda () (interactive) (other-window-or-split -1)))
+(global-set-key (kbd "<C-iso-lefttab>") (lambda () (interactive) (other-window-or-split -1)))
 
 
 ;;;; miscellaneous preferences
