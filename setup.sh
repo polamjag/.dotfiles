@@ -5,14 +5,14 @@ cd ${shdir}
 
 make_symlink() {
   target="${2}"$(basename "$1")
-	if [ -e "${target}" ] ; then
+  if [ -e "${target}" ] ; then
     echo -n "file ${target} already exists. rename it and create symlink of new one[Y/n]?: "
     read ans
     if [ "$ans" != "n\n" ] ; then
       mv "$target" "${target}.old"
     fi
-    ln -s "$1" "$2"
   fi
+  ln -s "$1" "$2"
 }
 
 setup_dot() {
