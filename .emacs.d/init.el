@@ -487,6 +487,17 @@
                (define-key eshell-mode-map [(meta return)] (select-toggle-fullscreen))
                (define-key eshell-mode-map [TAB] 'company-complete)
                (define-key eshell-mode-map "\C-j" 'eshell-send-input)
-               (require 'eshell-aliases)
+               (dolist
+                   (l '(("ls" "ls -CFa")
+                        ("l" "ls -CFal")
+                        ("a" "cd ../ ;")
+                        ("ff" "find-file")
+                        ))
+                 (add-to-list 'eshell-command-aliases-list l))
                )
              ))
+
+
+;;;; load local config
+(if (file-readable-p "~/.emacs.d/lisp/env.el")
+		(load-file "~/.emacs.d/lisp/env.el"))

@@ -9,6 +9,7 @@ tramp
 .\#*
 *.sw[a-z]
 wget-log*
+/recentf
 
 # Org-mode
 .org-id-locations
@@ -33,3 +34,5 @@ ac-comphist.dat
 /el-get/
 
 /server/
+
+/lisp/env.el
