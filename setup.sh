@@ -23,6 +23,7 @@ setup_dot() {
       $filepath != "${shdir}/.." -a \
       $filepath != "${shdir}/.git" -a \
       $filepath != "${shdir}/.gitconfig" -a \
+      $filepath != "${shdir}/.gitconfig.local" -a \
       $filepath != "${shdir}/.gitignore" -a \
       $filepath != "${shdir}/.gitmodules" -a \
       $filepath != "${shdir}/.zshenv.exam" \
