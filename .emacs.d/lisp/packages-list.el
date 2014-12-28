@@ -18,6 +18,7 @@
     ruby-end
     ruby-mode
     web-mode
+    js2-mode
     tuareg
     caml
     java-file-create

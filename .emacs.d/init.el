@@ -59,6 +59,7 @@
   (setq indent-tabs-mode nil)
   (setq tab-width 2))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (defun credmp/flymake-display-err-minibuf () 
   "Displays the error/warning for the current line in the minibuffer"
   (interactive)
