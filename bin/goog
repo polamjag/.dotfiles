@@ -2,11 +2,11 @@
 
 url='https://www.google.com'
 
-if [ $1 = '-l' ] ; then
-  if [ $2 = 'ja' ] ; then
+if [ "$1" = '-l' ] ; then
+  if [ "$2" = 'ja' ] ; then
     url='https://www.google.co.jp'
     shift 2
-  elif [ $2 = 'en' ] ; then
+  elif [ "$2" = 'en' ] ; then
     shift 2
   else
     usage
