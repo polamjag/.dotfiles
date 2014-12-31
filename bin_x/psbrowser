@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $(ps aux | grep -i firefox | wc -l) -gt 1 ] ; then
+  firefox "$*"
+else
+  chromium "$*"
+fi
+
