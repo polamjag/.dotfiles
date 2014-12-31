@@ -467,7 +467,6 @@
 (define-key company-active-map "\C-j" 'company-complete-selection)
 
 
-
 ;;;; eshell
 (global-set-key (kbd "C-=") '(lambda ()
                                (interactive)
