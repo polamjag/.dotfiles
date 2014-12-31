@@ -31,6 +31,16 @@
     flymake-ruby
     flycheck
     flycheck-tip
+    ;; auto-complete
+    auto-complete
+    auto-complete-clang
+    ac-cider
+    ac-c-headers
+    ac-dabbrev
+    ac-helm
+    ac-inf-ruby
+    go-autocomplete
+    org-ac
     ;; git
     magit
     ;; helm
@@ -40,7 +50,7 @@
     helm-flymake
     helm-swoop
     helm-git
-		helm-ls-git
+    helm-ls-git
     helm-git-grep
     helm-rb
     helm-ghq
@@ -54,8 +64,6 @@
     ctags-update
     open-junk-file
     all
-    company
-    company-c-headers
     multiple-cursors
     smartrep
     expand-region
@@ -74,7 +82,7 @@
   (if (< (length not-installed) 0)
     (package-refresh-contents)
     (dolist (pkg not-installed)
-			(progn (package-install pkg)(print not-installed)))))
+      (progn (package-install pkg)(print not-installed)))))
 
 
 

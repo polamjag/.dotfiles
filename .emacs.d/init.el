@@ -453,18 +453,10 @@
 (unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
 
 
-;;;; company-mode
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-complete-on-edit t)
-(setq company-idle-delay 0)
-(setq company-auto-expand t)
-(global-set-key "\C-cc" 'global-company-mode)
-(global-set-key [backtab] 'company-complete)
-(define-key company-active-map "\t" 'company-expand-top)
-(define-key company-active-map "\C-m" 'company-expand-top)
-(define-key company-active-map (kbd "<return>") 'company-expand-top)
-(define-key company-active-map "\C-j" 'company-complete-selection)
+;;;; auto-complete
+(global-auto-complete-mode 1)
+(define-key ac-mode-map (kbd "TAB") 'auto-complete)
+(global-set-key "\C-cc" 'auto-complete-mode)
 
 
 ;;;; eshell
