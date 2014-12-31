@@ -10,6 +10,7 @@ tramp
 *.sw[a-z]
 wget-log*
 /recentf
+.kkcrc
 
 # Org-mode
 .org-id-locations
