@@ -128,7 +128,7 @@ esac
 # .gitconfig
 if [ ! -e $HOME/.gitconfig ] ; then
   echo -n "[01;92m> Use .gitconfig? (y/n) [0m"
-		read $answer
+  read $answer
   case $answer in
     y)
       setup_git
