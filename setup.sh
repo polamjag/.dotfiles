@@ -114,12 +114,6 @@ case $answer in
   y)
     setup_dot
     ;;
-  Y)
-    setup_dot
-    ;;
-  yes)
-    setup_dot
-    ;;
   *)
     echo
     ;;
@@ -131,12 +125,6 @@ if [ ! -e $HOME/.gitconfig ] ; then
   read $answer
   case $answer in
     y)
-      setup_git
-      ;;
-    Y)
-      setup_git
-      ;;
-    yes)
       setup_git
       ;;
     *)
@@ -151,12 +139,6 @@ case $answer in
   y)
     setup_bin
     ;;
-  Y)
-    setup_bin
-    ;;
-  yes)
-    setup_bin
-    ;;
   *)
     echo
     ;;
@@ -166,12 +148,6 @@ echo -n "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin? 
 read answer
 case $answer in
   y)
-    setup_binx
-    ;;
-  Y)
-    setup_binx
-    ;;
-  yes)
     setup_binx
     ;;
   *)
@@ -185,12 +161,6 @@ case $answer in
   y)
     setup_vim
     ;;
-  Y)
-    setup_vim
-    ;;
-  yes)
-    setup_vim
-    ;;
   *)
     echo
     ;;
@@ -200,12 +170,6 @@ echo -n "[01;92m> Install some go executables? (y/n) [0m"
 read answer
 case $answer in
   y)
-    setup_godepends
-    ;;
-  Y)
-    setup_godepends
-    ;;
-  yes)
     setup_godepends
     ;;
   *)
