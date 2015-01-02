@@ -88,6 +88,11 @@
 (define-key isearch-mode-map (kbd "C-o") 'helm-swoop-from-isearch)
 
 
+;;;; auto-complete
+(global-auto-complete-mode 1)
+(global-set-key "\C-cc" 'auto-complete-mode)
+
+
 ;;;; extending dired
 (require 'dired+)
 (define-key dired-mode-map (kbd "(") 'dired-hide-details-mode)
@@ -407,9 +412,9 @@
 (require 'flex-autopair)
 (flex-autopair-mode t)
 (setq flex-autopair-conditions
-      `(;; Insert matching pair.
+      `(; Insert matching pair.
         (openp . pair)
-        ;; Skip self.
+        ; Skip self.
         ((and closep
               (eq (char-after) last-command-event)) . skip)
         (closep . self)
@@ -453,12 +458,6 @@
 (unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
 
 
-;;;; auto-complete
-(global-auto-complete-mode 1)
-(define-key ac-mode-map (kbd "TAB") 'auto-complete)
-(global-set-key "\C-cc" 'auto-complete-mode)
-
-
 ;;;; eshell
 (global-set-key (kbd "C-=") '(lambda ()
                                (interactive)
@@ -476,7 +475,6 @@
                (define-key eshell-mode-map [down] 'next-line)
                (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
                (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
-               (define-key eshell-mode-map "\t" 'company-complete)
                (define-key eshell-mode-map "\C-j" 'eshell-send-input)
                )))
 ;; aliases
@@ -487,7 +485,21 @@
          ("a" "cd ../ ;")
          ("ff" "find-file")
          ))
-  (add-to-list 'eshell-command-aliases-list l))
+  (add-to-listto-list 'eshell-command-aliases-list l))
+(require 'pcomplete-completionsplete)
+(add-to-list 'ac-modes 'eshell-mode)
+(ac-define-source pcomplete
+  '((candidates . pcomplete-completions)))
+(defun my-ac-eshell-mode ()
+  (setq ac-sources
+        '(ac-source-pcomplete
+          ac-source-words-in-buffer
+          ac-source-dictionary)))
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (my-ac-eshell-mode)
+            (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
+            (define-key eshell-mode-map (kbd "TAB") 'auto-complete)))
 
 
 ;;;; load local config
