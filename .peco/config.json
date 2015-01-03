@@ -1,0 +1,9 @@
+{
+  "Keymap": {
+    "C-v": "peco.SelectNextPage",
+    "C-z": "peco.SelectPreviousPage",
+    "M-v": "peco.SelectPreviousPage",
+    "C-t": "peco.ToggleSelection",
+    "C-g": "peco.Cancel"
+  }
+}
