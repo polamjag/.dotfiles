@@ -16,6 +16,7 @@
     php-mode
     ruby-block
     ruby-end
+    robe
     ruby-mode
     web-mode
     js2-mode
@@ -53,6 +54,7 @@
     helm-ls-git
     helm-git-grep
     helm-rb
+    helm-robe
     helm-ghq
     ;; highlighting
     highlight-symbol
@@ -73,6 +75,7 @@
     rainbow-delimiters
     undo-tree
     whitespace-cleanup-mode
+    anzu
     yasnippet
     ))
 
