@@ -22,6 +22,24 @@
   (list "javac" (list (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-with-folder-structure))))
 (add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
+;;; ruby
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+(add-hook
+ 'ruby-mode-hook
+ '(lambda ()
+    (if (not (null buffer-file-name)) (flymake-mode))))
+(require 'ruby-end)
+(add-hook 'ruby-mode-hook
+  '(lambda ()
+    (abbrev-mode 1)
+    (electric-indent-mode t)
+    (electric-layout-mode t)))
+(require 'ruby-block)
+(ruby-block-mode t)
+(setq ruby-block-highlight-toggle t)
 ;; flymake for ruby
 (defun flymake-ruby-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -33,16 +51,6 @@
 (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
-(add-hook
- 'ruby-mode-hook
- '(lambda ()
-    (if (not (null buffer-file-name)) (flymake-mode))))
-(require 'ruby-end)
-(add-hook 'ruby-mode-hook
-  '(lambda ()
-    (abbrev-mode 1)
-    (electric-indent-mode t)
-    (electric-layout-mode t)))
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
@@ -90,6 +98,8 @@
 
 ;;;; auto-complete
 (global-auto-complete-mode 1)
+(ac-config-default)
+(setq ac-use-menu-map t)
 (global-set-key "\C-cc" 'auto-complete-mode)
 
 
@@ -456,6 +466,11 @@
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 (unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
+(global-anzu-mode +1)
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000))
 
 
 ;;;; eshell
@@ -485,11 +500,8 @@
          ("a" "cd ../ ;")
          ("ff" "find-file")
          ))
-  (add-to-listto-list 'eshell-command-aliases-list l))
-(require 'pcomplete-completionsplete)
+  (add-to-list 'eshell-command-aliases-list l))
 (add-to-list 'ac-modes 'eshell-mode)
-(ac-define-source pcomplete
-  '((candidates . pcomplete-completions)))
 (defun my-ac-eshell-mode ()
   (setq ac-sources
         '(ac-source-pcomplete
