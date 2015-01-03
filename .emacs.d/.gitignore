@@ -37,3 +37,7 @@ ac-comphist.dat
 /server/
 
 /lisp/env.el
+
+.mc-lists.el
+/image-dired/
+
