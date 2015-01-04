@@ -24,6 +24,7 @@
     caml
     java-file-create
     go-mode
+		lua-mode
     ;; flymake / flycheck
     flymake
     flymake-easy
