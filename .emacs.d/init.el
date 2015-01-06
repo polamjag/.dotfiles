@@ -85,6 +85,11 @@
           )
         )
       (setq count (1- count)))))
+;; shellscript-mode
+(setq sh-basic-offset 2
+			sh-indentation 2
+			sh-indent-for-case-label 0
+			sh-indent-for-case-alt '+)
 
 
 ;;;; helm configs
