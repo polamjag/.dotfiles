@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if ! hash sshfs &>/dev/null ; then
+  echo "sshfs(1) may not be installed !"
+  echo "abort"
+  exit 1
+fi
+
 if [ $# -lt 1 ] ; then
   echo "missing argument(s): $0 [user@]host:[src] [sshfs options]"
   echo "run \`sshfs -h\` to show sshfs options"

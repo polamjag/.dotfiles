@@ -1,3 +1,11 @@
 #!/bin/sh
 
-man -k "$1" | peco | awk '{print $1}' | xargs man
+tg=$(man -k "$1" | peco | awk '{print $1}')
+
+if [ ! "$tg" = "" ] ; then
+  echo "opening man for $tg ..."
+  man $tg
+else
+  echo 'abort'
+fi
+
