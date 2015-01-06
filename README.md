@@ -2,17 +2,21 @@
 
 ## usage
 
-clone this repo into your machine and run `/setup.sh` to make symbolic link of dotfiles into your `$HOME`.
+clone this repo into your machine and run `/setup.sh` to make symbolic link of dotfiles into your `$HOME`, like:
+
+```
+cd && git clone https://github.com/polamjag/.dotfiles && .dotfiles/setup.sh
+```
 
 ## dependencies
 
 ### some commands written in go
 
-install golang, set `$GOPATH` and run `setup.sh --force godepends`
+install golang, set `$GOPATH` and run `setup.sh godepends`
 
 ### some vim plugins (w/ NeoBundle)
 
-execute `./setup.sh --force vim` to install all plugins.
+execute `./setup.sh vim` to install all plugins.
 
 ## policy
 
