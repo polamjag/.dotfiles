@@ -1,18 +1,28 @@
 #!/bin/sh
 
+# flags
+FORCE_MODE=1
+
 shdir="$(cd $(dirname $0) && pwd)" # where this script exists
 cd ${shdir}
 
 make_symlink() {
   target="${2}"$(basename "$1")
   if [ -e "${target}" ] ; then
-    echo -n "file ${target} already exists. rename it and create symlink of new one[Y/n]?: "
-    read ans
-    if [ "$ans" != "n\n" ] ; then
-      mv "$target" "${target}.old"
-    fi
+		if [ $FORCE_MODE = '0' ] ; then
+			rm "$target"
+  		ln -s "$1" "$2"
+		else
+			echo -n "file ${target} already exists. rename it and create symlink of new one[Y/n]?: "
+			read ans
+			if [ "$ans" != "n\n" ] ; then
+				mv "$target" "${target}.old"
+			fi
+			ln -s "$1" "$2"
+		fi
+	else
+		ln -s "$1" "$2"
   fi
-  ln -s "$1" "$2"
 }
 
 setup_dot() {
@@ -89,13 +99,23 @@ setup_godepends () {
   go get github.com/motemen/ghq
 }
 
+
 if [ $# -eq 1 -a "$1" = "--usage" ] ; then
   echo "$0 [--usage] [<args>]"
   echo "args: dot, git, bin, binx, vim, godepends"
   echo
   echo "e.g.: \`$0 dot git\`"
   exit 0
-elif [ $# -gt 0 ] ; then
+elif [ "$1" = '--force' ] ; then
+	FORCE_MODE=0
+	shift
+fi
+
+if [ $# -gt 0 ] ; then
+	if [ "$0" = '--force' ] ; then
+		FORCE_MODE=1
+		shift
+	fi
   echo -e "\x1B[01;95m-> Running in batch mode\x1B[0m"
   while [ $# -gt 0 ] ; do
     setup_$1
