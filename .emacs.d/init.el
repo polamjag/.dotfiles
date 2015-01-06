@@ -87,9 +87,9 @@
       (setq count (1- count)))))
 ;; shellscript-mode
 (setq sh-basic-offset 2
-			sh-indentation 2
-			sh-indent-for-case-label 0
-			sh-indent-for-case-alt '+)
+      sh-indentation 2
+      sh-indent-for-case-label 0
+      sh-indent-for-case-alt '+)
 
 
 ;;;; helm configs
@@ -421,7 +421,7 @@
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (setq-default tab-width 2)
 (setq-default default-tab-width 2)
-(setq-default indent-tab-mode nil)
+(setq-default indent-tabs-mode nil)
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
 (require 'flex-autopair)
