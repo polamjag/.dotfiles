@@ -8,6 +8,12 @@ clone this repo into your machine and run `/setup.sh` to make symbolic link of d
 cd && git clone https://github.com/polamjag/.dotfiles && .dotfiles/setup.sh
 ```
 
+or you may save disk space with shallow clone:
+
+```
+cd && git clone --depth 1 https://github.com/polamjag/.dotfiles && .dotfiles/setup.sh
+```
+
 ## dependencies
 
 ### some commands written in go
@@ -21,4 +27,4 @@ execute `./setup.sh vim` to install all plugins.
 ## policy
 
 - dont use 256 colors and non-ASCII chars in zsh and vim
-  - keep vimrc simple but make .vimrc.ext rich, e.g. more plugins
+  - keep .vimrc simple but make .vimrc.ext super rich
