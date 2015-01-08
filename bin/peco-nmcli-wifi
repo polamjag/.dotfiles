@@ -1,0 +1,11 @@
+#!/bin/sh
+
+bssid=$(nmcli dev wifi | grep -v 'MODE    CHAN  RATE' | sort -u -k1,1 | peco | awk '{print $1}')
+
+# ensure that name of connection profile and BSSID is same
+if [ "$bssid" != "" ] ; then
+  nmcli con up id "$bssid"
+else
+  echo abort
+  exit 1
+fi
