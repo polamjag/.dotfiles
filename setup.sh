@@ -107,43 +107,40 @@ setup_godepends () {
 }
 
 
-if [ $# -eq 1 -a "$1" = "--usage" ] ; then
-  echo "$0 [--usage] [<args>]"
+# entrypoint
+if [ "$1" = "--usage" ] ; then
+  echo "$0 [--usage]"
+  echo "$0 [-f|--force] [<args>]"
   echo "args: dot, git, bin, binx, vim, godepends"
   echo
   echo "e.g.: \`$0 dot git\`"
   exit 0
-elif [ "$1" = '--force' ] ; then
+elif [ "$1" = '--force' -o "$1" = '-f' ] ; then
   FORCE_MODE=0
   shift
 fi
 
 if [ $# -gt 0 ] ; then
-  if [ "$0" = '--force' ] ; then
-    FORCE_MODE=1
-    shift
-  fi
   echo -e "\x1B[01;95m-> Running in batch mode\x1B[0m"
   while [ $# -gt 0 ] ; do
     setup_$1
     shift
   done
   exit 0
+else
+  echo -e "\x1B[01;95m-> Running in interactive mode\x1B[0m"
+
+  ask_exec "[01;92m> Setup dotfiles?[0m" setup_dot
+
+  if [ ! -e $HOME/.gitconfig ] ; then
+    ask_exec "[01;92m> Use .gitconfig?[0m" setup_git
+  fi
+
+  ask_exec "[01;92m> Copy shell scripts **for console** into ~/bin?[0m" setup_bin
+  ask_exec "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin?[0m" setup_binx
+  ask_exec "[01;92m> Execute some commands to initialize vim environment?[0m" setup_vim
+  ask_exec "[01;92m> Install some go executables?[0m" setup_godepends
 fi
-
-# interactive mode
-echo -e "\x1B[01;95m-> Running in interactive mode\x1B[0m"
-
-ask_exec "[01;92m> Setup dotfiles?[0m" setup_dot
-
-if [ ! -e $HOME/.gitconfig ] ; then
-  ask_exec "[01;92m> Use .gitconfig?[0m" setup_git
-fi
-
-ask_exec "[01;92m> Copy shell scripts **for console** into ~/bin?[0m" setup_bin
-ask_exec "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin?[0m" setup_binx
-ask_exec "[01;92m> Execute some commands to initialize vim environment?[0m" setup_vim
-ask_exec "[01;92m> Install some go executables?[0m" setup_godepends
 
 echo "-> Finished setup"
 
