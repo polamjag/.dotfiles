@@ -6,22 +6,27 @@ FORCE_MODE=1
 shdir="$(cd $(dirname $0) && pwd)" # where this script exists
 cd ${shdir}
 
+ask_exec() {
+  echo -n "$1 [Y/n]: "
+  shift
+  read answer
+  if [ "$answer" != "n" -a "$answer" != "N" ] ; then
+    "$@"
+  fi
+}
+
 make_symlink() {
   target="${2}"$(basename "$1")
   if [ -e "${target}" ] ; then
-		if [ $FORCE_MODE = '0' ] ; then
-			rm "$target"
-  		ln -s "$1" "$2"
-		else
-			echo -n "file ${target} already exists. rename it and create symlink of new one[Y/n]?: "
-			read ans
-			if [ "$ans" != "n\n" ] ; then
-				mv "$target" "${target}.old"
-			fi
-			ln -s "$1" "$2"
-		fi
-	else
-		ln -s "$1" "$2"
+    if [ $FORCE_MODE = '0' ] ; then
+      rm "$target"
+      ln -s "$1" "$2"
+    else
+      ask_exec "file ${target} already exists. rename it and create symlink of new one[Y/n]?: " mv "$target" "${target}.old"
+      ln -s "$1" "$2"
+    fi
+  else
+    ln -s "$1" "$2"
   fi
 }
 
@@ -48,19 +53,21 @@ setup_dot() {
 }
 setup_git() {
   echo "[01;93m==> Setting up .gitconfig ...[0m"
-  ln -s ${shdir}/.gitconfig $HOME
-  echo -n "Input name[polamjag]> "
-  read git_name
-  echo -n "Input mail addr[s@polamjag.info]> "
-  read git_mail
-  if [ "$git_name" = "\n" -a "$git_mail" = "\n" ] ; then
-    cat >>$HOME/.gitconfig.local <<EOF
+  make_symlink "${shdir}/.gitconfig" "$HOME"
+  if [ ! -f "$HOME/.gitconfig.local" ] ; then
+    echo -n "Input name[polamjag]> "
+    read git_name
+    echo -n "Input mail addr[s@polamjag.info]> "
+    read git_mail
+    if [ "$git_name" != "" -a "$git_mail" != "" ] ; then
+      cat >>$HOME/.gitconfig.local <<EOF
 [user]
- user = ${git_name}
- email = ${git_mail}
+user = ${git_name}
+email = ${git_mail}
 EOF
-  else
-    cp ${shdir}/.gitconfig.local ~/
+    else
+      cp ${shdir}/.gitconfig.local ~/
+    fi
   fi
 }
 setup_bin () {
@@ -107,15 +114,15 @@ if [ $# -eq 1 -a "$1" = "--usage" ] ; then
   echo "e.g.: \`$0 dot git\`"
   exit 0
 elif [ "$1" = '--force' ] ; then
-	FORCE_MODE=0
-	shift
+  FORCE_MODE=0
+  shift
 fi
 
 if [ $# -gt 0 ] ; then
-	if [ "$0" = '--force' ] ; then
-		FORCE_MODE=1
-		shift
-	fi
+  if [ "$0" = '--force' ] ; then
+    FORCE_MODE=1
+    shift
+  fi
   echo -e "\x1B[01;95m-> Running in batch mode\x1B[0m"
   while [ $# -gt 0 ] ; do
     setup_$1
@@ -127,75 +134,16 @@ fi
 # interactive mode
 echo -e "\x1B[01;95m-> Running in interactive mode\x1B[0m"
 
-# common files
-echo -n "[01;92m> Setup dotfiles? (y/n) [0m"
-read answer
-case $answer in
-  y)
-    setup_dot
-    ;;
-  *)
-    echo
-    ;;
-esac
+ask_exec "[01;92m> Setup dotfiles?[0m" setup_dot
 
-# .gitconfig
 if [ ! -e $HOME/.gitconfig ] ; then
-  echo -n "[01;92m> Use .gitconfig? (y/n) [0m"
-  read $answer
-  case $answer in
-    y)
-      setup_git
-      ;;
-    *)
-      ;;
-  esac
+  ask_exec "[01;92m> Use .gitconfig?[0m" setup_git
 fi
 
-# ~/bin
-echo -n "[01;92m> Copy shell scripts **for console** into ~/bin? (y/n) [0m"
-read answer
-case $answer in
-  y)
-    setup_bin
-    ;;
-  *)
-    echo
-    ;;
-esac
-
-echo -n "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin? (y/n) [0m"
-read answer
-case $answer in
-  y)
-    setup_binx
-    ;;
-  *)
-    echo
-    ;;
-esac
-
-echo -n "[01;92m> Execute some commands to initialize vim environment? (y/n) [0m"
-read answer
-case $answer in
-  y)
-    setup_vim
-    ;;
-  *)
-    echo
-    ;;
-esac
-
-echo -n "[01;92m> Install some go executables? (y/n) [0m"
-read answer
-case $answer in
-  y)
-    setup_godepends
-    ;;
-  *)
-    echo
-    ;;
-esac
+ask_exec "[01;92m> Copy shell scripts **for console** into ~/bin?[0m" setup_bin
+ask_exec "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin?[0m" setup_binx
+ask_exec "[01;92m> Execute some commands to initialize vim environment?[0m" setup_vim
+ask_exec "[01;92m> Install some go executables?[0m" setup_godepends
 
 echo "-> Finished setup"
 
