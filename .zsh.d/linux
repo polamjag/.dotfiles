@@ -12,8 +12,8 @@ alias lr='ls -R'
 alias llr='ll -R'
 alias llar='lla -R'
 
-if [ -e /usr/bin/exo-open -o -e /bin/exo-open ] ; then
-  alias open='exo-open'
+if $(! $(hash open &>/dev/null)) && $(hash oopen &>/dev/null) ; then
+  alias open=oopen
 fi
 
 pkgbuild-preview () {
