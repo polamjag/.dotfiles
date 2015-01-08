@@ -17,7 +17,8 @@
   brc = checkout -b
   cho = checkout
   a   = add
-  cm  = commit
+  cm  = commit -m
+  com = commit
   cam = commit -a --amend
   lp  = log -p
   ld  = log --graph --decorate --oneline
