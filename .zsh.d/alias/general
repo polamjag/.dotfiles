@@ -9,6 +9,8 @@ alias ha='history-all'
 alias hag='history-all | grep'
 alias pse='ps aux | grep'
 alias ipa='ip a'
+alias p8='ping 8.8.8.8'
+alias pgo='ping google.com'
 alias usdo='sudo'
 alias le='less'
 alias tm='tmux -2'
@@ -35,3 +37,4 @@ alias g="git"
 alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch" | cat'
 alias gp='peco-ghq'
 alias o='open'
+
