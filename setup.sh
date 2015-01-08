@@ -30,8 +30,12 @@ make_symlink() {
   fi
 }
 
+log_section() {
+  echo "[01;93m==> $@[0m"
+}
+
 setup_dot() {
-  echo "[01;93m==> Setting up dotfiles ...[0m"
+  log_section "Setting up dotfiles ..."
   for filepath in ${shdir}/.* ; do
     if [ \( -f $filepath -o -d $filepath \) -a \
       $filepath != "${shdir}/." -a \
@@ -52,7 +56,7 @@ setup_dot() {
   fi
 }
 setup_git() {
-  echo "[01;93m==> Setting up .gitconfig ...[0m"
+  log_section "Setting up .gitconfig ..."
   make_symlink "${shdir}/.gitconfig" "$HOME"
   if [ ! -f "$HOME/.gitconfig.local" ] ; then
     echo -n "Input name[polamjag]> "
@@ -71,7 +75,7 @@ EOF
   fi
 }
 setup_bin () {
-  echo "[01;93m==> Setting up ~/bin ...[0m"
+  log_section "Setting up ~/bin ..."
   if [ ! -d ${HOME}/bin ] ; then
     mkdir ${HOME}/bin
   fi
@@ -81,7 +85,7 @@ setup_bin () {
   done
 }
 setup_binx () {
-  echo "[01;93m==> Setting up ~/bin_x ...[0m"
+  log_section "Setting up ~/bin_x ..."
   if [ ! -d ${HOME}/bin ] ; then
     mkdir ${HOME}/bin
   fi
@@ -91,7 +95,7 @@ setup_binx () {
   done
 }
 setup_vim () {
-  echo "[01;93m==> Setting up ~/.vim/ ...[0m"
+  log_section "Setting up ~/.vim/ ..."
   cd $shdir
   git submodule init
   git submodule update
@@ -100,17 +104,24 @@ setup_vim () {
   vim -u $HOME/.vimrc.ext -c 'NeoBundleInstall|q'
 }
 setup_godepends () {
-  echo "[01;93m==> Setting up some go executables ...[0m"
+  log_section "Setting up some go executables ..."
   # repo list here
   go get github.com/peco/peco/cmd/peco
   go get github.com/motemen/ghq
+}
+
+update_all() {
+  setup_dot
+  setup_bin
+  setup_binx
+  vim -u $HOME/.vimrc.ext -c 'NeoBundleUpdate|q'
 }
 
 
 # entrypoint
 if [ "$1" = "--usage" ] ; then
   echo "$0 [--usage]"
-  echo "$0 [-f|--force] [<args>]"
+  echo "$0 [-f|--force] update|[<args>]"
   echo "args: dot, git, bin, binx, vim, godepends"
   echo
   echo "e.g.: \`$0 dot git\`"
@@ -120,7 +131,9 @@ elif [ "$1" = '--force' -o "$1" = '-f' ] ; then
   shift
 fi
 
-if [ $# -gt 0 ] ; then
+if [ "$1" = "update" ] ; then
+  update_all
+elif [ $# -gt 0 ] ; then
   echo -e "\x1B[01;95m-> Running in batch mode\x1B[0m"
   while [ $# -gt 0 ] ; do
     setup_$1
