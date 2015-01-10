@@ -65,6 +65,7 @@
     dired+
     ctags
     ctags-update
+    ggtags
     open-junk-file
     all
     multiple-cursors
