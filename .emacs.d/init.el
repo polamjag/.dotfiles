@@ -145,6 +145,13 @@
       (set-scroll-bar-mode nil)
       (tool-bar-mode -1)
       (set-frame-parameter nil 'alpha 90)
+      (setq default-frame-alist
+            (append (list
+                     '(top . 60)
+                     '(left . 140)
+                     '(width . 80)
+                     '(height . 35))
+                    default-frame-alist))
       ))
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
@@ -172,23 +179,13 @@
   "*Face used by hl-line.")
 (setq hl-line-face 'hlline-face)
 (global-hl-line-mode)
+(setq initial-frame-alist default-frame-alist)
 ;; popwin
 (setq pop-up-windows nil)
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
 (setq popwin:popup-window-position 'bottom)
 (push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-;;
-(if (boundp 'window-system)
-  (setq default-frame-alist
-    (append (list
-             '(top . 60)
-             '(left . 140)
-             '(width . 80)
-             '(height . 35)
-             )
-            default-frame-alist)))
-(setq initial-frame-alist default-frame-alist)
 ;; Mode line setup
 (setq-default
  mode-line-position
