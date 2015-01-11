@@ -109,6 +109,14 @@ setup_godepends () {
   go get github.com/peco/peco/cmd/peco
   go get github.com/motemen/ghq
 }
+setup_lib() {
+  log_section "Setting up some libraries and commands ..."
+  cd $shdir/lib
+  if hash gem &>/dev/null ; then
+    gem install bundler
+    PATH="$PATH:$(gem env gempath)" sh -c bundle
+  fi
+}
 
 update_all() {
   setup_dot
