@@ -16,9 +16,9 @@ cd && git clone --depth 1 https://github.com/polamjag/.dotfiles && .dotfiles/set
 
 ## dependencies
 
-### some commands written in go
+### some commands written in go and ruby
 
-install golang, set `$GOPATH` and run `setup.sh godepends`
+install golang, set `$GOPATH` and run `setup.sh lib`
 
 ### some vim plugins (w/ NeoBundle)
 

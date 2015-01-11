@@ -103,18 +103,14 @@ setup_vim () {
   make
   vim -u $HOME/.vimrc.ext -c 'NeoBundleInstall|q'
 }
-setup_godepends () {
-  log_section "Setting up some go executables ..."
-  # repo list here
-  go get github.com/peco/peco/cmd/peco
-  go get github.com/motemen/ghq
-}
 setup_lib() {
   log_section "Setting up some libraries and commands ..."
+  go get github.com/peco/peco/cmd/peco
+  go get github.com/motemen/ghq
   cd $shdir/lib
   if hash gem &>/dev/null ; then
     gem install bundler
-    PATH="$PATH:$(gem env gempath)" sh -c bundle
+    PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')" sh -c bundle
   fi
 }
 
@@ -130,7 +126,7 @@ update_all() {
 if [ "$1" = "--usage" ] ; then
   echo "$0 [--usage]"
   echo "$0 [-f|--force] update|[<args>]"
-  echo "args: dot, git, bin, binx, vim, godepends"
+  echo "args: dot, git, bin, binx, vim, lib"
   echo
   echo "e.g.: \`$0 dot git\`"
   exit 0

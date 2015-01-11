@@ -11,7 +11,7 @@ if [ -d $HOME/bin ] ; then
 fi
 # load rubygem executable
 if hash gem &>/dev/null ; then
-  export PATH="$PATH:$(gem env gempath)"
+  export PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')"
 fi
 
 case ${OSTYPE} in
