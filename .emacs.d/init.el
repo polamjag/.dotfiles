@@ -16,7 +16,7 @@
 
 ;;;; modes initialization
 (require 'flymake)
-;; flymake for java 
+;; flymake for java
 (add-hook 'java-mode-hook 'flymake-mode-on)
 (defun my-java-flymake-init ()
   (list "javac" (list (flymake-init-create-temp-buffer-copy
@@ -30,14 +30,14 @@
 (add-hook
  'enh-ruby-mode-hook
  '(lambda ()
+    (require 'ruby-end)
+    (require 'ruby-block)
     (abbrev-mode 1)
     (electric-indent-mode t)
     (electric-layout-mode t)
     (if (not (null buffer-file-name)) (flymake-mode))
     (ruby-block-mode t)
     (setq ruby-block-highlight-toggle t)))
-(require 'ruby-end)
-(require 'ruby-block)
 ;; flymake for ruby
 (defun flymake-ruby-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -49,7 +49,7 @@
 (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
-;; web-mode
+;;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (defun my-web-mode-hook ()
@@ -66,7 +66,7 @@
   (setq tab-width 2))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(defun credmp/flymake-display-err-minibuf () 
+(defun credmp/flymake-display-err-minibuf ()
   "Displays the error/warning for the current line in the minibuffer"
   (interactive)
   (let* ((line-no             (flymake-current-line-no))
@@ -83,11 +83,22 @@
           )
         )
       (setq count (1- count)))))
-;; shellscript-mode
+;;; shellscript-mode
 (setq sh-basic-offset 2
       sh-indentation 2
       sh-indent-for-case-label 0
       sh-indent-for-case-alt '+)
+;;; cider / clojure
+(setq cider-repl-wrap-history t)
+(add-hook 'clojure-mode-hook 'cider-mode)
+(require 'ac-cider)
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+     (add-to-list 'ac-modes 'cider-repl-mode)))
 
 
 ;;;; helm configs
@@ -149,8 +160,7 @@
                      '(left . 140)
                      '(width . 80)
                      '(height . 35))
-                    default-frame-alist))
-      ))
+                    default-frame-alist))))
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
 (setq visible-bell t)
@@ -415,16 +425,9 @@
 (setq-default indent-tabs-mode nil)
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
-(require 'flex-autopair)
-(flex-autopair-mode t)
-(setq flex-autopair-conditions
-      `(; Insert matching pair.
-        (openp . pair)
-        ; Skip self.
-        ((and closep
-              (eq (char-after) last-command-event)) . skip)
-        (closep . self)
-        ))
+(require 'smartparens)
+(require 'smartparens-config)
+(smartparens-global-mode t)
 ;; create backup file in .emacs.d/backups
 (setq-default delete-old-versions t)
 (setq make-backup-files t)

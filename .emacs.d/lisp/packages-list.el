@@ -75,8 +75,8 @@
     popwin
     quickrun
     rainbow-delimiters
+    smartparens
     undo-tree
-    whitespace-cleanup-mode
     anzu
     yasnippet
     ))
