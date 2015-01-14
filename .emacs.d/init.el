@@ -23,23 +23,21 @@
                        'flymake-create-temp-with-folder-structure))))
 (add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
 ;;; ruby
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (add-hook
- 'ruby-mode-hook
+ 'enh-ruby-mode-hook
  '(lambda ()
-    (if (not (null buffer-file-name)) (flymake-mode))))
-(require 'ruby-end)
-(add-hook 'ruby-mode-hook
-  '(lambda ()
     (abbrev-mode 1)
     (electric-indent-mode t)
-    (electric-layout-mode t)))
+    (electric-layout-mode t)
+    (if (not (null buffer-file-name)) (flymake-mode))
+    (ruby-block-mode t)
+    (setq ruby-block-highlight-toggle t)))
+(require 'ruby-end)
 (require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
 ;; flymake for ruby
 (defun flymake-ruby-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -409,6 +407,7 @@
 ;;;; miscellaneous preferences
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (setq-default tab-width 2)

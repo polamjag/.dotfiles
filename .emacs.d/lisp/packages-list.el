@@ -17,7 +17,7 @@
     ruby-block
     ruby-end
     robe
-    ruby-mode
+    enh-ruby-mode
     web-mode
     js2-mode
     tuareg
