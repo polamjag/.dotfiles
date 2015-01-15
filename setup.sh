@@ -115,10 +115,11 @@ setup_lib() {
 }
 
 update_all() {
-  setup_dot
-  setup_bin
-  setup_binx
+  go get -u github.com/peco/peco/cmd/peco
+  go get -u github.com/motemen/ghq
   vim -u $HOME/.vimrc.ext -c 'NeoBundleUpdate|q'
+  cd $shdir/lib
+  PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')" sh -c "bundle update"
 }
 
 
