@@ -49,6 +49,8 @@ NeoBundle 'ruby-matchit'
 
 filetype plugin indent on
 
+set wildignorecase
+
 
 "" general
 set expandtab
