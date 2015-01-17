@@ -30,7 +30,6 @@
 (add-hook
  'enh-ruby-mode-hook
  '(lambda ()
-    (require 'ruby-end)
     (require 'ruby-block)
     (abbrev-mode 1)
     (electric-indent-mode t)

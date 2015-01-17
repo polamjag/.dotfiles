@@ -15,7 +15,6 @@
     slamhound
     php-mode
     ruby-block
-    ruby-end
     robe
     enh-ruby-mode
     web-mode
