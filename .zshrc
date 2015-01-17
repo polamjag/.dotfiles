@@ -180,6 +180,7 @@ ulimit -s unlimited
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"
+export EDITOR='vi'
 
 
 # ================== #
