@@ -8,6 +8,7 @@
 [help]
   autocorrect = 1
 [alias]
+  s   = status -sb
   st  = status
   ps  = push
   pso = push origin
