@@ -267,7 +267,6 @@ function peco-select-history() {
     )
   fi
   CURSOR=$#BUFFER
-  zle clear-screen
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
