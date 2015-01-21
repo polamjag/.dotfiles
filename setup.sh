@@ -2,10 +2,17 @@
 
 # flags
 FORCE_MODE=1
-
 shdir="$(cd $(dirname $0) && pwd)" # where this script exists
 cd ${shdir}
 
+# helpers
+_usage() {
+  echo "$0 [--usage]"
+  echo "$0 [-f|--force] update|[<args>]"
+  echo "args: dot, git, bin, binx, vim, lib"
+  echo
+  echo "e.g.: \`$0 dot git\`"
+}
 ask_exec() {
   echo -n "$1 [Y/n]: "
   shift
@@ -14,7 +21,6 @@ ask_exec() {
     "$@"
   fi
 }
-
 make_symlink() {
   target="${2}"$(basename "$1")
   if [ -e "${target}" ] ; then
@@ -29,11 +35,11 @@ make_symlink() {
     ln -s "$1" "$2"
   fi
 }
-
 log_section() {
   echo "[01;93m==> $@[0m"
 }
 
+# main
 setup_dot() {
   log_section "Setting up dotfiles ..."
   for filepath in ${shdir}/.* ; do
@@ -114,38 +120,12 @@ setup_lib() {
   fi
 }
 
-update_all() {
-  go get -u github.com/peco/peco/cmd/peco
-  go get -u github.com/motemen/ghq
-  vim -u $HOME/.vimrc.ext -c 'NeoBundleUpdate|q'
-  cd $shdir/lib
-  PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')" sh -c "bundle update"
+setup_initial_dl() {
+  cd
+  git clone https://github.com/polamjag/.dotfiles
+  $HOME/.dotfiles/setup.sh --force dot git bin binx vim
 }
-
-
-# entrypoint
-if [ "$1" = "--usage" ] ; then
-  echo "$0 [--usage]"
-  echo "$0 [-f|--force] update|[<args>]"
-  echo "args: dot, git, bin, binx, vim, lib"
-  echo
-  echo "e.g.: \`$0 dot git\`"
-  exit 0
-elif [ "$1" = '--force' -o "$1" = '-f' ] ; then
-  FORCE_MODE=0
-  shift
-fi
-
-if [ "$1" = "update" ] ; then
-  update_all
-elif [ $# -gt 0 ] ; then
-  echo -e "\x1B[01;95m-> Running in batch mode\x1B[0m"
-  while [ $# -gt 0 ] ; do
-    setup_$1
-    shift
-  done
-  exit 0
-else
+setup_initial() {
   echo -e "\x1B[01;95m-> Running in interactive mode\x1B[0m"
 
   ask_exec "[01;92m> Setup dotfiles?[0m" setup_dot
@@ -158,7 +138,41 @@ else
   ask_exec "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin?[0m" setup_binx
   ask_exec "[01;92m> Execute some commands to initialize vim environment?[0m" setup_vim
   ask_exec "[01;92m> Install some go executables?[0m" setup_godepends
-fi
+}
 
-echo "-> Finished setup"
+update_all() {
+  go get -u github.com/peco/peco/cmd/peco
+  go get -u github.com/motemen/ghq
+  vim -u $HOME/.vimrc.ext -c 'NeoBundleUpdate|q'
+  cd $shdir/lib
+  PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')" sh -c "bundle update"
+}
 
+# entrypoint
+if [ $# -eq 0 ] ; then
+  if [ $(basename "$0") != "setup.sh" ]
+    setup_initial_dl
+  else
+    setup_initial
+  fi
+else
+while [[ $# -gt 1 ]] ; do
+  case "$1" in
+    -h|--help|--usage)
+      _usage
+      exit 0
+      ;;
+    -f|--force)
+      FORCE_MODE=0
+      shift
+      ;;
+    update)
+      update_all
+      exit 0
+      ;;
+    *)
+      setup_$1
+      shift
+      ;;
+  esac
+done
