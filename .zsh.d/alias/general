@@ -37,4 +37,4 @@ alias g="git"
 alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch" | cat'
 alias gp='peco-ghq'
 alias o='open'
-
+alias bd='bundle'
