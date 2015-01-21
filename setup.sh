@@ -150,13 +150,13 @@ update_all() {
 
 # entrypoint
 if [ $# -eq 0 ] ; then
-  if [ $(basename "$0") != "setup.sh" ]
+  if [ $(basename "$0") != "setup.sh" ] ; then
     setup_initial_dl
   else
     setup_initial
   fi
 else
-while [[ $# -gt 1 ]] ; do
+while [[ $# -gt 0 ]] ; do
   case "$1" in
     -h|--help|--usage)
       _usage
@@ -176,3 +176,4 @@ while [[ $# -gt 1 ]] ; do
       ;;
   esac
 done
+fi
