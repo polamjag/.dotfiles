@@ -476,8 +476,7 @@
 ;;;; eshell
 (global-set-key (kbd "C-=") '(lambda ()
                                (interactive)
-                               (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))
-                               ))
+                               (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))))
 (add-hook 'eshell-mode-hook
           '(lambda ()
              (progn
@@ -492,6 +491,8 @@
                (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
                (define-key eshell-mode-map "\C-j" 'eshell-send-input)
                )))
+(add-hook 'eshell-preoutput-filter-functions
+          'ansi-color-filter-apply)
 ;; aliases
 (require 'cl)
 (dolist
