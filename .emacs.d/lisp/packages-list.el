@@ -23,7 +23,9 @@
     caml
     java-file-create
     go-mode
-		lua-mode
+    lua-mode
+    auctex
+    auctex-latexmk
     ;; flymake / flycheck
     flymake
     flymake-easy
@@ -40,6 +42,7 @@
     ac-dabbrev
     ac-helm
     ac-inf-ruby
+    auto-complete-auctex
     go-autocomplete
     org-ac
     ;; git
