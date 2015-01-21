@@ -2,13 +2,19 @@
 
 ## usage
 
-clone this repo into your machine and run `/setup.sh` to make symbolic link of dotfiles into your `$HOME`, like:
+clone this repo into your machine and run `/setup.sh` to make symbolic link of dotfiles into your `$HOME`, in one-liner:
+
+```
+curl https://raw.githubusercontent.com/polamjag/.dotfiles/master/setup.sh | sh
+```
+
+or manually:
 
 ```
 cd && git clone https://github.com/polamjag/.dotfiles && .dotfiles/setup.sh
 ```
 
-or you may save disk space with shallow clone:
+and also you may save disk space with shallow clone:
 
 ```
 cd && git clone --depth 1 https://github.com/polamjag/.dotfiles && .dotfiles/setup.sh
