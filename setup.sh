@@ -156,7 +156,7 @@ if [ $# -eq 0 ] ; then
     setup_initial
   fi
 else
-while [[ $# -gt 0 ]] ; do
+while [ $# -gt 0 ] ; do
   case "$1" in
     -h|--help|--usage)
       _usage
