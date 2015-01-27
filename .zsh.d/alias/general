@@ -34,7 +34,6 @@ alias delete-dead-symlink="find -L . -name . -o -type d -prune -o -type l -exec 
 alias watch="watch -c"
 alias paste-ghq-get="xclip -o | xargs -I{} ghq get {}"
 alias g="git"
-alias gst='git branch -a && echo && git status --porcelain | grep -v "(use " | grep -v "# On branch" | cat'
 alias gp='peco-ghq'
 alias o='open'
 alias bd='bundle'
