@@ -505,6 +505,7 @@
                (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
                (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
                (define-key eshell-mode-map "\C-j" 'eshell-send-input)
+               (define-key eshell-mode-map "\C-u" 'eshell-kill-input)
                (define-key eshell-mode-map "\C-r" 'helm-eshell-history)
                ;; aliases
                (require 'cl)
