@@ -1,3 +1,7 @@
+;; c.f. http://rubikitch.com/2015/01/04/esup/
+(setq gc-cons-threshold 1073741824)
+
+
 ;;;; common load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -524,3 +528,6 @@
 ;;;; load local config
 (if (file-readable-p "~/.emacs.d/lisp/env.el")
     (load-file "~/.emacs.d/lisp/env.el"))
+
+
+(setq gc-cons-threshold 8388608)
