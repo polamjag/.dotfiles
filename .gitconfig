@@ -12,6 +12,7 @@
   st  = status
   ps  = push
   pso = push origin
+  psa = push --all
   pl  = pull
   br  = branch
   bra = branch -a
