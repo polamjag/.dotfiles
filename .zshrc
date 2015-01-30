@@ -199,10 +199,9 @@ bindkey "^[q" show_buffer_stack
 # aliases, keybinds and hooked actions #
 # ==================================== #
 if [ -d $HOME/.zsh.d/ ] ; then
-  source $HOME/.zsh.d/alias/option
-  source $HOME/.zsh.d/alias/pipe
-  source $HOME/.zsh.d/alias/general
-  source $HOME/.zsh.d/alias/suffix
+  for f in $HOME/.zsh.d/alias/* ; do
+    source $f
+  done
 fi
 # configs for well-used keys
 bindkey "^[[3~" delete-char
