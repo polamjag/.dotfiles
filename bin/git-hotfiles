@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# c.f. http://moznion.hatenadiary.com/entry/2015/01/31/004947
+
+git ls-files |\
+  while read file ; do
+    commits=`git log --oneline -- $file | wc -l`
+    echo "$commits - $file"
+  done |\
+sort -gr
