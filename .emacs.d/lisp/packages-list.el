@@ -26,6 +26,7 @@
     lua-mode
     auctex
     auctex-latexmk
+    glsl-mode
     ;; flymake / flycheck
     flymake
     flymake-easy
