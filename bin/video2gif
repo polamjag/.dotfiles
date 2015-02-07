@@ -1,0 +1,44 @@
+#!/bin/sh
+set -e
+
+# GraphicsMagick is preffered to ImageMagick in speed
+# c.f. http://uiureo.hatenablog.com/entry/2013/05/19/030414
+
+if [ $# -eq 0 ] ; then
+  echo "usage:  $0 <video> [framerate]"
+  exit 2
+fi
+
+src="$(readlink -f $1)"
+framerate=2
+
+if [ "$2" != "" ] ; then
+  framerate=$2
+fi
+
+if hash ffmpeg &>/dev/null ; then
+  ffmpeg_cmd="ffmpeg"
+elif hash avconv &>/dev/null ; then
+  ffmpeg_cmd="avconv"
+fi
+
+if hash gm &>/dev/null ; then
+  convert_cmd="gm convert"
+elif hash convert &>/dev/null ; then
+  convert_cmd="convert"
+fi
+
+if [ "$TMPDIR" != "" ] ; then
+  tmpdir=$TMPDIR
+else
+  tmpdir="/tmp"
+fi
+
+tmpdir_img="$tmpdir/video2gif/$(uuidgen)"
+mkdir -p "$tmpdir_img"
+cd $tmpdir_img
+
+$ffmpeg_cmd -i $src -r $framerate %04d.png
+$convert_cmd *.png "${src}.gif"
+
+rm -r "$(dirname $tmpdir_img)"
