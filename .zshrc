@@ -13,6 +13,10 @@ fi
 if hash gem &>/dev/null ; then
   export PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')"
 fi
+# load npm executable
+if [ -d $HOME/.npm/bin ] ; then
+  export PATH="$PATH:$HOME/.npm/bin"
+fi
 
 case ${OSTYPE} in
   freebsd*|darwin*)
