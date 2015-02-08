@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 if ! hash sshfs &>/dev/null ; then
   echo "sshfs(1) may not be installed !"
