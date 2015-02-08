@@ -6,4 +6,5 @@ gem 'pry-nav'
 gem 'earthquake'
 gem 'pastebin'
 gem 'imgurr'
-
+gem 'guard'
+gem 'guard-shell'
