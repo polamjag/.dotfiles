@@ -82,6 +82,7 @@
     undo-tree
     anzu
     yasnippet
+    wc-mode
     ))
 
 (let ((not-installed (loop for x in installing-package-list
