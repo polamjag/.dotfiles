@@ -8,6 +8,7 @@
     ;el-get
     ;; language specific
     markdown-mode
+    markdown-mode+
     haskell-mode
     yaml-mode
     cider
