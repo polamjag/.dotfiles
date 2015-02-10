@@ -40,6 +40,9 @@ log_section() {
 }
 
 # main
+setup_npmrc() {
+  echo "prefix=$HOME/.npm" > $HOME/.npmrc
+}
 setup_dot() {
   log_section "Setting up dotfiles ..."
   for filepath in ${shdir}/.* ; do
@@ -59,6 +62,10 @@ setup_dot() {
   done
   if [ ! -f $HOME/.zshenv ] ; then
     cp $shdir/.zshenv.exam $HOME/.zshenv
+  fi
+  if [ ! -f $HOME/.npmrc ] ; then
+    setup_npmrc
+    echo "  Wrote ~/.npmrc"
   fi
 }
 setup_git() {
