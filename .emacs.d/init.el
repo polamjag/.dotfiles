@@ -102,6 +102,13 @@
   '(progn
      (add-to-list 'ac-modes 'cider-mode)
      (add-to-list 'ac-modes 'cider-repl-mode)))
+;;; markdown-mode / plain text
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mkd\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setq markdown-enable-math t)
 
 
 ;;;; helm configs
