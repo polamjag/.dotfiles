@@ -418,6 +418,7 @@
 
 
 ;;;; miscellaneous preferences
+(setq recentf-max-menu-items 50)
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
