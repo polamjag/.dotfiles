@@ -316,11 +316,13 @@
                     :inherit 'mode-line-face)
 (set-face-attribute 'mode-line-mode-face nil
                     :inherit 'mode-line-face
-                    :foreground "#cccccc")
+                    :foreground "#cccccc"
+                    :weight 'bold)
 (set-face-attribute 'mode-line-minor-mode-face nil
                     :inherit 'mode-line-mode-face
                     :foreground "gray60"
-                    :height 100)
+                    :height 100
+                    :weight 'normal)
 (set-face-attribute 'mode-line-process-face nil
                     :inherit 'mode-line-face
                     :foreground "#718c00")
@@ -481,6 +483,7 @@
 
 
 ;;;; ddskk
+(setq default-input-method 'japanese-skk)
 (setq skk-japanese-message-and-error nil)
 (setq skk-show-japanese-menu nil)
 (setq skk-show-annotation nil)
