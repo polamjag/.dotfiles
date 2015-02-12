@@ -20,6 +20,7 @@
     enh-ruby-mode
     web-mode
     jade-mode
+    slim-mode
     js2-mode
     tuareg
     caml
