@@ -23,6 +23,7 @@
   cm  = commit -m
   com = commit
   cam = commit -a --amend
+  l   = log
   lp  = log -p
   ld  = log --graph --decorate --oneline
   lds = log --graph --decorate --oneline --stat
