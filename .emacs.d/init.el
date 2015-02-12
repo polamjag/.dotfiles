@@ -222,6 +222,7 @@
                       (if (>= (current-column) 80)
                           'mode-line-80col-face
                         'mode-line-position-face)))
+   " "
    ))
 
 (setq-default
@@ -281,7 +282,6 @@
 (set-face-attribute 'mode-line-inactive nil
                     :foreground "gray80" :background "gray30"
                     :inverse-video nil
-                    :weight 'extra-light
                     :height 120
                     :box '(:line-width 2 :color "gray30" :style nil))
 ;; Extra mode line faces
@@ -306,7 +306,6 @@
                     :box '(:line-width 2 :color "#c82829"))
 (set-face-attribute 'mode-line-folder-face nil
                     :inherit 'mode-line-face
-                    :weight 'extra-light
                     :height 110
                     :foreground "#888888")
 (set-face-attribute 'mode-line-filename-face nil
