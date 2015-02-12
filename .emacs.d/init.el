@@ -28,8 +28,12 @@
 (add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
 ;;; ruby
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . enh-ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (add-hook
  'enh-ruby-mode-hook
@@ -204,22 +208,20 @@
 (setq display-buffer-function 'popwin:display-buffer)
 (setq popwin:popup-window-position 'bottom)
 (push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-;; Mode line setup
+;;; Mode line setup
 (setq-default
  mode-line-position
  '(
-   " "
    ;; Position, including warning for 80 columns
    (:propertize "%4l" face mode-line-position-face)
    (:propertize "/" face mode-line-delim-face-1)
    (:eval
     (number-to-string (count-lines (point-min) (point-max))))
-   " "
-   (:eval (propertize "%3c" 'face
+   ":"
+   (:eval (propertize "%c" 'face
                       (if (>= (current-column) 80)
                           'mode-line-80col-face
                         'mode-line-position-face)))
-   " "
    ))
 
 (setq-default
@@ -229,7 +231,6 @@
    ;; emacsclient [default -- keep?]
    mode-line-client
    mode-line-remote
-   ;evil-mode-line-tag
    mode-line-position
    ; read-only or modified status
    (:eval
@@ -238,7 +239,6 @@
           ((buffer-modified-p)
            (propertize " ** " 'face 'mode-line-modified-face))
           (t "  ")))
-   " "
    ;; directory and buffer/file name
    (:propertize (:eval (shorten-directory default-directory 30))
                 face mode-line-folder-face)
@@ -258,9 +258,6 @@
                 face mode-line-process-face)
    "  "
    (global-mode-string global-mode-string)
-   ;; "  "
-   ;; nyan-mode uses nyan cat as an alternative to %p
-   ;; (:eval (when nyan-mode (list (nyan-create))))
    ))
 ;; Helper function
 (defun shorten-directory (dir max-length)
@@ -317,8 +314,7 @@
                     :foreground "#eab700"
                     :weight 'bold)
 (set-face-attribute 'mode-line-position-face nil
-                    :inherit 'mode-line-face
-                    :family "Menlo")
+                    :inherit 'mode-line-face)
 (set-face-attribute 'mode-line-mode-face nil
                     :inherit 'mode-line-face
                     :foreground "#cccccc")
@@ -483,6 +479,32 @@
  '(anzu-search-threshold 1000))
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+
+;;;; ddskk
+(setq skk-japanese-message-and-error nil)
+(setq skk-show-japanese-menu nil)
+(setq skk-show-annotation nil)
+(setq skk-status-indicator 'left)
+;; indicator
+(setq skk-latin-mode-string "[_A]")
+(setq skk-hiragana-mode-string "[あ]")
+(setq skk-katakana-mode-string "[ア]")
+(setq skk-jisx0208-latin-mode-string "[Ａ]")
+(setq skk-jisx0201-mode-string "[_ｱ]")
+(setq skk-indicator-use-cursor-color nil)
+(setq skk-show-inline 'vertical)
+(when skk-show-inline
+  (if (boundp 'skk-inline-show-face)
+      (setq
+       skk-inline-show-background-color "#2c2c88")))
+(setq skk-egg-like-newline t)
+(setq skk-auto-insert-paren t)
+;; completion
+(setq skk-dcomp-activate t)
+(setq skk-dcomp-multiple-activate t)
+(setq skk-dcomp-multiple-rows 10)
+
 
 
 ;;;; eshell

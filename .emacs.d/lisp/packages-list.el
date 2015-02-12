@@ -19,6 +19,7 @@
     robe
     enh-ruby-mode
     web-mode
+    jade-mode
     js2-mode
     tuareg
     caml
@@ -66,6 +67,7 @@
     flex-autopair
     auto-highlight-symbol
     ;; misc
+    ddskk
     dired+
     ctags
     ctags-update
