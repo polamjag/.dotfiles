@@ -215,8 +215,8 @@
    ;; Position, including warning for 80 columns
    (:propertize "%4l" face mode-line-position-face)
    (:propertize "/" face mode-line-delim-face-1)
-   (:eval
-    (number-to-string (count-lines (point-min) (point-max))))
+   (:propertize (:eval
+    (number-to-string (count-lines (point-min) (point-max)))) face mode-line-position-face-small)
    ":"
    (:eval (propertize "%c" 'face
                       (if (>= (current-column) 80)
@@ -290,6 +290,7 @@
 (make-face 'mode-line-folder-face)
 (make-face 'mode-line-filename-face)
 (make-face 'mode-line-position-face)
+(make-face 'mode-line-position-face-small)
 (make-face 'mode-line-mode-face)
 (make-face 'mode-line-minor-mode-face)
 (make-face 'mode-line-process-face)
@@ -314,6 +315,9 @@
                     :weight 'bold)
 (set-face-attribute 'mode-line-position-face nil
                     :inherit 'mode-line-face)
+(set-face-attribute 'mode-line-position-face-small nil
+                    :inherit 'mode-line-position-face
+                    :height 105)
 (set-face-attribute 'mode-line-mode-face nil
                     :inherit 'mode-line-face
                     :foreground "#cccccc"
