@@ -21,6 +21,8 @@
     web-mode
     jade-mode
     slim-mode
+    sass-mode
+    scss-mode
     js2-mode
     tuareg
     caml
@@ -34,8 +36,12 @@
     flymake
     flymake-easy
     flymake-haskell-multi
+    flymake-go
     flymake-php
     flymake-ruby
+    flymake-sass
+    flymake-shell
+    flymake-yaml
     flycheck
     flycheck-tip
     ;; auto-complete
