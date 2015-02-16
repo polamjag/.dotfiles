@@ -426,6 +426,7 @@
 
 
 ;;;; miscellaneous preferences
+(setq confirm-kill-emacs 'yes-or-no-p)
 (setq recentf-max-menu-items 50)
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
