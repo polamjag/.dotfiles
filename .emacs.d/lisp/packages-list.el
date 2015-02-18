@@ -22,6 +22,7 @@
     jade-mode
     slim-mode
     sass-mode
+    less-css-mode
     scss-mode
     js2-mode
     tuareg
