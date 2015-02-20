@@ -36,3 +36,6 @@ elif [ $# -gt 2 ] ; then
   shift 2
   dd if="$arg_if" "$@" | pv | dd of="$arg_of"
 fi
+
+sync
+sync
