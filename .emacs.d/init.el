@@ -56,6 +56,8 @@
 (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+(add-hook 'enh-ruby-mode 'yard-mode)
+(add-hook 'enh-ruby-mode 'eldoc-mode)
 ;;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
@@ -113,6 +115,10 @@
 (add-to-list 'auto-mode-alist '("\\.mkd\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (setq markdown-enable-math t)
+;;; c
+(add-hook 'c-mode-hook
+          (lambda ()
+            (c-turn-on-eldoc-mode)))
 
 
 ;;;; helm configs
@@ -129,6 +135,13 @@
 (ac-config-default)
 (setq ac-use-menu-map t)
 (global-set-key "\C-cc" 'auto-complete-mode)
+
+
+;;;; eldoc
+(setq eldoc-idle-delay 0.4)
+(setq eldoc-echo-area-use-multiline-p t)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 
 
 ;;;; extending dired
@@ -167,14 +180,7 @@
        ((eq system-type 'windows-nt) (set-font "Consolas" 95)))
       (set-scroll-bar-mode nil)
       (tool-bar-mode -1)
-      (set-frame-parameter nil 'alpha 90)
-      (setq default-frame-alist
-            (append (list
-                     '(top . 60)
-                     '(left . 140)
-                     '(width . 80)
-                     '(height . 35))
-                    default-frame-alist))))
+      (set-frame-parameter nil 'alpha 90)))
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
 (setq visible-bell t)
@@ -511,7 +517,6 @@
 (setq skk-dcomp-activate t)
 (setq skk-dcomp-multiple-activate t)
 (setq skk-dcomp-multiple-rows 10)
-
 
 
 ;;;; eshell

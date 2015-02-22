@@ -18,6 +18,7 @@
     ruby-block
     robe
     enh-ruby-mode
+    yard-mode
     web-mode
     jade-mode
     slim-mode
@@ -56,6 +57,10 @@
     auto-complete-auctex
     go-autocomplete
     org-ac
+    ;; eldoc
+    c-eldoc
+    cljdoc
+    go-eldoc
     ;; git
     magit
     ;; helm
@@ -72,7 +77,6 @@
     helm-ghq
     ;; highlighting
     highlight-symbol
-    flex-autopair
     auto-highlight-symbol
     ;; misc
     ddskk
@@ -104,16 +108,6 @@
     (dolist (pkg not-installed)
       (progn (package-install pkg)(print not-installed)))))
 
-
-
-;(require 'el-get)
-;(setq el-get-sources
-;      '(
-;        (:name auto-java-complete
-;               :type github
-;               :pkgname "emacs-java/auto-java-complete")
-;        ))
-;(el-get 'sync)
 
 ;; proofgeneral
 (if (file-readable-p "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el")
