@@ -420,6 +420,8 @@
 ;; magit
 (global-set-key "\C-cs" 'magit-status)
 (global-set-key "\C-cl" 'magit-log)
+;; expand-region
+(global-set-key "\C-ci" 'er/expand-region)
 ;;
 (defun other-window-or-split (val)
   (interactive)
