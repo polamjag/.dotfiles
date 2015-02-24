@@ -246,6 +246,7 @@
           ((buffer-modified-p)
            (propertize " ** " 'face 'mode-line-modified-face))
           (t "  ")))
+   " "
    ;; directory and buffer/file name
    (:propertize (:eval (shorten-directory default-directory 30))
                 face mode-line-folder-face)
