@@ -205,7 +205,6 @@
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
 (setq visible-bell t)
-
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;; make rainbow-delimiters-mode more vivid
@@ -555,6 +554,13 @@
 (global-set-key (kbd "<C-tab>") (lambda () (interactive) (other-window-or-split 1)))
 (global-set-key (kbd "<C-S-tab>") (lambda () (interactive) (other-window-or-split -1)))
 (global-set-key (kbd "<C-iso-lefttab>") (lambda () (interactive) (other-window-or-split -1)))
+(defun copy-buffer ()
+  "Copy entire buffer to clipboard"
+  (interactive)
+  (progn
+    (clipboard-kill-ring-save (point-min) (point-max))
+    (message "Copied entire buffer to clipboard")))
+(global-set-key (kbd "C-M-y") 'copy-buffer)
 
 
 (setq gc-cons-threshold 8388608)
