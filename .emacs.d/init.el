@@ -18,7 +18,12 @@
 (require 'packages-list)
 
 
-;;;; modes initialization
+;;;; load local config
+(if (file-readable-p "~/.emacs.d/lisp/env.el")
+    (load-file "~/.emacs.d/lisp/env.el"))
+
+
+;;;; initialize major modes
 (require 'flymake)
 ;; flymake for java
 (add-hook 'java-mode-hook 'flymake-mode-on)
@@ -80,17 +85,14 @@
   (interactive)
   (let* ((line-no             (flymake-current-line-no))
          (line-err-info-list  (nth 0 (flymake-find-err-info flymake-err-info line-no)))
-         (count               (length line-err-info-list))
-         )
+         (count               (length line-err-info-list)))
     (while (> count 0)
       (when line-err-info-list
         (let* ((file       (flymake-ler-file (nth (1- count) line-err-info-list)))
                (full-file  (flymake-ler-full-file (nth (1- count) line-err-info-list)))
                (text (flymake-ler-text (nth (1- count) line-err-info-list)))
                (line       (flymake-ler-line (nth (1- count) line-err-info-list))))
-          (message "[%s] %s" line text)
-          )
-        )
+          (message "[%s] %s" line text)))
       (setq count (1- count)))))
 ;;; shellscript-mode
 (setq sh-basic-offset 2
@@ -121,33 +123,52 @@
             (c-turn-on-eldoc-mode)))
 
 
-;;;; helm configs
-(require 'helm-config)
-(helm-mode t)
-(global-set-key (kbd "C-c z") 'helm-resume)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key "\C-c\C-k" 'helm-show-kill-ring)
-(define-key isearch-mode-map (kbd "C-o") 'helm-swoop-from-isearch)
-
-
-;;;; auto-complete
-(global-auto-complete-mode 1)
-(ac-config-default)
-(setq ac-use-menu-map t)
-(global-set-key "\C-cc" 'auto-complete-mode)
-
-
-;;;; eldoc
-(setq eldoc-idle-delay 0.4)
-(setq eldoc-echo-area-use-multiline-p t)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-
-
-;;;; extending dired
-(require 'dired+)
-(define-key dired-mode-map (kbd "(") 'dired-hide-details-mode)
-(define-key dired-mode-map (kbd ")") 'dired-hide-details-mode)
+;;;; eshell
+(global-set-key (kbd "C-=") '(lambda ()
+                               (interactive)
+                               (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))))
+(add-to-list 'ac-modes 'eshell-mode)
+(defun my-ac-eshell-mode ()
+  (progn
+    (ac-define-source pcomplete
+      '((candidates . pcomplete-completions)))
+    (setq ac-sources
+          '(ac-source-pcomplete
+            ac-source-filename
+            ac-source-files-in-current-dir
+            ac-source-words-in-buffer
+            ac-source-dictionary))
+    ))
+(add-hook 'eshell-mode-hook
+          '(lambda ()
+             (progn
+               (setq eshell-cmpl-ignore-case t)
+               (setq eshell-ask-to-save-history (quote always))
+               (setq eshell-cmpl-cycle-completions t)
+               (setq eshell-hist-ignoredups t)
+               (my-ac-eshell-mode)
+               (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
+               (define-key eshell-mode-map (kbd "<tab>") 'auto-complete)
+               (define-key eshell-mode-map "\C-a" 'eshell-bol)
+               (define-key eshell-mode-map [up] 'previous-line)
+               (define-key eshell-mode-map [down] 'next-line)
+               (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
+               (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
+               (define-key eshell-mode-map "\C-j" 'eshell-send-input)
+               (define-key eshell-mode-map "\C-u" 'eshell-kill-input)
+               (define-key eshell-mode-map "\C-r" 'helm-eshell-history)
+               ;; aliases
+               (require 'cl)
+               (dolist
+                   (l '(("ls" "ls -CFa")
+                        ("l" "ls -CFal")
+                        ("a" "cd ../ ;")
+                        ("ff" "find-file")
+                        ))
+                 (add-to-list 'eshell-command-aliases-list l))
+               )))
+(add-hook 'eshell-preoutput-filter-functions
+          'ansi-color-filter-apply)
 
 
 ;;;; set color scheme
@@ -184,7 +205,7 @@
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
 (setq visible-bell t)
-(show-paren-mode)
+
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;; make rainbow-delimiters-mode more vivid
@@ -230,7 +251,6 @@
                         'mode-line-position-face)))
    " "
    ))
-
 (setq-default
  mode-line-format
  '("%e"
@@ -347,11 +367,126 @@
 (setq my/hidden-minor-modes
       '(undo-tree-mode
         helm-mode
+        highlight-symbol-mode
         ))
 (mapc (lambda (mode)
         (setq minor-mode-alist
               (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
       my/hidden-minor-modes)
+
+
+;;;; global non-major and/or minor-modes
+;;; helm
+(require 'helm-config)
+(helm-mode t)
+(global-set-key (kbd "C-c z") 'helm-resume)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key "\C-c\C-k" 'helm-show-kill-ring)
+(define-key isearch-mode-map (kbd "C-o") 'helm-swoop-from-isearch)
+(global-set-key "\C-x\C-b" 'helm-mini)
+(global-set-key "\C-xg" 'helm-ghq)
+(global-set-key "\C-c\C-s" 'helm-swoop)
+(global-set-key "\C-c\C-g" 'helm-git-grep)
+(global-set-key "\C-xx" 'quickrun)
+(global-set-key "\C-xj" 'quickrun-with-arg)
+;;; auto-complete
+(global-auto-complete-mode 1)
+(ac-config-default)
+(setq ac-use-menu-map t)
+(global-set-key "\C-cc" 'auto-complete-mode)
+;;; eldoc
+(setq eldoc-idle-delay 0.4)
+(setq eldoc-echo-area-use-multiline-p t)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(require 'smartparens)
+(require 'smartparens-config)
+(smartparens-global-mode t)
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
+(require 'expand-region)
+(global-set-key (kbd "C-,") 'er/expand-region)
+(global-set-key (kbd "C-M-,") 'er/contract-region)
+(require 'multiple-cursors)
+(global-set-key (kbd "<C-M-return>") 'mc/edit-lines)
+(require 'smartrep)
+(smartrep-define-key
+    global-map "C-." '(("C-n" . 'mc/mark-next-like-this)
+                       ("C-p" . 'mc/mark-previous-like-this)
+                       ("*"   . 'mc/mark-all-like-this)))
+(require 'auto-highlight-symbol)
+(global-auto-highlight-symbol-mode t)
+(require 'highlight-symbol)
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+(global-anzu-mode +1)
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000))
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+;; magit
+(global-set-key "\C-cs" 'magit-status)
+(global-set-key "\C-cl" 'magit-log)
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+;;; ddskk
+(setq default-input-method 'japanese-skk)
+(setq skk-japanese-message-and-error nil)
+(setq skk-show-japanese-menu nil)
+(setq skk-show-annotation nil)
+(setq skk-status-indicator 'left)
+;; indicator
+(setq skk-latin-mode-string "[_A]")
+(setq skk-hiragana-mode-string "[あ]")
+(setq skk-katakana-mode-string "[ア]")
+(setq skk-jisx0208-latin-mode-string "[Ａ]")
+(setq skk-jisx0201-mode-string "[_ｱ]")
+(setq skk-indicator-use-cursor-color nil)
+(setq skk-show-inline 'vertical)
+(when skk-show-inline
+  (if (boundp 'skk-inline-show-face)
+      (setq
+       skk-inline-show-background-color "#2c2c88")))
+(setq skk-egg-like-newline t)
+(setq skk-auto-insert-paren t)
+;; completion
+(setq skk-dcomp-activate t)
+(setq skk-dcomp-multiple-activate t)
+(setq skk-dcomp-multiple-rows 10)
+
+
+;;;; miscellaneous preferences
+(setq confirm-kill-emacs 'yes-or-no-p)
+(setq recentf-max-menu-items 50)
+(setq completion-ignore-case t)
+(global-auto-revert-mode 1)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; indent
+(setq-default tab-width 2)
+(setq-default default-tab-width 2)
+(setq-default indent-tabs-mode nil)
+(custom-set-variables
+ '(read-file-name-completion-ignore-case t))
+(show-paren-mode)
+;; create backup file in .emacs.d/backups
+(setq-default delete-old-versions t)
+(setq make-backup-files t)
+(setq backup-directory-alist
+      (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backups"))
+            backup-directory-alist))
+(defun set-exec-path-from-shell-PATH ()
+  (interactive)
+  "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell."
+  (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+(unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
 
 
 ;;;; keybindings
@@ -409,21 +544,6 @@
 ;; move for multiple lines
 (global-set-key (kbd "M-p") '(lambda () (interactive) (previous-line 5)))
 (global-set-key (kbd "M-n") '(lambda () (interactive) (next-line 5)))
-;; open buffer list in current pane
-(global-unset-key "\C-x\C-b")
-;; helm
-(global-set-key "\C-x\C-b" 'helm-mini)
-(global-set-key "\C-xg" 'helm-ghq)
-(global-set-key "\C-c\C-s" 'helm-swoop)
-(global-set-key "\C-c\C-g" 'helm-git-grep)
-(global-set-key "\C-xx" 'quickrun)
-(global-set-key "\C-xj" 'quickrun-with-arg)
-;; magit
-(global-set-key "\C-cs" 'magit-status)
-(global-set-key "\C-cl" 'magit-log)
-;; expand-region
-(global-set-key "\C-ci" 'er/expand-region)
-;;
 (defun other-window-or-split (val)
   (interactive)
   (when (one-window-p)
@@ -432,147 +552,6 @@
 (global-set-key (kbd "<C-tab>") (lambda () (interactive) (other-window-or-split 1)))
 (global-set-key (kbd "<C-S-tab>") (lambda () (interactive) (other-window-or-split -1)))
 (global-set-key (kbd "<C-iso-lefttab>") (lambda () (interactive) (other-window-or-split -1)))
-
-
-;;;; miscellaneous preferences
-(setq confirm-kill-emacs 'yes-or-no-p)
-(setq recentf-max-menu-items 50)
-(setq completion-ignore-case t)
-(global-auto-revert-mode 1)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-(setq-default tab-width 2)
-(setq-default default-tab-width 2)
-(setq-default indent-tabs-mode nil)
-(custom-set-variables
- '(read-file-name-completion-ignore-case t))
-(require 'smartparens)
-(require 'smartparens-config)
-(smartparens-global-mode t)
-;; create backup file in .emacs.d/backups
-(setq-default delete-old-versions t)
-(setq make-backup-files t)
-(setq backup-directory-alist
-      (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backups"))
-            backup-directory-alist))
-;; undo-tree
-(require 'undo-tree)
-(global-undo-tree-mode t)
-(global-set-key (kbd "M-/") 'undo-tree-redo)
-;; popwin
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-(require 'expand-region)
-(require 'multiple-cursors)
-(require 'smartrep)
-(global-set-key (kbd "C-,") 'er/expand-region)
-(global-set-key (kbd "C-M-,") 'er/contract-region)
-(global-set-key (kbd "<C-M-return>") 'mc/edit-lines)
-(smartrep-define-key
-    global-map "C-." '(("C-n" . 'mc/mark-next-like-this)
-                       ("C-p" . 'mc/mark-previous-like-this)
-                       ("*"   . 'mc/mark-all-like-this)))
-(require 'auto-highlight-symbol)
-(global-auto-highlight-symbol-mode t)
-(require 'highlight-symbol)
-(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
-(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
-(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
-(defun set-exec-path-from-shell-PATH ()
-  (interactive)
-  "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell."
-  (interactive)
-  (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
-(unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
-(global-anzu-mode +1)
-(custom-set-variables
- '(anzu-mode-lighter "")
- '(anzu-deactivate-region t)
- '(anzu-search-threshold 1000))
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-
-
-;;;; ddskk
-(setq default-input-method 'japanese-skk)
-(setq skk-japanese-message-and-error nil)
-(setq skk-show-japanese-menu nil)
-(setq skk-show-annotation nil)
-(setq skk-status-indicator 'left)
-;; indicator
-(setq skk-latin-mode-string "[_A]")
-(setq skk-hiragana-mode-string "[あ]")
-(setq skk-katakana-mode-string "[ア]")
-(setq skk-jisx0208-latin-mode-string "[Ａ]")
-(setq skk-jisx0201-mode-string "[_ｱ]")
-(setq skk-indicator-use-cursor-color nil)
-(setq skk-show-inline 'vertical)
-(when skk-show-inline
-  (if (boundp 'skk-inline-show-face)
-      (setq
-       skk-inline-show-background-color "#2c2c88")))
-(setq skk-egg-like-newline t)
-(setq skk-auto-insert-paren t)
-;; completion
-(setq skk-dcomp-activate t)
-(setq skk-dcomp-multiple-activate t)
-(setq skk-dcomp-multiple-rows 10)
-
-
-;;;; eshell
-(global-set-key (kbd "C-=") '(lambda ()
-                               (interactive)
-                               (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))))
-(add-to-list 'ac-modes 'eshell-mode)
-(defun my-ac-eshell-mode ()
-  (progn
-    (ac-define-source pcomplete
-      '((candidates . pcomplete-completions)))
-    (setq ac-sources
-          '(ac-source-pcomplete
-            ac-source-filename
-            ac-source-files-in-current-dir
-            ac-source-words-in-buffer
-            ac-source-dictionary))
-    ))
-(add-hook 'eshell-mode-hook
-          '(lambda ()
-             (progn
-               (setq eshell-cmpl-ignore-case t)
-               (setq eshell-ask-to-save-history (quote always))
-               (setq eshell-cmpl-cycle-completions t)
-               (setq eshell-hist-ignoredups t)
-               (my-ac-eshell-mode)
-               (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
-               (define-key eshell-mode-map (kbd "<tab>") 'auto-complete)
-               (define-key eshell-mode-map "\C-a" 'eshell-bol)
-               (define-key eshell-mode-map [up] 'previous-line)
-               (define-key eshell-mode-map [down] 'next-line)
-               (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
-               (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
-               (define-key eshell-mode-map "\C-j" 'eshell-send-input)
-               (define-key eshell-mode-map "\C-u" 'eshell-kill-input)
-               (define-key eshell-mode-map "\C-r" 'helm-eshell-history)
-               ;; aliases
-               (require 'cl)
-               (dolist
-                   (l '(("ls" "ls -CFa")
-                        ("l" "ls -CFal")
-                        ("a" "cd ../ ;")
-                        ("ff" "find-file")
-                        ))
-                 (add-to-list 'eshell-command-aliases-list l))
-               )))
-(add-hook 'eshell-preoutput-filter-functions
-          'ansi-color-filter-apply)
-
-
-;;;; load local config
-(if (file-readable-p "~/.emacs.d/lisp/env.el")
-    (load-file "~/.emacs.d/lisp/env.el"))
 
 
 (setq gc-cons-threshold 8388608)
