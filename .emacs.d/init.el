@@ -433,7 +433,7 @@
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 ;; magit
-(magit-auto-revert-mode -1)
+(setq magit-auto-revert-mode -1)
 (global-set-key "\C-cs" 'magit-status)
 (global-set-key "\C-cl" 'magit-log)
 (require 'uniquify)
