@@ -469,6 +469,9 @@
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq scroll-conservatively 35
+      scroll-margin 5
+      scroll-step 1)
 ;; indent
 (setq-default tab-width 2)
 (setq-default default-tab-width 2)
