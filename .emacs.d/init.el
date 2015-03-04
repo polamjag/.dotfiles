@@ -49,7 +49,9 @@
     (electric-layout-mode t)
     (if (not (null buffer-file-name)) (flymake-mode))
     (ruby-block-mode t)
-    (setq ruby-block-highlight-toggle t)))
+    (setq ruby-block-highlight-toggle t)
+    (setq enh-ruby-deep-indent-paren nil)
+    ))
 ;; flymake for ruby
 (defun flymake-ruby-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
