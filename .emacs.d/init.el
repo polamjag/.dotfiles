@@ -556,9 +556,8 @@
   (when (one-window-p)
     (split-window-vertically))
   (other-window val))
-(global-set-key (kbd "<C-tab>") (lambda () (interactive) (other-window-or-split 1)))
-(global-set-key (kbd "<C-S-tab>") (lambda () (interactive) (other-window-or-split -1)))
-(global-set-key (kbd "<C-iso-lefttab>") (lambda () (interactive) (other-window-or-split -1)))
+(global-set-key "\C-t" (lambda () (interactive) (other-window-or-split 1)))
+(global-set-key (kbd "C-S-t") (lambda () (interactive) (other-window-or-split -1)))
 (defun copy-buffer ()
   "Copy entire buffer to clipboard"
   (interactive)
