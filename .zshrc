@@ -99,18 +99,19 @@ bindkey "^N" history-beginning-search-forward-end
 autoload -U promptinit ; promptinit
 autoload -U add-zsh-hook
 setopt correct
-ssh_prefix () {
-  if [ "${SSH_CONNECTION:+mayuge}" = mayuge ] ; then
-    echo -n "%F{magenta}%B-=> %b%f"
-  else
-    echo -n ""
-  fi
-}
 # main prompt
 #(ssh_prefix)(      pwd      )   (    username   :: hostname  ) (     bg job(s) count     ) (  exit status  )
+if [ "$SSH_CONNECTION" = "" ] ; then
+# non-ssh
 PROMPT="
-$(ssh_prefix)%F{green}%B%~%b%f %B(%F{yellow}%M%f::%F{cyan}%n%f)%(1j.%F{magenta} *%j bg*%f.)%(?..%F{red} [%?])
+%F{green}%B%~%b%f %B(%F{cyan}%n%f)%(1j.%F{magenta} *%j bg*%f.)%(?..%F{red} [%?])
 %#%b%f "
+else
+# on ssh
+PROMPT="
+%F{magenta}%B-=> %b%f%F{green}%B%~%b%f %B(%F{yellow}%M%f::%F{cyan}%n%f)%(1j.%F{magenta} *%j bg*%f.)%(?..%F{red} [%?])
+%#%b%f "
+fi
 zle_highlight=(isearch:standout)
 SPROMPT='%BCorrect: %F{yellow}%R%f -> %F{cyan}%U%r%u%f [nyae]?%b '
 # config for right prompt for VCS
@@ -231,9 +232,9 @@ chpwd() {
   ls_abbrev
 }
 ls_abbrev() {
-  items=$(ls | wc -l)
-  all_items=$(ls -a | wc -l)
-  echo "$fg_bold[white]->$reset_color $fg_bold[green]$(pwd)$reset_color: $fg_bold[cyan]$items items (+ $(($all_items - $items - 2)) hidden)$reset_color"
+  local items=$(ls | wc -l)
+  local all_items=$(ls -A | wc -l)
+  echo "$fg_bold[white]->$reset_color $fg_bold[green]$(pwd)$reset_color: $fg_bold[cyan]$items items (+ $(($all_items - $items )) hidden)$reset_color"
   cmd='ls -CF1'
   $cmd | head -n 4 | tr '\n' ' '
   echo ''
