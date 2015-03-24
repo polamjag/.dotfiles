@@ -2,21 +2,13 @@
 # common config #
 # ============= #
 # workaround
-if [ -f $HOME/.zshenv ] ; then
-  source $HOME/.zshenv
-fi
-# use ~/bin
-if [ -d $HOME/bin ] ; then
-  PATH=$PATH:$HOME/bin
-fi
-# load rubygem executable
-if hash gem &>/dev/null ; then
-  export PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')"
-fi
-# load npm executable
-if [ -d $HOME/.npm/bin ] ; then
-  export PATH="$PATH:$HOME/.npm/bin"
-fi
+test -f $HOME/.zshenv && source $HOME/.zshenv
+
+# load $PATH
+test -d $HOME/bin && PATH=$PATH:$HOME/bin
+hash gem &>/dev/null && PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')"
+test -d $HOME/.npm/bin && PATH="$PATH:$HOME/.npm/bin"
+export PATH
 
 case ${OSTYPE} in
   freebsd*|darwin*)
@@ -100,7 +92,6 @@ autoload -U promptinit ; promptinit
 autoload -U add-zsh-hook
 setopt correct
 # main prompt
-#(ssh_prefix)(      pwd      )   (    username   :: hostname  ) (     bg job(s) count     ) (  exit status  )
 if [ "$SSH_CONNECTION" = "" ] ; then
 # non-ssh
 PROMPT="
@@ -235,13 +226,6 @@ ls_abbrev() {
   local items=$(ls | wc -l)
   local all_items=$(ls -A | wc -l)
   echo "$fg_bold[white]->$reset_color $fg_bold[green]$(pwd)$reset_color: $fg_bold[cyan]$items items (+ $(($all_items - $items )) hidden)$reset_color"
-  cmd='ls -CF1'
-  $cmd | head -n 4 | tr '\n' ' '
-  echo ''
-  if [ $items -gt 8 ] ; then
-    echo '...' ; fi
-  if [ $items -gt 4 ] ; then
-    $cmd | tail -n 4 | tr '\n' ' ' ; echo '' ; fi
 }
 
 
