@@ -153,7 +153,7 @@ update_all() {
   vim -u $HOME/.vimrc.ext -c 'NeoBundleUpdate|q'
   cd $shdir/lib
   PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')" sh -c "bundle update"
-  if hash npm &>/dev/null ; then ; npm upgrade -g ; fi
+  hash npm &>/dev/null && npm upgrade -g
 }
 
 # entrypoint
