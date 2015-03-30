@@ -6,6 +6,8 @@ test -f $HOME/.zshenv && source $HOME/.zshenv
 
 # load $PATH
 test -d $HOME/bin && PATH=$PATH:$HOME/bin
+test -d $HOME/.rbenv/bin && PATH=$PATH:$HOME/.rbenv/bin
+hash rbenv &>/dev/null && eval "$(rbenv init -)"
 hash gem &>/dev/null && PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')"
 test -d $HOME/.npm/bin && PATH="$PATH:$HOME/.npm/bin"
 export PATH
