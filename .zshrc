@@ -220,15 +220,6 @@ clear-screen-rehash() {
   zle reset-prompt
 } ; zle -N clear-screen-rehash
 bindkey '^L' clear-screen-rehash
-# chpwd / cd command hook
-chpwd() {
-  ls_abbrev
-}
-ls_abbrev() {
-  local items=$(ls | wc -l)
-  local all_items=$(ls -A | wc -l)
-  echo "$fg_bold[white]->$reset_color $fg_bold[green]$(pwd)$reset_color: $fg_bold[cyan]$items items (+ $(($all_items - $items )) hidden)$reset_color"
-}
 
 
 # ================= #
