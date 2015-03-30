@@ -565,6 +565,9 @@
     (clipboard-kill-ring-save (point-min) (point-max))
     (message "Copied entire buffer to clipboard")))
 (global-set-key (kbd "C-M-y") 'copy-buffer)
+;; swap Cmd and Option on Mac
+(setq ns-command-modifier (quote meta))
+(setq ns-alternate-modifier (quote super))
 
 
 (setq gc-cons-threshold 8388608)
