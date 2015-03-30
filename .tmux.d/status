@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # tmux status bar configuration
 
 ssh_sign() {
@@ -59,7 +59,7 @@ acpi_battery() {
 
 if [ "$1" = left ] ; then
   # left status bar expansion for SSH
-  if [ "${SSH_CONNECTION:+mayuge}" = "mayuge" ] ; then
+  if [ "$SSH_CONNECTION" != "" ] ; then
     ssh_sign
   fi
 elif [ "$1" = right ] ; then
@@ -77,5 +77,5 @@ elif [ "$1" = right ] ; then
 fi
 
 # reset format
-echo -n '#[default]'
+echo '#[default]'
 
