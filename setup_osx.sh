@@ -12,6 +12,10 @@ defaults write com.apple.screencapture "disable-shadow" -bool yes
 defaults write com.apple.finder QLEnableTextSelection -bool true
 # more items on "recent folders"
 defaults write -g NSNavRecentPlacesLimit -int 10
+# remove delay of Dock
+defaults write com.apple.Dock autohide-delay -float 0
+# modify filename of screen shot file
+defaults write com.apple.screencapture name scr
 
 
 # make mac quiet on boot
