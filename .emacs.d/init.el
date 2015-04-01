@@ -1,3 +1,5 @@
+;; -*- coding:utf-8 -*-
+
 ;; c.f. http://rubikitch.com/2015/01/04/esup/
 (setq gc-cons-threshold 1073741824)
 
