@@ -483,6 +483,8 @@
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
 (show-paren-mode)
+;; enable some commands
+(put 'upcase-region 'disabled nil)
 ;; create backup file in .emacs.d/backups
 (setq-default delete-old-versions t)
 (setq make-backup-files t)
