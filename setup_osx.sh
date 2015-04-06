@@ -19,7 +19,7 @@ defaults write com.apple.screencapture name scr
 
 
 # make mac quiet on boot
-sudo nvram SystemAudioVolume=%80
+sudo nvram SystemAudioVolume=" "
 
 # git
 git config --global core.precomposeunicode true
