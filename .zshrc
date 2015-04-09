@@ -14,7 +14,12 @@ export PATH
 
 case ${OSTYPE} in
   freebsd*|darwin*)
-    source $HOME/.zsh.d/bsd
+    if [ -d '/usr/local/opt/coreutils/libexec/gnubin' ] ; then
+      export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+      source $HOME/.zsh.d/linux
+    else
+      source $HOME/.zsh.d/bsd
+    fi
     ;;
   linux*)
     source $HOME/.zsh.d/linux
