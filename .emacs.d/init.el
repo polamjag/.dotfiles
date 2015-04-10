@@ -201,7 +201,10 @@
     (progn
       (cond
        ((eq system-type 'gnu/linux) (set-font "Ricty" 105))
-       ((eq system-type 'darwin) (set-font "Monaco" 105))
+       ((eq system-type 'darwin)
+        (if (find-font (font-spec :name "Ricty"))
+            (set-font "Ricty" 130)
+          (set-font "Monaco" 105)))
        ((eq system-type 'windows-nt) (set-font "Consolas" 95)))
       (set-scroll-bar-mode nil)
       (tool-bar-mode -1)
@@ -544,7 +547,7 @@
 (defun toggle-fullscreen ()
   "Toggle full screen on X11"
   (interactive)
-  (when (eq window-system 'x)
+  (when (or (eq window-system 'x) (eq window-system 'ns))
     (set-frame-parameter
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
@@ -560,8 +563,8 @@
   (when (one-window-p)
     (split-window-vertically))
   (other-window val))
-(global-set-key "\C-t" (lambda () (interactive) (other-window-or-split 1)))
-(global-set-key (kbd "C-S-t") (lambda () (interactive) (other-window-or-split -1)))
+(global-set-key (kbd "C-<tab>") (lambda () (interactive) (other-window-or-split 1)))
+(global-set-key (kbd "C-S-<tab>") (lambda () (interactive) (other-window-or-split -1)))
 (defun copy-buffer ()
   "Copy entire buffer to clipboard"
   (interactive)
