@@ -16,7 +16,10 @@ defaults write -g NSNavRecentPlacesLimit -int 10
 defaults write com.apple.Dock autohide-delay -float 0
 # modify filename of screen shot file
 defaults write com.apple.screencapture name scr
+# change speed of mission control's animation speed
+defaults write com.apple.dock expose-animation-duration -float 0.25
 
+killall Dock
 
 # make mac quiet on boot
 sudo nvram SystemAudioVolume=" "
