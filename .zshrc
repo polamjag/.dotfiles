@@ -13,13 +13,16 @@ test -d $HOME/.npm/bin   && PATH="$PATH:$HOME/.npm/bin"
 export PATH
 
 case ${OSTYPE} in
-  freebsd*|darwin*)
-    if [ -d '/usr/local/opt/coreutils/libexec/gnubin' ] ; then
-      export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  darwin*)
+    if [ -x '/usr/libexec/path_helper' ] ; then
+      eval $(/usr/libexec/path_helper -s)
       source $HOME/.zsh.d/linux
     else
       source $HOME/.zsh.d/bsd
     fi
+    ;;
+  freebsd*)
+    source $HOME/.zsh.d/bsd
     ;;
   linux*)
     source $HOME/.zsh.d/linux
