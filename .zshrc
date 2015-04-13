@@ -14,8 +14,8 @@ export PATH
 
 case ${OSTYPE} in
   darwin*)
-    if [ -x '/usr/libexec/path_helper' ] ; then
-      eval $(/usr/libexec/path_helper -s)
+    test -x /usr/libexec/path_helper && eval $(/usr/libexec/path_helper -s)
+    if [ -d '/usr/local/opt/coreutils/libexec/gnubin' ] ; then
       source $HOME/.zsh.d/linux
     else
       source $HOME/.zsh.d/bsd
