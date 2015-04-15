@@ -8,6 +8,8 @@
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 # disable shadow on screen capture
 defaults write com.apple.screencapture "disable-shadow" -bool yes
+# save screenshot to ~/Downloads
+defaults write com.apple.screencapture location ~/Downloads
 # text becomes selectable in quicklook
 defaults write com.apple.finder QLEnableTextSelection -bool true
 # more items on "recent folders"
@@ -20,6 +22,7 @@ defaults write com.apple.screencapture name scr
 defaults write com.apple.dock expose-animation-duration -float 0.25
 
 killall Dock
+killall SystemUIServer
 
 # make mac quiet on boot
 sudo nvram SystemAudioVolume=" "
