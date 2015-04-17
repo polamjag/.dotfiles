@@ -68,7 +68,7 @@ elif [ "$1" = right ] ; then
   load_average
   if [ "${SSH_CONNECTION:+mayuge}" = "mayuge" ] ; then
     # status bar configuration for SSH session
-    ip_address
+    # ip_address
   else
     # for non-SSH client
     cpu_temp
