@@ -1,3 +1,4 @@
+alias sudo='sudo '
 alias e='emacs -nw'
 if hash vim &>/dev/null ; then
   alias vi='vim' ; fi
