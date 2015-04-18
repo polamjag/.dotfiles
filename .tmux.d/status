@@ -2,8 +2,7 @@
 # tmux status bar configuration
 
 ssh_sign() {
-  echo -n '#[fg=green,bg=black,bold] ssh#[fg=white]:'
-  echo -n '#[fg=cyan]'$(whoami)'#[fg=white]@#[fg=yellow]'$(hostname)'#[fg=white] '
+  echo -n '#[fg=yellow,bg=black,bold]' $(hostname)'#[fg=white] '
 }
 load_average() {
   echo -n '#[fg=white,bg=magenta,bold] '
@@ -66,10 +65,7 @@ elif [ "$1" = right ] ; then
   # right status bar
   # display both (non-SSH and SSH session)
   load_average
-  if [ "${SSH_CONNECTION:+mayuge}" = "mayuge" ] ; then
-    # status bar configuration for SSH session
-    # ip_address
-  else
+  if [ "${SSH_CONNECTION:+mayuge}" != "mayuge" ] ; then
     # for non-SSH client
     cpu_temp
     acpi_battery
