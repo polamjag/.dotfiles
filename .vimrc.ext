@@ -46,6 +46,7 @@ NeoBundle 'tsaleh/vim-align'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'ruby-matchit'
+NeoBundle 'slim-template/vim-slim'
 
 filetype plugin indent on
 
