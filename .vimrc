@@ -3,7 +3,7 @@ syntax on
 set nocompatible
 set number
 set helplang=ja
-set fencs=utf-8,euc-jp,iso-2022-jp,cp932 
+set fencs=utf-8,euc-jp,iso-2022-jp,cp932
 set autoindent smartindent
 set smarttab
 set tabstop=2 softtabstop=2 shiftwidth=2
@@ -89,3 +89,6 @@ nnoremap <Down> gj
 nnoremap <Up>   gk
 nnoremap <Space> <PageDown>
 nnoremap <S-SPACE> <PageUp>
+
+imap <F7> <nop>
+set pastetoggle=<F7>
