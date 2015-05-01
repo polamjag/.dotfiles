@@ -125,6 +125,11 @@
 (add-hook 'c-mode-hook
           (lambda ()
             (c-turn-on-eldoc-mode)))
+;;; scss
+(add-hook 'scss-mode-hook
+          (lambda ()
+            (setq css-indent-offset 2)
+            (setq scss-compile-at-save nil)))
 
 
 ;;;; eshell
