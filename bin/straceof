@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ $# -lt 1 ] ; then
+  echo "usage: $0 <name of process to attach [more arguments for strace]"
+  exit 1
+fi
+
+target=$1
+shift
+
+strace $(pidof "$target" |sed 's/\([0-9]*\)/\-p \1/g') $@
