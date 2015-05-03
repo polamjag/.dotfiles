@@ -25,6 +25,7 @@
     sass-mode
     less-css-mode
     scss-mode
+    coffee-mode
     js2-mode
     tuareg
     caml
