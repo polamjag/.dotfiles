@@ -50,6 +50,7 @@
 ;;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
 (add-hook 'web-mode-hook
           '(lambda ()
              (setq web-mode-markup-indent-offset 2
@@ -62,7 +63,12 @@
                    web-mode-script-padding 2
                    indent-tabs-mode nil
                    tab-width 2)))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;;; js2-mode
+(add-to-list 'auto-mode-alist '("\\.js\\'"   . js2-mode))
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             (setq js2-basic-offset 2
+                   js2-bounce-indent-p t)))
 ;;; shellscript-mode
 (setq sh-basic-offset 2
       sh-indentation 2
