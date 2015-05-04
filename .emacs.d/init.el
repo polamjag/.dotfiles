@@ -12,9 +12,9 @@
 (require 'package)
 (setq package-archives
       (append
-       '(("melpa" . "http://melpa.milkbox.net/packages/")
+       '(("melpa"     . "http://melpa.milkbox.net/packages/")
          ("marmalade" . "http://marmalade-repo.org/packages/")
-         ("ELPA" . "http://tromey.com/elpa/"))
+         ("ELPA"      . "http://tromey.com/elpa/"))
        package-archives))
 (package-initialize)
 (require 'packages-list)
@@ -26,21 +26,14 @@
 
 
 ;;;; initialize major modes
-(require 'flymake)
-;; flymake for java
-(add-hook 'java-mode-hook 'flymake-mode-on)
-(defun my-java-flymake-init ()
-  (list "javac" (list (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-with-folder-structure))))
-(add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
 ;;; ruby
-(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$"      . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake$"    . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Guardfile$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$"    . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$"    . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile$"  . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$"   . enh-ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (add-hook
  'enh-ruby-mode-hook
@@ -49,55 +42,27 @@
     (abbrev-mode 1)
     (electric-indent-mode t)
     (electric-layout-mode t)
-    (if (not (null buffer-file-name)) (flymake-mode))
     (ruby-block-mode t)
     (setq ruby-block-highlight-toggle t)
-    (setq enh-ruby-deep-indent-paren nil)
-    ))
-;; flymake for ruby
-(defun flymake-ruby-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    (list "ruby" (list "-c" local-file))))
-(push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
-(push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
-(push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+    (setq enh-ruby-deep-indent-paren nil)))
 (add-hook 'enh-ruby-mode 'yard-mode)
 (add-hook 'enh-ruby-mode 'eldoc-mode)
 ;;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(defun my-web-mode-hook ()
-  "Hooks for web-mode"
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-script-offset 2)
-  (setq web-mode-php-offset 2)
-  (setq web-mode-html-offset 2)
-  (setq web-mode-style-padding 2)
-  (setq web-mode-script-padding 2)
-  (setq indent-tabs-mode nil)
-  (setq tab-width 2))
-(add-hook 'web-mode-hook  'my-web-mode-hook)
+(add-hook 'web-mode-hook
+          '(lambda ()
+             (setq web-mode-markup-indent-offset 2
+                   web-mode-css-indent-offset 2
+                   web-mode-code-indent-offset 2
+                   web-mode-script-offset 2
+                   web-mode-php-offset 2
+                   web-mode-html-offset 2
+                   web-mode-style-padding 2
+                   web-mode-script-padding 2
+                   indent-tabs-mode nil
+                   tab-width 2)))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(defun credmp/flymake-display-err-minibuf ()
-  "Displays the error/warning for the current line in the minibuffer"
-  (interactive)
-  (let* ((line-no             (flymake-current-line-no))
-         (line-err-info-list  (nth 0 (flymake-find-err-info flymake-err-info line-no)))
-         (count               (length line-err-info-list)))
-    (while (> count 0)
-      (when line-err-info-list
-        (let* ((file       (flymake-ler-file (nth (1- count) line-err-info-list)))
-               (full-file  (flymake-ler-full-file (nth (1- count) line-err-info-list)))
-               (text (flymake-ler-text (nth (1- count) line-err-info-list)))
-               (line       (flymake-ler-line (nth (1- count) line-err-info-list))))
-          (message "[%s] %s" line text)))
-      (setq count (1- count)))))
 ;;; shellscript-mode
 (setq sh-basic-offset 2
       sh-indentation 2
@@ -106,20 +71,12 @@
 ;;; cider / clojure
 (setq cider-repl-wrap-history t)
 (add-hook 'clojure-mode-hook 'cider-mode)
-(require 'ac-cider)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-(eval-after-load "auto-complete"
-  '(progn
-     (add-to-list 'ac-modes 'cider-mode)
-     (add-to-list 'ac-modes 'cider-repl-mode)))
 ;;; markdown-mode / plain text
-(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'"      . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.text\\'"     . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.mkd\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mkd\\'"      . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'"       . markdown-mode))
 (setq markdown-enable-math t)
 ;;; c
 (add-hook 'c-mode-hook
@@ -128,8 +85,8 @@
 ;;; scss
 (add-hook 'scss-mode-hook
           (lambda ()
-            (setq css-indent-offset 2)
-            (setq scss-compile-at-save nil)))
+            (setq css-indent-offset 2
+                  scss-compile-at-save nil)))
 
 
 ;;;; eshell
@@ -151,10 +108,10 @@
 (add-hook 'eshell-mode-hook
           '(lambda ()
              (progn
-               (setq eshell-cmpl-ignore-case t)
-               (setq eshell-ask-to-save-history (quote always))
-               (setq eshell-cmpl-cycle-completions t)
-               (setq eshell-hist-ignoredups t)
+               (setq eshell-cmpl-ignore-case t
+                     eshell-ask-to-save-history 'always
+                     eshell-cmpl-cycle-completions t
+                     eshell-hist-ignoredups t)
                (my-ac-eshell-mode)
                (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
                (define-key eshell-mode-map (kbd "<tab>") 'auto-complete)
@@ -180,22 +137,10 @@
           'ansi-color-filter-apply)
 
 
-;;;; set color scheme
-(load-theme 'manoj-dark t)
-(defvar colorscheme-mode-status "dark")
-(defun toggle-colorscheme ()
-  "Toggle colorscheme dark or day"
-  (interactive)
-  (if (string= colorscheme-mode-status "dark")
-      (progn
-        (load-theme 'adwaita t)
-        (setq colorscheme-mode-status "light"))
-    (progn (load-theme 'manoj-dark t)
-           (setq colorscheme-mode-status "dark"))))
-(global-set-key [f9] 'toggle-colorscheme)
-
 
 ;;;; window and appearance preferences
+;; color scheme
+(load-theme 'manoj-dark t)
 ;; font helper
 (defun set-font (font-name size)
   (set-face-attribute 'default nil :family font-name :height size)
@@ -254,7 +199,7 @@
    (:propertize "%4l" face mode-line-position-face)
    (:propertize "/" face mode-line-delim-face-1)
    (:propertize (:eval
-    (number-to-string (count-lines (point-min) (point-max)))) face mode-line-position-face-small)
+                 (number-to-string (count-lines (point-min) (point-max)))) face mode-line-position-face-small)
    ":"
    (:eval (propertize "%c" 'face
                       (if (>= (current-column) 80)
@@ -270,7 +215,7 @@
    mode-line-client
    mode-line-remote
    mode-line-position
-   ; read-only or modified status
+   ;; read-only or modified status
    (:eval
     (cond (buffer-read-only
            (propertize " RO " 'face 'mode-line-read-only-face))
@@ -397,7 +342,6 @@
 (global-set-key "\C-c\C-k" 'helm-show-kill-ring)
 (define-key isearch-mode-map (kbd "C-o") 'helm-swoop-from-isearch)
 (global-set-key "\C-x\C-b" 'helm-mini)
-(global-set-key "\C-xg" 'helm-ghq)
 (global-set-key "\C-c\C-s" 'helm-swoop)
 (global-set-key "\C-c\C-g" 'helm-git-grep)
 (global-set-key "\C-xx" 'quickrun)
@@ -408,8 +352,8 @@
 (setq ac-use-menu-map t)
 (global-set-key "\C-cc" 'auto-complete-mode)
 ;;; eldoc
-(setq eldoc-idle-delay 0.4)
-(setq eldoc-echo-area-use-multiline-p t)
+(setq eldoc-idle-delay 0.4
+      eldoc-echo-area-use-multiline-p t)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (require 'smartparens)
@@ -450,34 +394,35 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;;; ddskk
-(setq default-input-method 'japanese-skk)
-(setq skk-japanese-message-and-error nil)
-(setq skk-show-japanese-menu nil)
-(setq skk-show-annotation nil)
-(setq skk-status-indicator 'left)
+(setq default-input-method 'japanese-skk
+      skk-japanese-message-and-error nil
+      skk-show-japanese-menu nil
+      skk-show-annotation nil
+      skk-status-indicator 'left)
 ;; indicator
-(setq skk-latin-mode-string "[_A]")
-(setq skk-hiragana-mode-string "[あ]")
-(setq skk-katakana-mode-string "[ア]")
-(setq skk-jisx0208-latin-mode-string "[Ａ]")
-(setq skk-jisx0201-mode-string "[_ｱ]")
-(setq skk-indicator-use-cursor-color nil)
-(setq skk-show-inline 'vertical)
+(setq skk-latin-mode-string "[_A]"
+      skk-hiragana-mode-string "[あ]"
+      skk-katakana-mode-string "[ア]"
+      skk-jisx0208-latin-mode-string "[Ａ]"
+      skk-jisx0201-mode-string "[_ｱ]"
+      skk-indicator-use-cursor-color nil
+      skk-show-inline 'vertical)
+(setq skk-egg-like-newline t
+      skk-auto-insert-paren t)
 (when skk-show-inline
   (if (boundp 'skk-inline-show-face)
       (setq
        skk-inline-show-background-color "#2c2c88")))
-(setq skk-egg-like-newline t)
-(setq skk-auto-insert-paren t)
 ;; completion
-(setq skk-dcomp-activate t)
-(setq skk-dcomp-multiple-activate t)
-(setq skk-dcomp-multiple-rows 10)
+(setq skk-dcomp-activate t
+      skk-dcomp-multiple-activate t
+      skk-dcomp-multiple-rows 10)
+
 
 
 ;;;; miscellaneous preferences
 (setq confirm-kill-emacs 'yes-or-no-p)
-(setq recentf-max-menu-items 50)
+(setq recentf-max-menu-items 100)
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
