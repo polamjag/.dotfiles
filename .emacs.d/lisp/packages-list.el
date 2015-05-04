@@ -74,7 +74,6 @@
     popwin
     quickrun
     rainbow-delimiters
-    smartparens
     undo-tree
     anzu
     yasnippet
