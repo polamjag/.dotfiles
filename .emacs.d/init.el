@@ -93,7 +93,6 @@
 (global-set-key (kbd "C-=") '(lambda ()
                                (interactive)
                                (if (string= major-mode "eshell-mode") (previous-buffer) (eshell))))
-(add-to-list 'ac-modes 'eshell-mode)
 (defun my-ac-eshell-mode ()
   (progn
     (ac-define-source pcomplete
@@ -131,8 +130,7 @@
                         ("a" "cd ../ ;")
                         ("ff" "find-file")
                         ))
-                 (add-to-list 'eshell-command-aliases-list l))
-               )))
+                 (add-to-list 'eshell-command-aliases-list l)))))
 (add-hook 'eshell-preoutput-filter-functions
           'ansi-color-filter-apply)
 
@@ -351,6 +349,8 @@
 (ac-config-default)
 (setq ac-use-menu-map t)
 (global-set-key "\C-cc" 'auto-complete-mode)
+;;; flycheck
+(add-hook 'after-init-hook 'global-flycheck-mode)
 ;;; eldoc
 (setq eldoc-idle-delay 0.4
       eldoc-echo-area-use-multiline-p t)
