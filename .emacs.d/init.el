@@ -438,6 +438,8 @@
 (setq-default indent-tabs-mode nil)
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
+;; parens
+(electric-pair-mode 1)
 (show-paren-mode)
 ;; enable some commands
 (put 'upcase-region 'disabled nil)
