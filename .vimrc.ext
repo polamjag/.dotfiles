@@ -19,29 +19,20 @@ endif
 
 "" packages
 NeoBundle 'unite.vim'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'tsukkee/unite-tag'
 
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'itchyny/landscape.vim'
 
 NeoBundle 'The-NERD-tree'
-NeoBundle 'The-NERD-Commenter'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'haya14busa/incsearch.vim'
-NeoBundle 'taglist.vim'
 NeoBundle 'surround.vim'
-NeoBundle 'ref.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'Shougo/vimproc'
-NeoBundle 'Gist.vim'
 NeoBundle 'Rainbow-Parenthesis'
 NeoBundle 'Modeliner'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'sudo.vim'
 NeoBundle 'smartchr'
-NeoBundle 'tsaleh/vim-align'
 
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'vim-ruby/vim-ruby'
@@ -75,6 +66,8 @@ if v:version >= 730
   set colorcolumn=85
   set relativenumber
 endif
+
+set autochdir
 
 set ignorecase
 set smartcase
@@ -133,98 +126,6 @@ let g:lightline = {
 set laststatus=2
 
 
-"" neocomplcache
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : ''
-    \ }
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-
-"" quickrun
-" Initialization
-let g:quickrun_config = {}
-
-
-"" NERDCommenter
-let NERDSpaceDelims = 1
-let NERDShutUp = 1
-
-
-"" unite.vim
-"Key Map
-"fc: list around about current dir
-"fb: list around buffer dir
-"fr: list register
-"fo: list outline
-"ff: list unite source
-"fl: list colorscheme and selection
-" The prefix key.
-nnoremap    [unite]   <Nop>
-nmap    f [unite]
-
-nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
-nnoremap  [unite]f  :<C-u>Unite source<CR>
-" @see https://github.com/h1mesuke/unite-outline
-nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-" @see https://github.com/ujihisa/unite-colorscheme
-nnoremap [unite]l :<C-u>Unite -auto-preview colorscheme<CR>
-" @see https://github.com/tsukkee/unite-tag
-" searching tag by words on cursor.
-nnoremap <silent> [unite]u  :<C-u>Unite -immediately -no-start-insert tag:<C-r>=expand('<cword>')<CR><CR>
-" show tags
-nnoremap <silent> [unite]t  :<C-u>Unite tag<CR>
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-  " Overwrite settings.
-
-  nmap <buffer> <ESC>      <Plug>(unite_exit)
-  imap <buffer> jj      <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-
-  " Start insert.
-  " let g:unite_enable_start_insert = 0
-endfunction
-
-let g:unite_source_file_mru_limit = 200
-let g:unite_enable_split_vertically = 0 "vertical split
-
-
-"" ctags
-set tags=tags
-let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
-
-
 "" general keybindings
 inoremap <C-c> <Esc>
 noremap ; :
@@ -251,3 +152,6 @@ map g/ <Plug>(incsearch-stay)
 
 imap <F7> <nop>
 set pastetoggle=<F7>
+
+imap <F4> <nop>
+noremap <F4> :NERDTreeToggle<CR>
