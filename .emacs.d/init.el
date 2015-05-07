@@ -365,8 +365,6 @@
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
 (require 'expand-region)
 (global-set-key (kbd "C-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
