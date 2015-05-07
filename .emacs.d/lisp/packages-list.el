@@ -1,6 +1,16 @@
 (provide 'packages-list)
 
 (require 'cl)
+(require 'package)
+
+(setq package-archives
+      (append
+       '(("melpa"     . "http://melpa.milkbox.net/packages/")
+         ("marmalade" . "http://marmalade-repo.org/packages/")
+         ("ELPA"      . "http://tromey.com/elpa/"))
+       package-archives))
+
+(package-initialize)
 
 (defvar installing-package-list
   '(
@@ -17,7 +27,6 @@
     robe
     yard-mode
     web-mode
-    jade-mode
     slim-mode
     sass-mode
     scss-mode
@@ -80,13 +89,15 @@
     wc-mode
     ))
 
-(let ((not-installed (loop for x in installing-package-list
-                           when (not (package-installed-p x))
-                           collect x)))
-  (if (< (length not-installed) 0)
-    (package-refresh-contents)
-    (dolist (pkg not-installed)
-      (progn (package-install pkg)(print not-installed)))))
+(let ((not-installed
+      (loop for x in installing-package-list
+            when (not (package-installed-p x))
+            collect x)))
+  (if (> (length not-installed) 0)
+      (progn
+        (package-refresh-contents)
+        (dolist (pkg not-installed)
+          (package-install pkg)))))
 
 
 ;; proofgeneral
