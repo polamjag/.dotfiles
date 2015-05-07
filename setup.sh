@@ -98,7 +98,7 @@ setup_bin () {
   done
 }
 setup_binx () {
-  log_section "Setting up ~/bin_x ..."
+  log_section "Setting up .dotfiles/bin_x to ~/bin ..."
   if [ ! -d ${HOME}/bin ] ; then
     mkdir ${HOME}/bin
   fi
@@ -106,6 +106,10 @@ setup_binx () {
     echo "  Creating link: ${filepath} -> ${HOME}/bin/"
     make_symlink "${filepath}" "${HOME}/bin/"
   done
+}
+setup_emacs() {
+  log_section "Setting up ~/.emacs.d/ ..."
+  emacs --batch -q -l ${shdir}/.emacs.d/lisp/packages-list.el
 }
 setup_vim () {
   log_section "Setting up ~/.vim/ ..."
