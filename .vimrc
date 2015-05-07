@@ -23,6 +23,7 @@ set incsearch
 set relativenumber
 highlight LineNr ctermfg=white
 highlight ZenkakuSpace cterm=underline ctermfg=blue
+set autochdir
 set lcs=tab:>.
 set list
 colorscheme ron
