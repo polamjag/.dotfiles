@@ -1,8 +1,5 @@
-;; -*- coding:utf-8 -*-
-
 ;; c.f. http://rubikitch.com/2015/01/04/esup/
 (setq gc-cons-threshold 1073741824)
-
 
 ;;;; common load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -19,6 +16,8 @@
 
 ;;;; initialize major modes
 (require 'major-modes)
+(if (window-system)
+    (require 'eshell-config))
 
 
 ;;;; window and appearance preferences

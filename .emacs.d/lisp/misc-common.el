@@ -1,3 +1,5 @@
+;; -*- coding:utf-8 -*-
+
 (provide 'misc-common)
 
 ;;; helm
@@ -12,50 +14,68 @@
 (global-set-key "\C-c\C-g" 'helm-git-grep)
 (global-set-key "\C-xx" 'quickrun)
 (global-set-key "\C-xj" 'quickrun-with-arg)
+
+
 ;;; auto-complete
 (global-auto-complete-mode 1)
 (ac-config-default)
 (setq ac-use-menu-map t)
 (global-set-key "\C-cc" 'auto-complete-mode)
+
+
 ;;; flycheck
 (add-hook 'after-init-hook 'global-flycheck-mode)
+
+
 ;;; eldoc
 (setq eldoc-idle-delay 0.4
       eldoc-echo-area-use-multiline-p t)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+
+
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
+
 (require 'expand-region)
 (global-set-key (kbd "C-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
+
 (require 'multiple-cursors)
 (global-set-key (kbd "<C-M-return>") 'mc/edit-lines)
+
 (require 'smartrep)
 (smartrep-define-key
     global-map "C-." '(("C-n" . 'mc/mark-next-like-this)
                        ("C-p" . 'mc/mark-previous-like-this)
                        ("*"   . 'mc/mark-all-like-this)))
+
 (require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
+
 (require 'highlight-symbol)
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+
 (global-anzu-mode +1)
 (custom-set-variables
  '(anzu-mode-lighter "")
  '(anzu-deactivate-region t)
- '(anzu-search-threshold 1000))
+ '(anzu-search-threshold 500))
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+
 ;; magit
 (setq magit-auto-revert-mode -1)
 (global-set-key "\C-cs" 'magit-status)
 (global-set-key "\C-cl" 'magit-log)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+
 ;;; ddskk
 (setq default-input-method 'japanese-skk
       skk-japanese-message-and-error nil
@@ -89,23 +109,30 @@
 (setq scroll-conservatively 35
       scroll-margin 5
       scroll-step 1)
-;; indent
+
+
+;;; indent
 (setq-default tab-width 2)
 (setq-default default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
+
 ;; parens
 (electric-pair-mode 1)
 (show-paren-mode)
+
 ;; enable some commands
 (put 'upcase-region 'disabled nil)
+
 ;; create backup file in .emacs.d/backups
 (setq-default delete-old-versions t)
 (setq make-backup-files t)
 (setq backup-directory-alist
       (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backups"))
             backup-directory-alist))
+
+;; load $PATH from shell
 (defun set-exec-path-from-shell-PATH ()
   (interactive)
   "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell."
@@ -113,6 +140,8 @@
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 (unless (eq system-type 'windows-nt) (set-exec-path-from-shell-PATH))
+
+
 ;; c.f. http://rejeep.github.io/emacs/elisp/2010/03/26/rename-file-and-buffer-in-emacs.html
 (defun rename-this-buffer-and-file ()
   "Renames current buffer and file it is visiting."
