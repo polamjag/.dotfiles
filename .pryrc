@@ -1,5 +1,3 @@
-require 'open-uri'
-
 Pry.config.color = true
 
 Pry.commands.alias_command 'c', 'continue'
