@@ -12,6 +12,14 @@
 (global-set-key "\C-x\C-b" 'helm-mini)
 (global-set-key "\C-c\C-s" 'helm-swoop)
 (global-set-key "\C-c\C-g" 'helm-git-grep)
+
+;;; ido
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t)
+
+
+;;; quickrun
 (global-set-key "\C-xx" 'quickrun)
 (global-set-key "\C-xj" 'quickrun-with-arg)
 
@@ -102,7 +110,7 @@
       skk-dcomp-multiple-rows 10)
 
 (setq confirm-kill-emacs 'yes-or-no-p)
-(setq recentf-max-menu-items 100)
+(setq recentf-max-menu-items 200)
 (setq completion-ignore-case t)
 (global-auto-revert-mode 1)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -120,6 +128,7 @@
 
 ;; parens
 (electric-pair-mode 1)
+(add-to-list 'electric-layout-rules '(?{ . after))
 (show-paren-mode)
 
 ;; enable some commands
