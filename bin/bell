@@ -1,0 +1,13 @@
+#!/bin/sh
+
+case ${OSTYPE} in
+  darwin*|freebsd*)
+    echo '\a'
+    ;;
+  freebsd*)
+    echo -n '\a'
+    ;;
+  linux*)
+    echo -n '\a'
+    ;;
+esac
