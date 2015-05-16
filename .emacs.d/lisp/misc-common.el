@@ -128,7 +128,6 @@
 
 ;; parens
 (electric-pair-mode 1)
-(add-to-list 'electric-layout-rules '(?{ . after))
 (show-paren-mode)
 
 ;; enable some commands
