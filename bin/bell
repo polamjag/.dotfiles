@@ -1,13 +1,10 @@
 #!/bin/sh
 
 case ${OSTYPE} in
+  linux*)
+    echo -e "\a"
+    ;;
   darwin*|freebsd*)
     echo '\a'
-    ;;
-  freebsd*)
-    echo -n '\a'
-    ;;
-  linux*)
-    echo -n '\a'
     ;;
 esac
