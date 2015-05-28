@@ -148,7 +148,7 @@ setup_initial() {
   ask_exec "[01;92m> Copy shell scripts **for console** into ~/bin?[0m" setup_bin
   ask_exec "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin?[0m" setup_binx
   ask_exec "[01;92m> Execute some commands to initialize vim environment?[0m" setup_vim
-  ask_exec "[01;92m> Install some go executables?[0m" setup_godepends
+  ask_exec "[01;92m> Install some dependencies?[0m" setup_lib
 }
 
 update_all() {
