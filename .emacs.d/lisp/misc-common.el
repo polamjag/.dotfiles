@@ -123,6 +123,13 @@
 (setq-default tab-width 2)
 (setq-default default-tab-width 2)
 (setq-default indent-tabs-mode nil)
+(defun electric-indent-ignore-js2 (char)
+  "Ignore electric indentation for js2-mode"
+  (if (equal major-mode 'js2-mode)
+      'no-indent
+    nil))
+(add-hook 'electric-indent-functions 'electric-indent-ignore-js2)
+
 (custom-set-variables
  '(read-file-name-completion-ignore-case t))
 
