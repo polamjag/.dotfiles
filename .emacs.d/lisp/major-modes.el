@@ -66,6 +66,14 @@
 ;;; cider / clojure
 (setq cider-repl-wrap-history t)
 (add-hook 'clojure-mode-hook 'cider-mode)
+(require 'ac-cider)
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+     (add-to-list 'ac-modes 'cider-repl-mode)))
 
 
 ;;; markdown-mode / plain text
