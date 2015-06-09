@@ -89,3 +89,7 @@
 (add-hook 'c-mode-hook
           (lambda ()
             (c-turn-on-eldoc-mode)))
+
+
+;;; qml-mode
+(setq qml-mode-indent-offset 2)

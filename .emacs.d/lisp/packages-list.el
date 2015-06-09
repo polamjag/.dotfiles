@@ -39,6 +39,7 @@
     auctex
     auctex-latexmk
     glsl-mode
+    qml-mode
     ;; flycheck
     flycheck
     flycheck-tip
