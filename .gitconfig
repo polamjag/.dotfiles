@@ -20,6 +20,7 @@
   brc = checkout -b
   cho = checkout
   a   = add
+  ua  = reset
   cm  = commit -m
   com = commit
   cam = commit -a --amend
