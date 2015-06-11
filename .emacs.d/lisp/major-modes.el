@@ -92,4 +92,6 @@
 
 
 ;;; qml-mode
+(add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
 (setq qml-mode-indent-offset 2)
+(add-hook 'qml-mode-hook #'rainbow-delimiters-mode)
