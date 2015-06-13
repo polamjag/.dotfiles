@@ -100,10 +100,11 @@
              (local-set-key (kbd "M-.") 'godef-jump)
              (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
              (local-set-key (kbd "C-c i") 'go-goto-imports)
-             (local-set-key (kbd "C-c d") 'godoc))
+             (local-set-key (kbd "C-c d") 'godoc)))
 
 
 ;;; qml-mode
 (add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
 (setq qml-mode-indent-offset 2)
-(add-hook 'qml-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'qml-mode-hook 'rainbow-delimiters-mode)
+
