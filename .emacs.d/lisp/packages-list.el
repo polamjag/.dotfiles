@@ -42,7 +42,7 @@
     qml-mode
     ;; flycheck
     flycheck
-    flycheck-tip
+    flycheck-pos-tip
     ;; auto-complete
     auto-complete
     auto-complete-clang
