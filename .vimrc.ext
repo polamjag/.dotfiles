@@ -31,7 +31,6 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'Rainbow-Parenthesis'
 NeoBundle 'Modeliner'
-NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'smartchr'
 
 NeoBundle 'plasticboy/vim-markdown'
@@ -122,6 +121,7 @@ colorscheme landscape
 set cmdheight=1
 let g:lightline = {
       \ 'colorscheme': 'wombat',
+      \ 'mode_map': { 'c': 'NORMAL' },
       \ }
 set laststatus=2
 
