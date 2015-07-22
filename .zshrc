@@ -16,7 +16,7 @@ case ${OSTYPE} in
   darwin*)
     test -x /usr/libexec/path_helper && eval $(/usr/libexec/path_helper -s)
     if [ -d '/usr/local/opt/coreutils/libexec/gnubin' ] ; then
-      source $HOME/.zsh.d/linux
+      source $HOME/.zsh.d/gnu
     else
       source $HOME/.zsh.d/bsd
     fi
@@ -26,6 +26,7 @@ case ${OSTYPE} in
     ;;
   linux*)
     source $HOME/.zsh.d/linux
+    source $HOME/.zsh.d/gnu
     ;;
 esac
 
