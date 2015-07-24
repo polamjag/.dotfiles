@@ -91,7 +91,6 @@ brew 'tmux'
 brew 'vim'
 brew 'w3m'
 brew 'weechat'
-brew 'wireshark', args: ['with-qt']
 brew 'youtube-dl'
 brew 'caskroom/cask/brew-cask'
 brew 'homebrew/dupes/gdb', args: ['with-all-targets']
@@ -114,4 +113,3 @@ cask 'sonic-visualiser'
 cask 'the-unarchiver'
 cask 'vagrant'
 cask 'virtualbox'
-cask 'wireshark'
