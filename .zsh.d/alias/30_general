@@ -1,4 +1,5 @@
 alias sudo='sudo '
+
 alias e='emacs -nw'
 if hash vim &>/dev/null ; then
   alias vi='vim' ; fi
@@ -14,11 +15,11 @@ alias p8='ping 8.8.8.8'
 alias pgo='ping google.com'
 alias usdo='sudo'
 alias le='less'
-alias tm='tmux -2'
-alias tmn='tmux confirm-before "new-s"'
+
 alias a='cd ../ ;'
 alias b='cd - ;'
 alias md='mkdir'
+
 alias s='grec 2>/dev/null'
 alias ser='grec'
 alias f='find . | grep'
@@ -26,11 +27,13 @@ alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
 alias zzz="exec zsh"
 alias tmesg="watch \"dmesg | tail -n 100 | tac\""
+
 alias dstat-full="dstat -Tclmdrn"
 alias dstat-mem="dstat -Tclm"
 alias dstat-cpu="dstat -Tclr"
 alias dstat-net="dstat -Tclnd"
 alias dstat-disk="dstat -Tcldr"
+
 alias delete-dead-symlink="find -L . -name . -o -type d -prune -o -type l -exec rm {} +"
 alias watch="watch -c"
 alias paste-ghq-get="xclip -o | xargs -I{} ghq get {}"
@@ -38,3 +41,12 @@ alias g="git"
 alias gp='peco-ghq'
 alias o='open'
 alias bd='bundle'
+
+tm() {
+  if [ $(tmux list-sessions | wc -l) -gt 0 ] ; then
+    tmux attach
+  else
+    tmux
+  fi
+}
+alias tmn='tmux confirm-before "new-s"'
