@@ -33,6 +33,7 @@
     less-css-mode
     js2-mode
     coffee-mode
+    erlang
     tuareg
     go-mode
     lua-mode
