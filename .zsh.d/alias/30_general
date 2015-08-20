@@ -53,10 +53,14 @@ man() {
 }
 
 tm() {
-  if [ $(tmux list-sessions | wc -l) -gt 0 ] ; then
-    tmux attach
+  if [ $# -gt 0 ] ; then
+    tmux $@
   else
-    tmux
+    if [ $(tmux list-sessions | wc -l) -gt 0 ] ; then
+      tmux attach
+    else
+      tmux
+    fi
   fi
 }
 alias tmn='tmux confirm-before "new-s"'
