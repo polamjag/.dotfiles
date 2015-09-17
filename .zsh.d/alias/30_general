@@ -14,6 +14,9 @@ alias p8='ping 8.8.8.8'
 alias pgo='ping google.com'
 alias usdo='sudo'
 alias le='less'
+alias dign='dig +norec'
+
+alias ntree="find . -print | sed '1d;s,[^/]*/,| ,g;s/..//;s/[^ ]*$/|--- &/'"
 
 alias a='cd ../ ;'
 alias b='cd - ;'
