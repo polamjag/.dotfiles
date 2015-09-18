@@ -25,6 +25,8 @@
     enh-ruby-mode
     ruby-block
     robe
+    elixir-mode
+    alchemist
     yard-mode
     web-mode
     slim-mode
