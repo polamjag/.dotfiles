@@ -1,5 +1,11 @@
 # export ANSIBLE_HOSTS=$HOME/ansible_hosts
 
+# test -d $HOME/.rbenv/bin && PATH=$PATH:$HOME/.rbenv/bin
+# hash rbenv &>/dev/null   && eval "$(rbenv init -)"
+
+hash gem &>/dev/null     && PATH="$PATH:$(gem env gempath | sed -e 's|:|/bin:|g' -e 's|$|/bin|')"
+test -d $HOME/.npm/bin   && PATH="$PATH:$HOME/.npm/bin"
+
 export GOPATH=$HOME
 
 # if [ -n "$DESKTOP_SESSION" ];then
