@@ -1,3 +1,6 @@
+# workaround for tramp
+# [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
+
 # export ANSIBLE_HOSTS=$HOME/ansible_hosts
 
 # test -d $HOME/.rbenv/bin && PATH=$PATH:$HOME/.rbenv/bin
