@@ -29,6 +29,16 @@
 (ac-config-default)
 (setq ac-use-menu-map t)
 (global-set-key "\C-cc" 'auto-complete-mode)
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list-multiple 'ac-modes
+                           '(cider-mode
+                             cider-repl-mode
+                             enh-ruby-mode
+                             scss-mode
+                             web-mode
+     ))))
+
 
 
 ;;; flycheck
