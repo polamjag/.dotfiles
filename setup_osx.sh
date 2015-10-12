@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 # c.f.
 # http://rcmdnk.github.io/blog/2015/03/22/computer-mac/
 # http://tukaikta.blog135.fc2.com/blog-entry-251.html
@@ -19,7 +21,7 @@ defaults write com.apple.Dock autohide-delay -float 0
 # modify filename of screen shot file
 defaults write com.apple.screencapture name scr
 # change speed of mission control's animation speed
-defaults write com.apple.dock expose-animation-duration -float 0.25
+#defaults write com.apple.dock expose-animation-duration -float 0.25
 
 killall Dock
 killall SystemUIServer
@@ -30,3 +32,7 @@ sudo nvram SystemAudioVolumeDB="%80"
 
 # git
 git config --global core.precomposeunicode true
+
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
