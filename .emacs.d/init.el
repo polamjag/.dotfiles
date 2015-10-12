@@ -4,6 +4,8 @@
 ;;;; common load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+(require 'personal-utils)
+
 
 ;;;; load packages
 (require 'packages-list)
