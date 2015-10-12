@@ -4,7 +4,7 @@
 (load-theme 'manoj-dark t)
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
-(setq visible-bell t)
+;(setq visible-bell t)
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;; make rainbow-delimiters-mode more vivid
