@@ -189,3 +189,12 @@
                (set-visited-file-name new-name)
                (set-buffer-modified-p nil)
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+
+(defun replace-buffer-content-with-clipboard ()
+  "Replaces buffer's content with clipboard's one"
+  (interactive)
+  '(progn
+     ((erase-buffer)
+      (yank)
+          ))
+  )
