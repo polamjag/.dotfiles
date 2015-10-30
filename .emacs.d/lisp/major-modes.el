@@ -79,6 +79,9 @@
 (add-to-list 'auto-mode-alist '("\\.mkd\\'"      . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'"       . markdown-mode))
 (setq markdown-enable-math t)
+(add-hook 'markdown-mode-hook
+          '(lambda ()
+             (electric-indent-local-mode -1)))
 
 
 ;;; c
