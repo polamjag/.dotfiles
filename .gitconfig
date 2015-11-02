@@ -3,8 +3,8 @@
 [core]
   editor = vim
   pager = less --raw
-	excludesfile = ~/.gitignore_global
-	precomposeunicode = true
+  excludesfile = ~/.gitignore_global
+  precomposeunicode = true
 [color]
   ui = true
 [help]
