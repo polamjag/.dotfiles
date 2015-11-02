@@ -198,3 +198,11 @@
       (yank)
           ))
   )
+
+
+
+;; http://sky-y.hatenablog.jp/entry/20120805/1344169124
+
+(defun ucs-normalize-NFC-buffer ()
+  (interactive)
+  (ucs-normalize-NFC-region (point-min) (point-max)))
