@@ -39,10 +39,10 @@
   gr  = grep -np
   submo-upgrade = submodule foreach 'git pull origin master'
 [push]
-	default = matching
+  default = matching
 [ghq]
   root = ~/src
 [filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
+  clean = git lfs clean %f
+  smudge = git lfs smudge %f
+  required = true
