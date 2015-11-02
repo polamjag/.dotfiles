@@ -16,3 +16,4 @@ export GOPATH=$HOME
 #   export SSH_AUTH_SOCK
 # fi
 
+# alias tmux='tmux -2'
