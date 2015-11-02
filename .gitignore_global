@@ -1,4 +1,10 @@
-.DS_Store
+# kill ugly system files
+*.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# temp files of editors
 *.sw[a-z]
 *~
 \#*
