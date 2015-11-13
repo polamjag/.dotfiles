@@ -134,7 +134,7 @@ setup_lib() {
 setup_initial_dl() {
   cd
   git clone https://github.com/polamjag/.dotfiles
-  $HOME/.dotfiles/setup.sh --force dot git bin binx vim
+  $HOME/.dotfiles/setup.sh --force dot git bin binx
 }
 setup_initial() {
   echo -e "\x1B[01;95m-> Running in interactive mode\x1B[0m"

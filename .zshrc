@@ -5,7 +5,7 @@
 test -f $HOME/.zshenv && source $HOME/.zshenv
 
 # load $PATH
-test -d $HOME/bin        && PATH=$PATH:$HOME/bin
+test -d $HOME/bin && PATH=$PATH:$HOME/bin
 export PATH
 
 case ${OSTYPE} in
