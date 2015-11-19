@@ -5,8 +5,8 @@
 
 (setq package-archives
       (append
-       '(("melpa"     . "http://melpa.milkbox.net/packages/")
-         ("marmalade" . "http://marmalade-repo.org/packages/")
+       '(("melpa"     . "https://melpa.org/packages/")
+         ("marmalade" . "https://marmalade-repo.org/packages/")
          ("ELPA"      . "http://tromey.com/elpa/"))
        package-archives))
 
