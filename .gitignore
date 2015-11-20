@@ -1,7 +1,6 @@
 *~
 *.swp
 *.swo
-/skel/vim/bundle/*
 /skel/vim/.netrwhist
 /skel/emacs.d/url/
 completer.hist
