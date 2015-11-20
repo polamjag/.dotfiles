@@ -22,11 +22,11 @@ ask_exec() {
   fi
 }
 make_symlink() {
-  target="${2}"$(basename "$1")
+  echo "  Creating link: $1 -> $2"
+  target="$(dirname $2)$(basename $1)"
   if [ -e "${target}" ] ; then
     if [ $FORCE_MODE = '0' ] ; then
-      rm "$target"
-      ln -s "$1" "$2"
+      ln -sf "$1" "$2"
     else
       ask_exec "file ${target} already exists. rename it and create symlink of new one[Y/n]?: " mv "$target" "${target}.old"
       ln -s "$1" "$2"
@@ -45,19 +45,19 @@ setup_npmrc() {
 }
 setup_dot() {
   log_section "Setting up dotfiles ..."
-  for filepath in ${shdir}/.* ; do
+  skeldir="${shdir}/skel"
+  for filepath in ${skeldir}/* ; do
+    filename="$(basename $filepath)"
     if [ \( -f $filepath -o -d $filepath \) -a \
       $filepath != "${shdir}/." -a \
       $filepath != "${shdir}/.." -a \
-      $filepath != "${shdir}/.git" -a \
-      $filepath != "${shdir}/.gitconfig" -a \
-      $filepath != "${shdir}/.gitconfig.local" -a \
+      $filepath != "${shdir}/gitconfig" -a \
+      $filepath != "${shdir}/gitconfig.local" -a \
       $filepath != "${shdir}/.gitignore" -a \
       $filepath != "${shdir}/.gitmodules" -a \
-      $filepath != "${shdir}/.zshenv.exam" \
+      $filepath != "${shdir}/zshenv.exam" \
     ] ; then
-      echo "  Creating link: ${filepath} -> ${HOME}"
-      make_symlink "${filepath}" "${HOME}/"
+      make_symlink "${filepath}" "${HOME}/.${filename}"
     fi
   done
   if [ ! -f $HOME/.zshenv ] ; then
@@ -93,7 +93,6 @@ setup_bin () {
     mkdir ${HOME}/bin
   fi
   for filepath in ${shdir}/bin/* ; do
-    echo "  Creating link: ${filepath} -> ${HOME}/bin/"
     make_symlink "${filepath}" "${HOME}/bin/"
   done
 }
@@ -103,20 +102,19 @@ setup_binx () {
     mkdir ${HOME}/bin
   fi
   for filepath in ${shdir}/bin_x/* ; do
-    echo "  Creating link: ${filepath} -> ${HOME}/bin/"
     make_symlink "${filepath}" "${HOME}/bin/"
   done
 }
 setup_emacs() {
   log_section "Setting up ~/.emacs.d/ ..."
-  emacs --batch -q -l ${shdir}/.emacs.d/lisp/packages-list.el
+  emacs --batch -q -l ${shdir}/skel/emacs.d/lisp/packages-list.el
 }
 setup_vim () {
   log_section "Setting up ~/.vim/ ..."
   cd $shdir
   git submodule init
   git submodule update
-  cd $shdir/.vim/bundle/vimproc
+  cd $shdir/skel/vim/bundle/vimproc
   make
   vim -u $HOME/.vimrc.ext -c 'NeoBundleInstall|q'
 }
