@@ -49,12 +49,7 @@ setup_dot() {
   for filepath in ${skeldir}/* ; do
     filename="$(basename $filepath)"
     if [ \( -f $filepath -o -d $filepath \) -a \
-      $filepath != "${shdir}/." -a \
-      $filepath != "${shdir}/.." -a \
-      $filepath != "${shdir}/gitconfig" -a \
       $filepath != "${shdir}/gitconfig.local" -a \
-      $filepath != "${shdir}/.gitignore" -a \
-      $filepath != "${shdir}/.gitmodules" -a \
       $filepath != "${shdir}/zshenv.exam" \
     ] ; then
       make_symlink "${filepath}" "${HOME}/.${filename}"
@@ -70,7 +65,6 @@ setup_dot() {
 }
 setup_git() {
   log_section "Setting up .gitconfig ..."
-  make_symlink "${shdir}/.gitconfig" "$HOME"
   if [ ! -f "$HOME/.gitconfig.local" ] ; then
     echo -n "Input name[polamjag]> "
     read git_name
@@ -83,7 +77,7 @@ user = ${git_name}
 email = ${git_mail}
 EOF
     else
-      cp ${shdir}/.gitconfig.local ~/
+      cp ${shdir}/skel/gitconfig.local ~/.gitconfig.local
     fi
   fi
 }
