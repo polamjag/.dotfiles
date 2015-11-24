@@ -1,5 +1,6 @@
 (provide 'keybinds)
 
+;; tweak C-a
 (defun beginning-of-indented-line (current-point)
   (interactive "d")
   (if (string-match
@@ -28,7 +29,7 @@
 (global-set-key "\C-a" 'beginning-of-visual-indented-line)
 (global-set-key "\C-e" 'end-of-visual-line)
 
-;; set C-h as Backspace and M-h as help-command
+;; use C-h as Backspace and bind M-h with help-command
 (global-set-key "\M-?" 'mark-paragraph)
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-h" 'help-command)
@@ -55,11 +56,13 @@
 
 ;; disable suspention with C-z
 (global-unset-key "\C-z")
-(global-set-key "\C-z" 'scroll-down)
 
 ;; move for multiple lines
 (global-set-key (kbd "M-p") '(lambda () (interactive) (previous-line 5)))
 (global-set-key (kbd "M-n") '(lambda () (interactive) (next-line 5)))
+
+;; helm-swoop
+(global-set-key "\C-z\C-f" 'helm-swoop)
 
 (defun other-window-or-split (val)
   (interactive)
