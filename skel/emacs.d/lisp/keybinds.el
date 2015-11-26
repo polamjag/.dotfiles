@@ -64,6 +64,11 @@
 ;; helm-swoop
 (global-set-key "\C-z\C-f" 'helm-swoop)
 
+;; frame actions
+(global-set-key "\C-z\C-n" 'new-frame)
+(global-set-key "\C-z\C-w" 'delete-frame)
+
+;; window splitting
 (defun other-window-or-split (val)
   (interactive)
   (when (one-window-p)
