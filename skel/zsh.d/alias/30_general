@@ -29,6 +29,7 @@ alias rbkup='rsync --progress -avr'
 alias dirsize='du -h . | tail -n 1'
 alias zzz="exec zsh"
 alias tmesg="watch \"dmesg | tail -n 100 | tac\""
+alias zzmv='noglob zmv -W'
 
 alias dstat-full="dstat -Tclmdrn"
 alias dstat-mem="dstat -Tclm"
