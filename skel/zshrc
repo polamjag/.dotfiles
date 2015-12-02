@@ -12,17 +12,17 @@ case ${OSTYPE} in
   darwin*)
     test -x /usr/libexec/path_helper && eval $(/usr/libexec/path_helper -s)
     if [ -d '/usr/local/opt/coreutils/libexec/gnubin' ] ; then
-      source $HOME/.zsh.d/gnu
+      source $HOME/.zsh.d/gnu.zsh
     else
-      source $HOME/.zsh.d/bsd
+      source $HOME/.zsh.d/bsd.zsh
     fi
     ;;
   freebsd*)
-    source $HOME/.zsh.d/bsd
+    source $HOME/.zsh.d/bsd.zsh
     ;;
   linux*)
-    source $HOME/.zsh.d/linux
-    source $HOME/.zsh.d/gnu
+    source $HOME/.zsh.d/linux.zsh
+    source $HOME/.zsh.d/gnu.zsh
     ;;
 esac
 
@@ -201,7 +201,7 @@ bindkey "^[q" show_buffer_stack
 # ==================================== #
 # aliases, keybinds and hooked actions #
 # ==================================== #
-if [ -d $HOME/.zsh.d/ ] ; then
+if [ -d "$HOME/.zsh.d/" ] ; then
   for f in $HOME/.zsh.d/alias/* ; do
     source $f
   done
@@ -269,4 +269,9 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 # directory stack filtering
+fi
+
+
+if [ -d "$HOME/.zsh.d/misc" ] ; then
+  source "$HOME/.zsh.d/misc/"*
 fi
