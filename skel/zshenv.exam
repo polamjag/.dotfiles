@@ -1,4 +1,4 @@
-# workaround for tramp
+# # workaround for tramp
 # [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
 # export ANSIBLE_HOSTS=$HOME/ansible_hosts
@@ -17,3 +17,5 @@ export GOPATH=$HOME
 # fi
 
 # alias tmux='tmux -2'
+
+# test -x /usr/local/opt/openssl/bin/openssl && alias openssl2='/usr/local/opt/openssl/bin/openssl'
