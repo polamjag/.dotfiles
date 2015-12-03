@@ -13,8 +13,8 @@ filename="fhd_$original_filename"
 
 convert "$filepath/$original_filename" -resize 1920x1080\! "$filepath/$filename"
 
-if hash pngquant ; then
-  pngquant "$filepath/$filename" --output "$filepath/optimized_$filename"
+if hash optipng; then
+  optipng "$filepath/$filename" 
   mv "$filepath/optimized_$filename" "$filepath/$original_filename"
   rm "$filepath/fhd_$original_filename"
 else
