@@ -16,6 +16,7 @@ if has('vim_starting')
   call neobundle#end()
 endif
 
+set t_Co=256
 
 "" packages
 call neobundle#begin(expand('~/.vim/bundle/'))
