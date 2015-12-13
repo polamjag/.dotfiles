@@ -3,3 +3,5 @@ if $(! $(hash open &>/dev/null)) && $(hash oopen &>/dev/null) ; then
 fi
 
 alias cal='cal -s'
+
+ulimit -s unlimited

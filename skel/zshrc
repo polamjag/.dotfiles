@@ -179,7 +179,6 @@ if type /usr/bin/lesspipe &>/dev/null ; then
   export LESSOPEN LESSCLOSE
 fi
 umask 022
-ulimit -s unlimited
 # fix corruption in Glib application
 export G_FILENAME_ENCODING=@locale
 export WORDCHARS="*?_-.[]~&;!#$%^(){}<>"

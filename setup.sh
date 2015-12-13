@@ -111,7 +111,7 @@ setup_vim () {
   cd $shdir
   git submodule init
   git submodule update
-  cd $shdir/skel/vim/bundle/vimproc
+  cd $shdir/skel/vim/bundle/vimproc.vim
   make
   vim -u $HOME/.vimrc.ext -c 'NeoBundleInstall|q'
 }
