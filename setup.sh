@@ -36,7 +36,10 @@ make_symlink() {
   fi
 }
 log_section() {
-  echo "[01;93m==> $@[0m"
+  echo -e "[01;93m==> $@[0m"
+}
+log_subsection() {
+  echo -e "[01;95m-> $@[0m"
 }
 
 # main
@@ -129,18 +132,18 @@ setup_initial_dl() {
   $HOME/.dotfiles/setup.sh --force dot git bin binx
 }
 setup_initial() {
-  echo -e "\x1B[01;95m-> Running in interactive mode\x1B[0m"
+  log_subsection "Running in interactive mode"
 
-  ask_exec "[01;92m> Setup dotfiles?[0m" setup_dot
+  ask_exec "-> Setup dotfiles?" setup_dot
 
   if [ ! -e $HOME/.gitconfig ] ; then
-    ask_exec "[01;92m> Use .gitconfig?[0m" setup_git
+    ask_exec "-> Use .gitconfig?" setup_git
   fi
 
-  ask_exec "[01;92m> Copy shell scripts **for console** into ~/bin?[0m" setup_bin
-  ask_exec "[01;92m> Copy shell scripts **for X Desktop Environment** into ~/bin?[0m" setup_binx
-  ask_exec "[01;92m> Execute some commands to initialize vim environment?[0m" setup_vim
-  ask_exec "[01;92m> Install some dependencies?[0m" setup_lib
+  ask_exec "-> Link common scripts into ~/bin?" setup_bin
+  ask_exec "-> Link scripts for desktop into ~/bin?" setup_binx
+  ask_exec "-> Initialize vim environment?" setup_vim
+  ask_exec "-> Install some dependencies?" setup_lib
 }
 
 update_all() {
