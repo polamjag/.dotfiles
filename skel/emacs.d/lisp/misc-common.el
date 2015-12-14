@@ -36,7 +36,7 @@
                              enh-ruby-mode
                              scss-mode
                              web-mode
-     ))))
+                             ))))
 
 
 
@@ -195,7 +195,7 @@
   '(progn
      ((erase-buffer)
       (yank)
-          ))
+      ))
   )
 
 
