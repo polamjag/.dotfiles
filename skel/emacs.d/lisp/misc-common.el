@@ -154,6 +154,11 @@
 ;; enable some commands
 (put 'upcase-region 'disabled nil)
 
+;; enable history tracking of minibuffer (c.f. http://d.hatena.ne.jp/rubikitch/20091216/minibuffer)
+(defadvice abort-recursive-edit (before minibuffer-save activate)
+  (when (eq (selected-window) (active-minibuffer-window))
+    (add-to-history minibuffer-history-variable (minibuffer-contents))))
+
 ;; create backup file in .emacs.d/backups
 (setq-default delete-old-versions t)
 (setq make-backup-files t)
