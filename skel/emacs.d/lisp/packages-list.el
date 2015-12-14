@@ -80,6 +80,7 @@
     ctags
     ctags-update
     ggtags
+    elscreen
     all
     multiple-cursors
     smartrep

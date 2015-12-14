@@ -203,10 +203,17 @@
       ))
   )
 
-
-
-;; http://sky-y.hatenablog.jp/entry/20120805/1344169124
-
-(defun ucs-normalize-NFC-buffer ()
-  (interactive)
-  (ucs-normalize-NFC-region (point-min) (point-max)))
+;; elscreen
+(setq elscreen-prefix-key "\C-]")
+(require 'elscreen)
+(elscreen-start)
+(setq elscreen-tab-display-kill-screen nil)
+(setq elscreen-tab-display-control nil)
+(setq elscreen-buffer-to-nickname-alist
+      '(("^dired-mode$" .
+         (lambda ()
+           (format "Dired(%s)" dired-directory)))
+        ("^Info-mode$" .
+         (lambda ()
+           (format "Info(%s)" (file-name-nondirectory Info-current-file))))
+        ("^lookup-" . "Lookup")))
