@@ -8,3 +8,6 @@ Thumbs.db
 *.sw[a-z]
 *~
 \#*
+/GRTAGS
+/GTAGS
+/GPATH
