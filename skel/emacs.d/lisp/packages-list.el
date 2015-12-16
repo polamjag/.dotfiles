@@ -6,8 +6,7 @@
 (setq package-archives
       (append
        '(("melpa"     . "https://melpa.org/packages/")
-         ("marmalade" . "https://marmalade-repo.org/packages/")
-         ("ELPA"      . "http://tromey.com/elpa/"))
+         ("marmalade" . "https://marmalade-repo.org/packages/"))
        package-archives))
 
 (package-initialize)
@@ -72,14 +71,12 @@
     helm-git-grep
     helm-robe
     helm-ghq
+    helm-gtags
     ;; highlighting
     highlight-symbol
     auto-highlight-symbol
     ;; misc
     ddskk
-    ctags
-    ctags-update
-    ggtags
     elscreen
     all
     multiple-cursors
