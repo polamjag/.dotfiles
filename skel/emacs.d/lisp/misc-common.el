@@ -12,6 +12,7 @@
 (global-set-key "\C-x\C-b" 'helm-mini)
 (global-set-key "\C-c\C-g" 'helm-git-grep)
 
+
 ;;; ido
 (require 'ido)
 (ido-mode t)
@@ -30,13 +31,14 @@
 (global-set-key "\C-cc" 'auto-complete-mode)
 (eval-after-load "auto-complete"
   '(progn
-     (add-to-list-multiple 'ac-modes
-                           '(cider-mode
-                             cider-repl-mode
-                             enh-ruby-mode
-                             scss-mode
-                             web-mode
-                             ))))
+     (add-to-list-multiple
+      'ac-modes
+      '(cider-mode
+        cider-repl-mode
+        enh-ruby-mode
+        scss-mode
+        web-mode
+        ))))
 
 
 
@@ -94,6 +96,9 @@
 (setq magit-auto-revert-mode -1)
 (global-set-key "\C-cs" 'magit-status)
 (global-set-key "\C-cl" 'magit-log)
+
+
+;; uniquify buffer name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
@@ -137,13 +142,14 @@
 (require 'helm-gtags)
 (setq helm-gtags-path-style 'root)
 (setq helm-gtags-auto-update t)
-(add-hook 'helm-gtags-mode-hook
-          '(lambda ()
-             (local-set-key (kbd "M-g") 'helm-gtags-dwim)
-             (local-set-key (kbd "M-s") 'helm-gtags-show-stack)
-             (local-set-key (kbd "M-p") 'helm-gtags-previous-history)
-             (local-set-key (kbd "M-n") 'helm-gtags-next-history)
-             (local-set-key (kbd "C-z C-g") 'helm-gtags-find-tag)))
+(add-hook
+ 'helm-gtags-mode-hook
+ '(lambda ()
+    (local-set-key (kbd "M-g") 'helm-gtags-dwim)
+    (local-set-key (kbd "M-s") 'helm-gtags-show-stack)
+    (local-set-key (kbd "M-p") 'helm-gtags-previous-history)
+    (local-set-key (kbd "M-n") 'helm-gtags-next-history)
+    (local-set-key (kbd "C-z C-g") 'helm-gtags-find-tag)))
 
 
 ;;; indent
@@ -219,6 +225,7 @@
 ;; elscreen
 (setq elscreen-prefix-key "\C-]")
 (require 'elscreen)
+(require 'elscreen-color-theme)
 (elscreen-start)
 (setq elscreen-tab-display-kill-screen nil)
 (setq elscreen-tab-display-control nil)
