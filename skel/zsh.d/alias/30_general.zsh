@@ -68,4 +68,3 @@ tm() {
   fi
 }
 alias tmn='tmux confirm-before "new-s"'
-
