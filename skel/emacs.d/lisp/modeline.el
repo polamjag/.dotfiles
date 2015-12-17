@@ -24,6 +24,7 @@
    mode-line-client
    mode-line-remote
    mode-line-position
+   " "
    ;; read-only or modified status
    (:eval
     (cond (buffer-read-only

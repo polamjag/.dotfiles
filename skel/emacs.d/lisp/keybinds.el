@@ -68,12 +68,18 @@
 (global-set-key "\C-z\C-n" 'new-frame)
 (global-set-key "\C-z\C-w" 'delete-frame)
 
+;;
+(global-set-key "\C-z\C-o" 'org-open-at-point)
+
 ;; window splitting
 (defun other-window-or-split (val)
   (interactive)
-  (when (one-window-p)
-    (split-window-vertically))
-  (other-window val))
+  (if (one-window-p)
+    (if (< (window-total-width) (* (window-total-height) 2))
+      (split-window-vertically)
+      (split-window-horizontally)
+      )
+  (other-window val)))
 (global-set-key (kbd "C-<tab>") (lambda () (interactive) (other-window-or-split 1)))
 (global-set-key (kbd "C-S-<tab>") (lambda () (interactive) (other-window-or-split -1)))
 
