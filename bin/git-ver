@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ $# != 1 ] ; then
+  echo "Usage: git ver 'v0.1.2'"
+  exit 1
+fi
+
+VERSION="$1"
+
+set -ex
+
+git commit -m "$VERSION"
+git tag "$VERSION"
