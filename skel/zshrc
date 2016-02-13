@@ -171,8 +171,8 @@ unsetopt no_clobber
 setopt no_unset # don't allow using of undefined variables
 setopt interactive_comments
 # configure behaviour of less (ref. man less)
-LESS=-M
-export LESS
+#LESS=-MF
+#export LESS
 if type /usr/bin/lesspipe &>/dev/null ; then
   LESSOPEN="| /usr/bin/lesspipe '%s'"
   LESSCLOSE="/usr/bin/lesspipe '%s' '%s'"
