@@ -7,6 +7,7 @@
 ;(setq visible-bell t)
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'scss-mode-hook 'rainbow-delimiters-mode)
 ;; make rainbow-delimiters-mode more vivid
 (require 'cl-lib)
 (require 'color)
