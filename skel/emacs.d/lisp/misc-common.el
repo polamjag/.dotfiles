@@ -170,6 +170,7 @@
 
 ;; enable some commands
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;; enable history tracking of minibuffer (c.f. http://d.hatena.ne.jp/rubikitch/20091216/minibuffer)
 (defadvice abort-recursive-edit (before minibuffer-save activate)
