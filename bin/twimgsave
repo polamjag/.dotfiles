@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -ex
+
+if [ ! $# -eq 1 ] ; then
+  echo 'specify url to save image'
+  exit 1
+fi
+
+url="$1"
+
+tweet_id=$(echo "$1" | sed -e 's|.*/\([0-9][0-9]*\)$|\1|g')
+
+curl $url | pup '.AdaptiveMedia img attr{src}' | xargs -I{} sh -c "curl -o ${tweet_id}__\$(echo "{}" | sed -e 's|^.*/\([^/]*\)$|\1|g') '{}:orig'"
