@@ -6,7 +6,7 @@ ssh_sign() {
 }
 load_average() {
   echo -n '#[fg=white,bg=magenta,bold] '
-  echo -n '('$(uptime | grep -oE \[0-9\]\[.\]\[0-9\]\[0-9\])') '
+  echo -n '('$(uptime | grep -oE \[0-9\]+\[.\]\[0-9\]+\[0-9\]+)') '
 }
 ip_address() {
   echo -n '#[fg=white,bg=blue,bold] '
