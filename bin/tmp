@@ -1,8 +1,0 @@
-#!/bin/sh
-
-if [ $# -gt 0 ] ; then
-  mkdir /tmp/$1
-  cd /tmp/$1
-else
-  cd ./tmp/
-fi

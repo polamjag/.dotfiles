@@ -1,19 +1,54 @@
 #!/bin/sh
+
 set -e
+if [ "$DEBUG" != "" ] ; then
+  set -x
+fi
 
 # GraphicsMagick is preffered to ImageMagick in speed
 # c.f. http://uiureo.hatenablog.com/entry/2013/05/19/030414
 
-if [ $# -eq 0 ] ; then
-  echo "usage:  $0 <video> [framerate]"
-  exit 2
-fi
-
-src="$(readlink -f $1)"
 framerate=2
+delay=5
+half=0
 
-if [ "$2" != "" ] ; then
-  framerate=$2
+_usage() {
+  echo "Usage:  $(basename $0) [OPTION] FILE"
+  echo ""
+  echo "Options:"
+  echo "  -f, --framerate   FRAMERATE"
+  echo "  -d, --delay       DELAY"
+  echo "  --half"
+}
+
+if [ $# -eq 0 ] ; then
+  _usage
+  exit 2
+else
+while [ $# -gt 0 ] ; do
+  case "$1" in
+    -f|--framerate)
+      framerate=$2
+      shift 2
+      ;;
+    -d|--delay)
+      delay=$2
+      shift 2
+      ;;
+    --half)
+      half=1
+      shift
+      ;;
+    -h|--help)
+      _usage
+      exit
+      ;;
+    *)
+      src="$(readlink -f $1)"
+      shift
+      ;;
+  esac
+done
 fi
 
 if hash ffmpeg &>/dev/null ; then
@@ -38,7 +73,11 @@ tmpdir_img="$tmpdir/video2gif/$(uuidgen)"
 mkdir -p "$tmpdir_img"
 cd $tmpdir_img
 
-$ffmpeg_cmd -i $src -r $framerate %04d.png
-$convert_cmd *.png "${src}.gif"
+if [ $half -eq 1 ] ; then
+  $ffmpeg_cmd -i $src -vf scale=iw*.5:ih*.5 -r $framerate %04d.png
+else
+  $ffmpeg_cmd -i $src -r $framerate %04d.png
+fi
+$convert_cmd -delay $delay -loop 0 *.png "${src}.gif"
 
 rm -r "$(dirname $tmpdir_img)"

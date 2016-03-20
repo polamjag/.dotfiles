@@ -40,6 +40,8 @@
   submo-upgrade = submodule foreach 'git pull origin master'
 [push]
   default = matching
+[merge]
+  tool = vimdiff
 [ghq]
   root = ~/src
 [filter "lfs"]
