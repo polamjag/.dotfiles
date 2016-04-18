@@ -83,7 +83,7 @@ setopt hist_reduce_blanks
 setopt hist_no_store
 setopt hist_expand # expand history in completion
 setopt histignorespace
-function history-all { history -E 1 }
+history-all() { history -E 1 }
 # enable completion from history
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -210,7 +210,7 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 bindkey -r '^X'
-function kill-backward-blank-word() {
+kill-backward-blank-word() {
   zle set-mark-command
   zle vi-backward-blank-word
   zle kill-region
@@ -243,7 +243,7 @@ fi
 # ================= #
 # history filtering with peco
 if hash peco &>/dev/null ; then
-function peco-select-history() {
+peco-select-history() {
   local tac
   if hash tac &>/dev/null; then
     tac="tac"

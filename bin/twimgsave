@@ -1,14 +1,23 @@
 #!/bin/bash
 
-set -ex
-
 if [ ! $# -eq 1 ] ; then
   echo 'specify url to save image'
+  echo "example: $0 https://twitter.com/twitter/status/710138591976927232"
   exit 1
 fi
 
+if ! hash pup &>/dev/null ; then
+  echo 'this script requires pup(1) to scrape photos from Twitter'
+  echo ''
+  echo 'see: https://github.com/ericchiang/pup'
+  exit 1
+fi
+
+set -ex
+
 url="$1"
 
+screen_name=$(echo "$1" | sed -e 's|.*twitter.com/\([a-zA-Z0-9_]*\)/.*|\1|g')
 tweet_id=$(echo "$1" | sed -e 's|.*/\([0-9][0-9]*\)$|\1|g')
 
-curl $url | pup '.AdaptiveMedia img attr{src}' | xargs -I{} sh -c "curl -o ${tweet_id}__\$(echo "{}" | sed -e 's|^.*/\([^/]*\)$|\1|g') '{}:orig'"
+curl $url | pup '.AdaptiveMedia img attr{src}' | xargs -I{} sh -c "curl -o ${screen_name}--${tweet_id}__\$(echo "{}" | sed -e 's|^.*/\([^/]*\)$|\1|g') '{}:orig'"
