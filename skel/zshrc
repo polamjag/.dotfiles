@@ -27,7 +27,7 @@ case ${OSTYPE} in
 esac
 
 bindkey -e
-tabs -2 # tab width in shell
+[[ $TERM == "dumb" ]] || tabs -2 # tab width in shell
 
 autoload colors ; colors
 
