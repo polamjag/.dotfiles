@@ -1,21 +1,50 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ $# -ne 1 ] ; then
-  echo "usage: $0 [FILENAME]"
-  exit 1
-fi
+NO_WAIFU2X=0
+NO_OPTIPNG=0
 
-echo "Procecing $1 ..."
+_usage() {
+  echo 'Usage: $0 [-nw|--no-waifu2x] [-np|--no-optipng]'
+  echo '  -nw, --no-waifu2x'
+  echo '  -np, --no-optipng'
+  echo ''
+  echo ''
+}
 
-filepath=$(dirname "$1")
-original_filename=$(basename $1)
-filename="fhd_$original_filename"
+_process() {
+  echo "Procecing $1 ..."
 
-convert "$filepath/$original_filename" -resize 1920x1080\! "$filepath/$filename"
+  filepath=$(dirname "$1")
+  original_filename=$(basename $1)
+  filename="fhd_$original_filename"
 
-if hash optipng; then
-  optipng "$filepath/$filename"
-  rm "$filepath/$original_filename"
-fi
+  convert "$filepath/$original_filename" -resize 1920x1080\! "$filepath/$filename"
 
-mv "$filepath/$filename" "$filepath/$original_filename"
+  if hash optipng; then
+    optipng "$filepath/$filename"
+    rm "$filepath/$original_filename"
+  fi
+
+  mv "$filepath/$filename" "$filepath/$original_filename"
+}
+
+while [ $# -gt 0 ] ; do
+  case "$1" in
+  -nw|--no-waifu2x)
+    NO_WAIFU2X=1
+    shift
+    ;;
+  -np|--no-optipng)
+    NO_OPTIPNG=1
+    shift
+    ;;
+  -h|--help)
+    _usage
+    exit 2
+    ;;
+  *)
+    _process $1
+    shift
+    ;;
+  esac
+done
