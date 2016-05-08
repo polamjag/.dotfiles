@@ -20,9 +20,13 @@ _process() {
 
   convert "$filepath/$original_filename" -resize 1920x1080\! "$filepath/$filename"
 
-  if hash optipng; then
+  if [ "$NO_WAIFU2X" -eq 0 ] ; then
+    waifu2x -m noise -i "$filepath/$filename" -o "$filepath/w2x_$filename"
+    mv "$filepath/w2x_$filename" "$filepath/$filename"
+  fi
+
+  if [ "$NO_OPTIPNG" -eq 0 ] ; then
     optipng "$filepath/$filename"
-    rm "$filepath/$original_filename"
   fi
 
   mv "$filepath/$filename" "$filepath/$original_filename"
