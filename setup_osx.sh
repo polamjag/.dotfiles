@@ -26,10 +26,6 @@ defaults write com.apple.screencapture name scr
 killall Dock
 killall SystemUIServer
 
-# make mac quiet on boot
-sudo nvram SystemAudioVolume="%80"
-sudo nvram SystemAudioVolumeDB="%80"
-
 # git
 git config --global core.precomposeunicode true
 
