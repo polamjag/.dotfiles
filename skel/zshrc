@@ -10,7 +10,6 @@ export PATH
 
 case ${OSTYPE} in
   darwin*)
-    test -x /usr/libexec/path_helper && eval $(/usr/libexec/path_helper -s)
     if [ -d '/usr/local/opt/coreutils/libexec/gnubin' ] ; then
       source $HOME/.zsh.d/gnu.zsh
     else

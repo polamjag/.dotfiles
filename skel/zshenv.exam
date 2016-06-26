@@ -6,6 +6,9 @@
 # test -d $HOME/.rbenv/bin && PATH=$PATH:$HOME/.rbenv/bin
 # hash rbenv &>/dev/null   && eval "$(rbenv init -)"
 
+# enable Homebrew's GNU coreutils on OS X
+# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
 hash gem &>/dev/null     && PATH="$PATH:$(gem env gempath | sed -e 's|:|/bin:|g' -e 's|$|/bin|')"
 test -d $HOME/.npm/bin   && PATH="$PATH:$HOME/.npm/bin"
 
