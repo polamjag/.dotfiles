@@ -11,6 +11,9 @@ test -d $HOME/.npm/bin   && PATH="$PATH:$HOME/.npm/bin"
 
 export GOPATH=$HOME
 
+# uncomment below to fix mosh problem in OS X
+# export LC_ALL="en_US.UTF-8"
+
 # if [ -n "$DESKTOP_SESSION" ]; then
 #   eval $(gnome-keyring-daemon --start)
 #   export SSH_AUTH_SOCK
