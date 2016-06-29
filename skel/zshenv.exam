@@ -6,10 +6,16 @@
 # test -d $HOME/.rbenv/bin && PATH=$PATH:$HOME/.rbenv/bin
 # hash rbenv &>/dev/null   && eval "$(rbenv init -)"
 
+# enable Homebrew's GNU coreutils on OS X
+# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
 hash gem &>/dev/null     && PATH="$PATH:$(gem env gempath | sed -e 's|:|/bin:|g' -e 's|$|/bin|')"
 test -d $HOME/.npm/bin   && PATH="$PATH:$HOME/.npm/bin"
 
 export GOPATH=$HOME
+
+# uncomment below to fix mosh problem in OS X
+# export LC_ALL="en_US.UTF-8"
 
 # if [ -n "$DESKTOP_SESSION" ]; then
 #   eval $(gnome-keyring-daemon --start)
