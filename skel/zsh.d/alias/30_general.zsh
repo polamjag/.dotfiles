@@ -31,11 +31,11 @@ alias zzz="exec zsh"
 alias tmesg="watch \"dmesg | tail -n 100 | tac\""
 alias zzmv='noglob zmv -W'
 
-alias dstat-full="dstat -Tclmdrn"
-alias dstat-mem="dstat -Tclm"
-alias dstat-cpu="dstat -Tclr"
-alias dstat-net="dstat -Tclnd"
-alias dstat-disk="dstat -Tcldr"
+alias dstat-full="dstat -tclmdrn"
+alias dstat-mem="dstat -tclm"
+alias dstat-cpu="dstat -tclr"
+alias dstat-net="dstat -tclnd"
+alias dstat-disk="dstat -tcldr"
 
 alias delete-dead-symlink="find -L . -name . -o -type d -prune -o -type l -exec rm {} +"
 alias watch="watch -c"
