@@ -68,3 +68,6 @@ tm() {
   fi
 }
 alias tmn='tmux confirm-before "new-s"'
+
+alias json2yaml="ruby -rjson -ryaml -e 'puts YAML.dump(JSON.parse(STDIN.read))'"
+alias yaml2json="ruby -rjson -ryaml -e 'puts JSON.pretty_generate(YAML.load(STDIN.read))'"
