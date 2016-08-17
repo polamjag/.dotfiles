@@ -116,6 +116,21 @@
     (local-set-key (kbd "C-c d") 'godoc)))
 
 
+;;; perl
+(add-to-list 'auto-mode-alist '("\\.pl$" . cperl-mode))
+(add-to-list 'auto-mode-alist '("\\.pm$" . cperl-mode))
+(add-to-list 'auto-mode-alist '("\\.t$" .  cperl-mode))
+(add-hook
+ 'cperl-mode-hook
+ '(lambda()
+    (setq cperl-indent-level 4
+          cperl-close-paren-offset -4
+          cperl-continued-statement-offset 4
+          cperl-indent-parens-as-block t
+          cperl-tab-always-indent t)
+    ))
+
+
 ;;; qml-mode
 (add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
 (add-hook
