@@ -22,6 +22,7 @@
   brc = checkout -b
   cho = checkout
   a   = add
+  ap  = add -p
   ua  = reset
   cm  = commit -m
   com = commit
