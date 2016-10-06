@@ -47,6 +47,7 @@
 (require 'popup)
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
+(push '(flycheck-error-list-mode :height 0.3 :regexp t :position bottom) popwin:special-display-config)
 
 
 ;;; eldoc
