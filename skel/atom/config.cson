@@ -1,0 +1,16 @@
+"*":
+  core:
+    themes: [
+      "one-dark-ui"
+      "base16-tomorrow-dark-theme"
+    ]
+  editor:
+    fontFamily: "Menlo, Consolas, Ricty, Inconsolata, monospace;"
+    fontSize: 11
+    invisibles: {}
+    showIndentGuide: true
+    softWrap: true
+  linter: {}
+  "tree-view": {}
+  welcome:
+    showOnStartup: false
