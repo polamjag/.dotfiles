@@ -121,15 +121,80 @@
 (add-to-list 'auto-mode-alist '("\\.pl$" . cperl-mode))
 (add-to-list 'auto-mode-alist '("\\.pm$" . cperl-mode))
 (add-to-list 'auto-mode-alist '("\\.t$" .  cperl-mode))
+(add-to-list 'auto-mode-alist '("cpanfile\\.?" .  cperl-mode))
+(defun my-cperl-eldoc-documentation-function ()
+  "Return meaningful doc string for `eldoc-mode'."
+  (car
+   (let ((cperl-message-on-help-error nil))
+     (cperl-get-help))))
 (add-hook
  'cperl-mode-hook
  '(lambda()
     (setq cperl-indent-level 4
           cperl-close-paren-offset -4
-          cperl-continued-statement-offset 4
+          cperl-continued-statement-offset 0
           cperl-indent-parens-as-block t
-          cperl-tab-always-indent t)
+          cperl-eletric-parens nil
+          cperl-tab-always-indent t
+          cperl-indent-parens-as-block t
+          cperl-indent-subs-specially nil
+          cperl-highlight-variables-indiscriminately t)
+    (eldoc-mode)
+    (set (make-local-variable 'eldoc-documentation-function)
+                 'my-cperl-eldoc-documentation-function)
     ))
+;; helm-perldoc:setup takes long time on low power platform
+(eval-after-load "cperl-mode"
+  '(progn
+    (helm-perldoc:setup)))
+
+;; auto carton setup
+(add-hook 'cperl-mode-hook 'helm-perldoc:carton-setup)
+
+
+;; from: https://github.com/shibayu36/emacs/blob/master/emacs.d/inits/20-edit-mode-perl.el
+(defun chomp (str)
+  (replace-regexp-in-string "[\n\r]+$" "" str))
+(defun git-project-p ()
+  (string=
+   (chomp
+    (shell-command-to-string "git rev-parse --is-inside-work-tree"))
+   "true"))
+(defun git-root-directory ()
+  (cond ((git-project-p)
+         (chomp
+          (shell-command-to-string "git rev-parse --show-toplevel")))
+        (t
+         "")))
+(defun run-perl-method-test ()
+  (interactive)
+  (let ((topdir (git-root-directory))
+        (test-method nil))
+    (save-excursion
+      (when (or
+             (re-search-backward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t)
+             (re-search-forward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t))
+        (setq test-method (match-string 1))))
+    (if test-method
+        (quickrun
+         :source
+         `((:command . "prove")
+           (:default-directory . ,topdir)
+           (:exec . (,(concat "PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB TEST_METHOD=" test-method " %c -v %s")))))
+
+      (quickrun
+       :source
+       `((:command . "prove")
+         (:default-directory . ,topdir)
+         (:exec . (("PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB %c -v %s"))))))))
+
+(defun run-perl-test ()
+  (interactive)
+  (let* ((topdir (git-root-directory)))
+    (quickrun :source `((:command . "prove")
+                        (:default-directory . ,topdir)
+                        (:exec . ("PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB %c -bv --color %s"))))))
+
 
 
 ;;; qml-mode
