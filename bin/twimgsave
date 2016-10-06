@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ ! $# -eq 1 ] ; then
-  echo 'specify url to save image'
+if [ $# -eq 0 ] ; then
+  echo 'specify urls to save image'
   echo "example: $0 https://twitter.com/twitter/status/710138591976927232"
   exit 1
 fi
@@ -13,11 +13,33 @@ if ! hash pup &>/dev/null ; then
   exit 1
 fi
 
+process_tweet() {
+  url="$1"
+
+  screen_name=$(echo "$1" | sed -e 's|.*twitter.com/\([a-zA-Z0-9_]*\)/.*|\1|g')
+  tweet_id=$(echo "$1" | sed -e 's|.*/\([0-9][0-9]*\)$|\1|g')
+
+  curl $url | pup '.permalink-tweet .AdaptiveMedia img attr{src}' | xargs -I{} sh -c "curl -o ${screen_name}--${tweet_id}__\$(echo "{}" | sed -e 's|^.*/\([^/]*\)$|\1|g') '{}:orig'"
+}
+
+process_moment() {
+  url="$1"
+
+  main $(curl $url | pup '.MomentCapsuleVTwoItem a.js-permalink attr{href}' | xargs -I{} sh -c 'echo "https://twitter.com{}"')
+}
+
 set -ex
 
-url="$1"
+main() {
+  while [ ! $# -eq 0 ] ; do
+    if [ $(echo $1 | grep '/i/moments') ] ; then
+      process_moment $1
+    else
+      process_tweet $1
+    fi
 
-screen_name=$(echo "$1" | sed -e 's|.*twitter.com/\([a-zA-Z0-9_]*\)/.*|\1|g')
-tweet_id=$(echo "$1" | sed -e 's|.*/\([0-9][0-9]*\)$|\1|g')
+    shift
+  done
+}
 
-curl $url | pup '.permalink-tweet .AdaptiveMedia img attr{src}' | xargs -I{} sh -c "curl -o ${screen_name}--${tweet_id}__\$(echo "{}" | sed -e 's|^.*/\([^/]*\)$|\1|g') '{}:orig'"
+main $@
