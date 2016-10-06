@@ -71,6 +71,9 @@
 ;;
 (global-set-key "\C-z\C-o" 'org-open-at-point)
 
+;; flycheck
+(global-set-key (kbd "M-s-1") 'flycheck-list-errors)
+
 ;; window splitting
 (defun other-window-or-split (val)
   (interactive)
