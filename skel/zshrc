@@ -264,8 +264,7 @@ peco-select-history() {
   CURSOR=$#BUFFER
 }
 zle -N peco-select-history
-bindkey '^r' peco-select-history
-# directory stack filtering
+bindkey '^z' peco-select-history
 fi
 
 
