@@ -1,5 +1,0 @@
-#!/bin/sh
-
-read xmldata
-
-echo $xmldata | xmllint --format - | less
