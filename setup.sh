@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # flags
 FORCE_MODE=1
