@@ -11,3 +11,5 @@ Thumbs.db
 /GRTAGS
 /GTAGS
 /GPATH
+/.vstags
+/.vscode
