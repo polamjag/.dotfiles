@@ -39,6 +39,7 @@
   dfs = diff --staged
   gr  = grep -np
   sta = stash list
+  stash-snapshot = ! git stash save -u "$(date)"
   submo-upgrade = submodule foreach 'git pull origin master'
 [push]
   default = matching
