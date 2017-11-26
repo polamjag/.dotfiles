@@ -1,16 +1,63 @@
 "*":
+  "atom-beautify":
+    c:
+      default_beautifier: "clang-format"
+    cpp:
+      default_beautifier: "clang-format"
+    general:
+      analytics: false
+  "atom-package-deps":
+    ignored: []
   core:
+    customFileTypes:
+      "source.html": [
+        "tt"
+      ]
+      "source.ini": [
+        ".buckconfig"
+        ".hgrc"
+        ".flowconfig"
+      ]
+      "source.json": [
+        ".arcconfig"
+        "BUCK.autodeps"
+      ]
+      "source.python": [
+        "BUCK"
+      ]
+    disabledPackages: [
+      "metrics"
+      "remote-edit"
+      "linter-perlcritic"
+      "git-grep"
+      "welcome"
+      "whitespace"
+    ]
+    restorePreviousWindowsOnStart: "no"
+    telemetryConsent: "no"
     themes: [
       "one-dark-ui"
-      "base16-tomorrow-dark-theme"
+      "monokai"
     ]
   editor:
-    fontFamily: "Menlo, Consolas, Ricty, Inconsolata, monospace;"
+    fontFamily: "Menlo, Consolas, Ricty, Inconsolata, monospace"
     fontSize: 11
     invisibles: {}
     showIndentGuide: true
     softWrap: true
+    softWrapHangingIndent: 2
+  "exception-reporting":
+    userId: "df3119e0-a031-ecc9-123f-f98dcf1c6603"
   linter: {}
-  "tree-view": {}
+  "linter-eslint": {}
+  "linter-ui-default":
+    panelHeight: 69
+  "one-dark-ui": {}
+  "one-light-ui":
+    layoutMode: "Compact"
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
   welcome:
     showOnStartup: false
