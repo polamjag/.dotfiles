@@ -31,6 +31,8 @@
 ;;;; global non-major and/or minor-modes
 (require 'misc-common)
 
+(require 'yasnippet-config)
+
 
 ;;;; keybindings
 (require 'keybinds)
