@@ -43,10 +43,14 @@
 [push]
   default = matching
 [merge]
-  tool = vimdiff
+	tool = vimdiff
 [ghq]
   root = ~/src
 [filter "lfs"]
-  clean = git lfs clean %f
-  smudge = git lfs smudge %f
-  required = true
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	name = polamjag
+	email = s@polamjag.info
