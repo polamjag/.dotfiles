@@ -15,6 +15,7 @@ alias pgo='ping google.com'
 alias usdo='sudo'
 alias le='less'
 alias dign='dig +norec'
+alias ag="ag --color-path='1;94'"
 
 alias ntree="find . -print | sed '1d;s,[^/]*/,| ,g;s/..//;s/[^ ]*$/|--- &/'"
 
