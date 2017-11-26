@@ -59,14 +59,9 @@ set title
 set visualbell
 set scrolloff=5
 
-if v:version >= 700
-  set cursorline
-endif
-
 if v:version >= 730
   set undofile    "create <FILENAME>.un~
   set colorcolumn=85
-  set relativenumber
 endif
 
 set autochdir
