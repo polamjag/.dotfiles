@@ -204,3 +204,11 @@
  (progn
    (setq qml-mode-indent-offset 2)
    (rainbow-delimiters-mode)))
+
+
+
+;;; nxml-mode
+(add-hook
+ 'nxml-mode-hook
+ (progn
+   (setq nxml-shash-auto-complete-flag t)))
