@@ -21,6 +21,7 @@
   bra = branch -a
   brc = checkout -b
   cho = checkout
+  cb  = checkout -
   a   = add
   ap  = add -p
   ua  = reset
