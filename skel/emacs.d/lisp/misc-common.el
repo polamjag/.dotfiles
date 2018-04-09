@@ -156,7 +156,7 @@
 (setq-default default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 (defun electric-indent-ignore-js2 (char)
-  "Ignore electric indentation for js2-mode"
+  "Ignore electric indentation for js2-mode."
   (if (equal major-mode 'js2-mode)
       'no-indent
     nil))
@@ -214,7 +214,7 @@
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
 (defun replace-buffer-content-with-clipboard ()
-  "Replaces buffer's content with clipboard's one"
+  "Replace buffer's content with clipboard's one."
   (interactive)
   '(progn
      ((erase-buffer)

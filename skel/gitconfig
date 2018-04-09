@@ -21,6 +21,7 @@
   bra = branch -a
   brc = checkout -b
   cho = checkout
+  cb  = checkout -
   a   = add
   ap  = add -p
   ua  = reset
@@ -39,14 +40,19 @@
   dfs = diff --staged
   gr  = grep -np
   sta = stash list
+  stash-snapshot = ! git stash save -u "$(date)"
   submo-upgrade = submodule foreach 'git pull origin master'
 [push]
   default = matching
 [merge]
-  tool = vimdiff
+	tool = vimdiff
 [ghq]
   root = ~/src
 [filter "lfs"]
-  clean = git lfs clean %f
-  smudge = git lfs smudge %f
-  required = true
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	name = polamjag
+	email = s@polamjag.info

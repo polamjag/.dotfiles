@@ -1,0 +1,4 @@
+set line-graphics = utf-8
+set vertical-split = yes
+bind generic P @sh -c 'hub browse -- commit/%(commit)'
+
