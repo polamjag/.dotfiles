@@ -2,4 +2,4 @@
 :update_sources: true
 :verbose: true
 :backtrace: true
-gem: --user-install --no-ri --no-rdoc
+gem: --no-ri --no-rdoc
