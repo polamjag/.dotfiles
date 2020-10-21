@@ -1,5 +1,5 @@
 function ghq-look() {
-  cd $(ghq list --full-path --exact $0)
+  cd "$(ghq list --exact --full-path $1)"
 }
 
 function _ghq-look() {

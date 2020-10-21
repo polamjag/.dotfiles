@@ -12,5 +12,12 @@ Thumbs.db
 /GTAGS
 /GPATH
 
-/.vscode/
 /.vstags
+
+/vendor
+/.bundle
+
+/.idea
+
+*.code-workspace
+/.metals

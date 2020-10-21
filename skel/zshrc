@@ -1,9 +1,6 @@
 # ============= #
 # common config #
 # ============= #
-# workaround
-test -f $HOME/.zshenv && source $HOME/.zshenv
-
 # load $PATH
 test -d $HOME/bin && PATH=$HOME/bin:$PATH
 export PATH
@@ -24,6 +21,10 @@ case ${OSTYPE} in
     source $HOME/.zsh.d/gnu.zsh
     ;;
 esac
+
+# workaround
+test -f $HOME/.zshenv && source $HOME/.zshenv
+
 
 bindkey -e
 [[ $TERM == "dumb" ]] || tabs -2 # tab width in shell
@@ -101,7 +102,7 @@ setopt correct
 if [ "$SSH_CONNECTION" = "" ] ; then
 # non-ssh
 PROMPT="
-%F{green}%B%~%b%f %B(%F{cyan}%n%f)%(1j.%F{magenta} *%j bg*%f.)%(?..%F{red} [%?])
+%F{green}%B%~%b%f %B%F{black}(%n)%f%(1j.%F{magenta} *%j bg*%f.)%(?..%F{red} [%?])
 %#%b%f "
 else
 # on ssh
@@ -271,3 +272,4 @@ fi
 if [ -d "$HOME/.zsh.d/misc" ] ; then
   source "$HOME/.zsh.d/misc/"*
 fi
+
