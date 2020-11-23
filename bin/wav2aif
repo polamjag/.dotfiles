@@ -1,0 +1,14 @@
+#!/bin/bash
+
+while [ $# -gt 0 ] ; do
+  wavsample=$(ffprobe "$1" 2>&1 | grep 'Audio:' | head -n1 | awk '{print $4}' | sed -e 's/le$/be/g')
+  if [ "$wavsample" == "pcm_f32be" ] ; then
+    wavsample="pcm_s24be"
+  fi
+
+  echo "$wavsample | $1"
+  ffmpeg -hide_banner -i "$1" -acodec $wavsample -map_metadata 0 "$1.aif"
+  echo ""
+
+  shift
+done
