@@ -12,6 +12,8 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 defaults write com.apple.screencapture "disable-shadow" -bool yes
 # save screenshot to ~/Downloads
 defaults write com.apple.screencapture location ~/Downloads
+#
+defaults write com.apple.screencapture "show-thumbnail" -bool no
 # text becomes selectable in quicklook
 defaults write com.apple.finder QLEnableTextSelection -bool true
 # more items on "recent folders"
