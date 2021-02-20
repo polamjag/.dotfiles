@@ -25,6 +25,10 @@ defaults write com.apple.screencapture name scr
 # change speed of mission control's animation speed
 #defaults write com.apple.dock expose-animation-duration -float 0.25
 
+# https://stackoverflow.com/questions/39972335/how-do-i-press-and-hold-a-key-and-have-it-repeat-in-vscode
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
+
 killall Dock
 killall SystemUIServer
 
