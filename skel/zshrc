@@ -7,7 +7,7 @@ export PATH
 
 case ${OSTYPE} in
   darwin*)
-    if [ -d '/usr/local/opt/coreutils/libexec/gnubin' ] ; then
+    if [ -d '/usr/local/opt/coreutils/libexec/gnubin' -o -d '/opt/homebrew/opt/coreutils/libexec/gnubin' ] ; then
       source $HOME/.zsh.d/gnu.zsh
     else
       source $HOME/.zsh.d/bsd.zsh
