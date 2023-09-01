@@ -126,6 +126,7 @@ precmd_githook () {
   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 } ; add-zsh-hook precmd precmd_githook
 RPROMPT="%F{yellow}%B%1(v|%1v|)%b%f"
+setopt transient_rprompt
 
 
 # =============================== #
