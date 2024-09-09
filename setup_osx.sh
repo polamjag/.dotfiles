@@ -7,7 +7,8 @@ set -ex
 # http://tukaikta.blog135.fc2.com/blog-entry-251.html
 
 # suppress .DS_Store
-defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # disable shadow on screen capture
 defaults write com.apple.screencapture "disable-shadow" -bool yes
 # save screenshot to ~/Downloads
