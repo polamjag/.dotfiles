@@ -56,3 +56,5 @@
 [user]
 	name = polamjag
 	email = s@polamjag.info
+[init]
+	defaultBranch = main
