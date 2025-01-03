@@ -1,0 +1,27 @@
+foreground = fefefe
+background = 060606
+background-opacity = 0.875
+background-blur-radius = 4
+
+cursor-style = block
+cursor-style-blink = true
+adjust-cursor-height = -8
+
+font-family = "IntelOne Mono"
+
+font-feature = -dlig
+
+font-size = 12
+adjust-cell-height = -4
+
+theme = synthwave
+
+palette = 0=#41475d
+palette = 8=#71778d
+cursor-color = #eeeeee
+
+mouse-hide-while-typing = true
+
+scrollback-limit = 1000000
+
+bold-is-bright = true
