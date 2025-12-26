@@ -6,6 +6,14 @@ set -ex
 # http://rcmdnk.github.io/blog/2015/03/22/computer-mac/
 # http://tukaikta.blog135.fc2.com/blog-entry-251.html
 
+defaults write -g AppleShowAllExtensions -bool true
+
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+
+defaults write com.apple.dock autohide -bool true
+
 # suppress .DS_Store
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
