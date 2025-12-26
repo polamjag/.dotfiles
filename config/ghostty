@@ -1,23 +1,27 @@
-foreground = fefefe
-background = 060606
-background-opacity = 0.875
-background-blur-radius = 4
+foreground = fff
+background = 000
+background-opacity = 0.87
+background-blur-radius = 3
+
+macos-option-as-alt = left
 
 cursor-style = block
 cursor-style-blink = true
-adjust-cursor-height = -8
+adjust-cursor-height = 0
+cursor-invert-fg-bg = true
 
 font-family = "IntelOne Mono"
+font-family = Menlo
 
 font-feature = -dlig
 
 font-size = 12
-adjust-cell-height = -4
+adjust-cell-height = -5
 
-theme = synthwave
+theme = "iTerm2 Tango Dark"
 
-palette = 0=#41475d
-palette = 8=#71778d
+# palette = 0=#41475d
+# palette = 8=#71778d
 cursor-color = #eeeeee
 
 mouse-hide-while-typing = true
