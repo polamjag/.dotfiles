@@ -12,6 +12,8 @@ cursor-invert-fg-bg = true
 
 font-family = "IntelOne Mono"
 font-family = Menlo
+font-family = "BIZ UDGothic"
+font-family = "IBM Plex Sans JP"
 
 font-feature = -dlig
 
@@ -29,3 +31,4 @@ mouse-hide-while-typing = true
 scrollback-limit = 1000000
 
 bold-is-bright = true
+
