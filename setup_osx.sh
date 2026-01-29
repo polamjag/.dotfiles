@@ -48,5 +48,7 @@ defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
+defaults write -g NSAutoFillHeuristicControllerEnabled -bool FALSE
+
 killall Dock
 killall SystemUIServer
