@@ -12,7 +12,6 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 
-defaults write com.apple.dock autohide -bool true
 
 # suppress .DS_Store
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -30,10 +29,12 @@ defaults write com.apple.screencapture "show-thumbnail" -bool no
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # more items on "recent folders"
-defaults write -g NSNavRecentPlacesLimit -int 10
+defaults write -g NSNavRecentPlacesLimit -int 20
+
+defaults write com.apple.dock autohide -bool true
 
 # remove delay of Dock
-defaults write com.apple.Dock autohide-delay -float 0
+defaults write com.apple.Dock autohide-delay -float 0.03
 
 # modify filename of screen shot file
 defaults write com.apple.screencapture name scr
@@ -48,6 +49,7 @@ defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
+# https://x.com/shimamuraakio/status/1969673675478876236
 defaults write -g NSAutoFillHeuristicControllerEnabled -bool FALSE
 
 killall Dock
