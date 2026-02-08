@@ -1,17 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 xmodmap_dir="$HOME/.xmodmap.d"
 
 if [ ! "${1:+heyyeyaaeyaaaeyaeyaa}" = heyyeyaaeyaaaeyaeyaa ] ; then
   # interactive mode
   index=0
-  for filepath in $xmodmap_dir/* ; do
-    xmodmap_files+=($filepath) 
+  for filepath in "$xmodmap_dir"/* ; do
+    xmodmap_files+=("$filepath")
     echo "$index: $filepath"
-    index=`expr $index + 1`
+    index="$(expr "$index" + 1)"
   done
-  while [ true ] ; do
-    echo -n "Config to apply (0-`expr $index - 1`): "
+  while true; do
+    echo -n "Config to apply (0-$(expr $index - 1)): "
     read ans
     if [ $ans -gt -1 -a $ans -lt $index ] ; then
       echo "Applying ${xmodmap_files[$ans]}..."

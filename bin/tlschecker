@@ -8,12 +8,12 @@ if [ "$1" = "" ] ; then
   exit 1
 fi
 
-if [ "`echo $1 | grep -oE :`" = ':' ] ; then
+if [ "$(echo "$1" | grep -oE :)" = ':' ] ; then
   SERVER="$1"
 else
   SERVER="$1:443"
 fi
-echo Target server: $SERVER
+echo "Target server: $SERVER"
 DELAY="0.5"
 
 if [ "$OPENSSL" = "" ] ; then
@@ -22,21 +22,21 @@ fi
 
 ciphers=$($OPENSSL ciphers 'ALL:eNULL' | sed -e 's/:/ /g')
 
-echo Obtaining cipher list from $($OPENSSL version).
+echo "Obtaining cipher list from $($OPENSSL version)."
 
-for cipher in ${ciphers[@]}
+for cipher in "${ciphers[@]}"
 do
-echo -n Testing $cipher...
-result=$(echo -n | $OPENSSL s_client -cipher "$cipher" -connect $SERVER 2>&1)
+echo -n "Testing $cipher..."
+result=$(echo -n | $OPENSSL s_client -cipher "$cipher" -connect "$SERVER" 2>&1)
 if [[ "$result" =~ "Cipher is ${cipher}" || "$result" =~ "Cipher    :" ]] ; then
   echo -e "\e[1;32mYES\e[0m"
 else
   if [[ "$result" =~ ":error:" ]] ; then
-    error=$(echo -n $result | cut -d':' -f6)
+    error=$(echo -n "$result" | cut -d':' -f6)
     echo -e "\e[1;31mNO ($error)\e[0m"
   else
     echo UNKNOWN RESPONSE
-    echo $result
+    echo "$result"
   fi
 fi
 sleep $DELAY

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-UNZIP="-O cp932" find *.zip -exec unzip -x {} \;

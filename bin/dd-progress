@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ $# -lt 2 ] ; then
   echo "usage: dd-progress <from (if in dd)> <to (of in dd)> (flags)"
   echo "see man page or help of dd(1) to see flags."
@@ -18,7 +18,7 @@ fi
 
 echo -e "run dd: \e[1;32m$1\e[0m -> \e[1;36m$2\e[0m"
 echo -n "type [OK] to run: "
-read answer
+read -r answer
 case $answer in
   OK)
     ;;

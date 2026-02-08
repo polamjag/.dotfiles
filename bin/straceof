@@ -8,4 +8,4 @@ fi
 target=$1
 shift
 
-strace $(pidof "$target" |sed 's/\([0-9]*\)/\-p \1/g') $@
+strace "$(pidof "$target" |sed 's/\([0-9]*\)/\-p \1/g')" "$@"

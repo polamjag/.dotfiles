@@ -1,8 +1,0 @@
-#!/bin/sh
-
-if [ $(ps aux | awk '{print $11}' | grep -i firefox | wc -l) -gt 0 ] ; then
-  firefox "$*"
-else
-  chromium "$*"
-fi
-
