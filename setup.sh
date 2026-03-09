@@ -125,6 +125,12 @@ setup_lib() {
     PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')" sh -c bundle
   fi
 }
+setup_ghostty() {
+  log_section "Setting up Ghostty config ..."
+
+  test -e "$HOME/.config/ghostty" || mkdir -p "$HOME/.config/ghostty"
+  make_symlink "$shdir/config/ghostty" "$HOME/.config/ghostty/config"
+}
 
 setup_initial_dl() {
   cd
