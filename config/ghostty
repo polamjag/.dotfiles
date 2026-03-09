@@ -5,6 +5,7 @@ background-blur-radius = 3
 
 macos-option-as-alt = left
 
+shell-integration-features = no-cursor
 cursor-style = block
 cursor-style-blink = true
 adjust-cursor-height = 0
