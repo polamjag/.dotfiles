@@ -19,5 +19,6 @@ Thumbs.db
 
 /.idea
 
-*.code-workspace
 /.metals
+
+.claude/settings.local.json
