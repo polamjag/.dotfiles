@@ -18,18 +18,19 @@ font-family = "IBM Plex Sans JP"
 
 font-feature = -dlig
 
-font-size = 12
+font-size = 12.5
 adjust-cell-height = -5
 
-theme = "iTerm2 Tango Dark"
+# theme = "iTerm2 Tango Dark"
+theme = "Night Lion V2"
 
-# palette = 0=#41475d
-# palette = 8=#71778d
+palette = 0=#000
+palette = 8=#111
 cursor-color = #eeeeee
 
 mouse-hide-while-typing = true
 
 scrollback-limit = 1000000
 
-bold-is-bright = true
+bold-is-bright = false
 
