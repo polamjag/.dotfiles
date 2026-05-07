@@ -26,6 +26,8 @@ theme = "Night Lion V2"
 
 palette = 0=#000
 palette = 8=#111
+palette = 1=#f00
+palette = 9=#f44
 cursor-color = #eeeeee
 
 mouse-hide-while-typing = true
