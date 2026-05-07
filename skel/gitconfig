@@ -43,7 +43,7 @@
   stash-snapshot = ! git stash save -u "$(date)"
   submo-upgrade = submodule foreach 'git pull origin master'
 [push]
-  default = matching
+	default = simple
 [merge]
 	tool = vimdiff
 [ghq]
