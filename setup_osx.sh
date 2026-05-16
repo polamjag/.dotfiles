@@ -12,18 +12,14 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 
-
 # suppress .DS_Store
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-# disable shadow on screen capture
 defaults write com.apple.screencapture "disable-shadow" -bool yes
-
-# save screenshot to ~/Downloads
 defaults write com.apple.screencapture location ~/Downloads
-
 defaults write com.apple.screencapture "show-thumbnail" -bool no
+defaults write com.apple.screencapture name scr
 
 # text becomes selectable in quicklook
 defaults write com.apple.finder QLEnableTextSelection -bool true
@@ -32,12 +28,7 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 defaults write -g NSNavRecentPlacesLimit -int 20
 
 defaults write com.apple.dock autohide -bool true
-
-# remove delay of Dock
 defaults write com.apple.Dock autohide-delay -float 0.03
-
-# modify filename of screen shot file
-defaults write com.apple.screencapture name scr
 
 # change speed of mission control's animation speed
 #defaults write com.apple.dock expose-animation-duration -float 0.25
@@ -51,6 +42,8 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # https://x.com/shimamuraakio/status/1969673675478876236
 defaults write -g NSAutoFillHeuristicControllerEnabled -bool FALSE
+
+defaults write com.apple.dt.Xcode NSUserKeyEquivalents -dict-add "Quit Xcode" "@~Q"
 
 killall Dock
 killall SystemUIServer
