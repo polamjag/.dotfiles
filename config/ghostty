@@ -11,6 +11,7 @@ cursor-style-blink = true
 adjust-cursor-height = 0
 cursor-invert-fg-bg = true
 
+font-family = "Intel One Mono"
 font-family = "IntelOne Mono"
 font-family = Menlo
 font-family = "BIZ UDGothic"

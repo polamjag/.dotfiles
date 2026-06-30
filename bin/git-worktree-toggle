@@ -1,0 +1,180 @@
+#!/bin/sh
+
+set -eu
+
+usage() {
+  cat <<'EOF'
+Usage: git-worktree-toggle [-y] [-p PATH] BRANCH
+
+Toggle a local branch between the current worktree and a linked worktree.
+
+  BRANCH in another worktree:
+    remove that clean worktree, then switch the current worktree to BRANCH
+
+  BRANCH not in another worktree:
+    create a linked worktree for BRANCH
+
+Options:
+  -p, --path PATH  path used when creating a worktree
+  -y, --yes        skip confirmation before removing a worktree
+  -h, --help       show this help
+EOF
+}
+
+die() {
+  echo "git-worktree-toggle: $*" >&2
+  exit 1
+}
+
+require_clean() {
+  worktree=$1
+  label=$2
+  changes=$(git -C "$worktree" status --porcelain --untracked-files=all) ||
+    die "could not inspect $label: $worktree"
+
+  if [ -n "$changes" ]; then
+    echo "git-worktree-toggle: $label has uncommitted changes:" >&2
+    printf '%s\n' "$changes" >&2
+    die "commit, stash, or remove them first"
+  fi
+}
+
+worktree_for_branch() {
+  wanted_ref="refs/heads/$1"
+  git worktree list --porcelain |
+    awk -v wanted="$wanted_ref" '
+      /^worktree / {
+        path = substr($0, length("worktree ") + 1)
+      }
+      /^branch / {
+        ref = substr($0, length("branch ") + 1)
+        if (ref == wanted) {
+          print path
+          exit
+        }
+      }
+    '
+}
+
+yes=0
+new_path=
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -p|--path)
+      [ "$#" -ge 2 ] || die "$1 requires a path"
+      new_path=$2
+      shift 2
+      ;;
+    -y|--yes)
+      yes=1
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*)
+      die "unknown option: $1"
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+[ "$#" -eq 1 ] || {
+  usage >&2
+  exit 2
+}
+
+branch=$1
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 ||
+  die "run this command inside a Git worktree"
+git check-ref-format --branch "$branch" >/dev/null 2>&1 ||
+  die "invalid branch name: $branch"
+git show-ref --verify --quiet "refs/heads/$branch" ||
+  die "local branch does not exist: $branch"
+
+repo_root=$(git rev-parse --show-toplevel)
+common_dir=$(git rev-parse --git-common-dir)
+case "$common_dir" in
+  /*) ;;
+  *) common_dir=$repo_root/$common_dir ;;
+esac
+main_root=$(cd "$common_dir/.." && pwd -P)
+current_root=$(cd "$repo_root" && pwd -P)
+branch_worktree=$(worktree_for_branch "$branch")
+
+if [ -n "$branch_worktree" ] &&
+   [ "$(cd "$branch_worktree" && pwd -P)" != "$current_root" ]; then
+  branch_worktree=$(cd "$branch_worktree" && pwd -P)
+  [ "$branch_worktree" != "$main_root" ] ||
+    die "cannot remove the main worktree: $branch_worktree"
+
+  require_clean "$branch_worktree" "worktree for '$branch'"
+  require_clean "$current_root" "current worktree"
+
+  if [ "$yes" -ne 1 ]; then
+    [ -r /dev/tty ] ||
+      die "confirmation requires a terminal; use --yes for non-interactive use"
+    printf "Remove worktree '%s' and switch here to '%s'? [y/N] " \
+      "$branch_worktree" "$branch" >/dev/tty
+    IFS= read -r answer </dev/tty || answer=
+    case "$answer" in
+      y|Y|yes|YES) ;;
+      *) die "cancelled" ;;
+    esac
+  fi
+
+  git worktree remove "$branch_worktree"
+  if ! git switch "$branch"; then
+    echo "git-worktree-toggle: switch failed; restoring the linked worktree" >&2
+    git worktree add "$branch_worktree" "$branch" ||
+      die "could not restore worktree at $branch_worktree"
+    exit 1
+  fi
+
+  echo "Switched current worktree to '$branch'."
+  exit 0
+fi
+
+if [ -z "$new_path" ]; then
+  safe_branch=$(printf '%s' "$branch" | tr '/' '-')
+  new_path="$(dirname "$main_root")/$(basename "$main_root")-$safe_branch"
+fi
+
+case "$new_path" in
+  /*) ;;
+  *) new_path=$PWD/$new_path ;;
+esac
+
+[ ! -e "$new_path" ] || die "worktree path already exists: $new_path"
+
+current_branch=$(git symbolic-ref --quiet --short HEAD || true)
+if [ "$current_branch" = "$branch" ]; then
+  require_clean "$current_root" "current worktree"
+  previous_branch=$(git rev-parse --verify --quiet --abbrev-ref '@{-1}' || true)
+  [ -n "$previous_branch" ] && [ "$previous_branch" != "$branch" ] ||
+    die "'$branch' is current; switch to another branch once before toggling it"
+  git show-ref --verify --quiet "refs/heads/$previous_branch" ||
+    die "previous checkout is not a local branch: $previous_branch"
+  [ -z "$(worktree_for_branch "$previous_branch")" ] ||
+    die "previous branch is already checked out in another worktree: $previous_branch"
+
+  git switch "$previous_branch"
+  if ! git worktree add "$new_path" "$branch"; then
+    echo "git-worktree-toggle: creation failed; switching back to '$branch'" >&2
+    git switch "$branch" ||
+      die "could not switch back to '$branch'"
+    exit 1
+  fi
+else
+  git worktree add "$new_path" "$branch"
+fi
+
+echo "Created worktree for '$branch' at $new_path."
