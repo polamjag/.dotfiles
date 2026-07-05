@@ -96,6 +96,7 @@
     "cursor_shape": {
       "insert": "bar",
     },
+    "use_system_clipboard": "never",
   },
 
   "telemetry": {
