@@ -43,8 +43,8 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 # https://x.com/shimamuraakio/status/1969673675478876236
 defaults write -g NSAutoFillHeuristicControllerEnabled -bool FALSE
 
-defaults write com.apple.dt.Xcode NSUserKeyEquivalents -dict-add "Quit Xcode" "@~Q"
-defaults write com.apple.Music NSUserKeyEquivalents -dict-add "Show Artist in Library" "@$~L"
+defaults write com.apple.dt.Xcode NSUserKeyEquivalents -dict-add 'Quit Xcode' '@~Q'
+defaults write com.apple.Music NSUserKeyEquivalents -dict-add 'Show Artist in Library' '@$~L'
 
 killall Dock
 killall SystemUIServer
