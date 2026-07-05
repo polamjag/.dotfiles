@@ -7,6 +7,16 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "languages": {
+    "Markdown": {
+      "show_whitespaces": "all",
+      "preferred_line_length": 100,
+    },
+  },
+  "which_key": {
+    "enabled": true,
+  },
+
   "agent": {
     "button": false,
     "favorite_models": [],
