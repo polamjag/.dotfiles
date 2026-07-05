@@ -10,20 +10,20 @@
   "agent": {
     "button": false,
     "favorite_models": [],
-    "model_parameters": []
+    "model_parameters": [],
   },
   "terminal": {
-    "show_count_badge": false
+    "show_count_badge": false,
   },
   "git_panel": {
     "folder_icons": false,
-    "file_icons": true
+    "file_icons": true,
   },
   "outline_panel": {
-    "folder_icons": false
+    "folder_icons": false,
   },
   "file_finder": {
-    "file_icons": true
+    "file_icons": true,
   },
   "tab_bar": {
     "show": true,
@@ -46,9 +46,22 @@
     "enabled": true,
   },
   "scroll_beyond_last_line": "vertical_scroll_margin",
+
+  "buffer_font_size": 12.0,
   "buffer_line_height": {
-    "custom": 1.6,
+    "custom": 1.5,
   },
+  "ui_font_size": 15,
+  "text_rendering_mode": "platform_default",
+  "ui_font_family": ".SystemUIFont",
+  "buffer_font_family": "Intel One Mono",
+  "buffer_font_fallbacks": [
+    "IntelOne Mono",
+    "IBM Plex Sans JP",
+    "BIZ UDGothic",
+    "Menlo",
+  ],
+
   "project_panel": {
     "hide_root": false,
     "scrollbar": {
@@ -67,28 +80,25 @@
     "show_sign_in": false,
     "show_branch_status_icon": true,
   },
+
+  "vim_mode": true,
   "vim": {
     "cursor_shape": {
       "insert": "bar",
     },
   },
-  "text_rendering_mode": "platform_default",
-  "ui_font_family": ".SystemUIFont",
-  "buffer_font_family": "IntelOne Mono",
-  "buffer_font_fallbacks": ["Menlo"],
+
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
     "anthropic_retention": false,
   },
-  "vim_mode": true,
+
   "icon_theme": {
     "mode": "light",
     "light": "Zed (Default)",
     "dark": "Zed (Default)",
   },
-  "ui_font_size": 16,
-  "buffer_font_size": 12.0,
   "theme": {
     "mode": "dark",
     "light": "Ayu Light",
