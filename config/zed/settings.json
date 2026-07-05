@@ -24,6 +24,7 @@
   },
   "terminal": {
     "show_count_badge": false,
+    "option_as_meta": true,
   },
   "git_panel": {
     "folder_icons": false,
@@ -70,6 +71,7 @@
     "IBM Plex Sans JP",
     "BIZ UDGothic",
     "Menlo",
+    "Osaka",
   ],
 
   "project_panel": {
