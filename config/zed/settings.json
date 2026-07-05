@@ -1,0 +1,116 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "agent": {
+    "button": false,
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "terminal": {
+    "show_count_badge": false
+  },
+  "git_panel": {
+    "folder_icons": false,
+    "file_icons": true
+  },
+  "outline_panel": {
+    "folder_icons": false
+  },
+  "file_finder": {
+    "file_icons": true
+  },
+  "tab_bar": {
+    "show": true,
+  },
+  "use_system_window_tabs": false,
+  "preview_tabs": {
+    "enable_preview_file_from_code_navigation": false,
+    "enable_preview_from_multibuffer": false,
+    "enable_preview_from_project_panel": false,
+    "enabled": false,
+    "enable_preview_from_file_finder": false,
+  },
+  "tabs": {
+    "close_position": "right",
+    "file_icons": true,
+    "git_status": true,
+    "show_diagnostics": "errors",
+  },
+  "sticky_scroll": {
+    "enabled": true,
+  },
+  "scroll_beyond_last_line": "vertical_scroll_margin",
+  "buffer_line_height": {
+    "custom": 1.6,
+  },
+  "project_panel": {
+    "hide_root": false,
+    "scrollbar": {
+      "horizontal_scroll": false,
+    },
+    "bold_folder_labels": false,
+    "folder_icons": false,
+    "file_icons": true,
+    "entry_spacing": "standard",
+    "hide_gitignore": true,
+    "default_width": 280.0,
+    "dock": "left",
+  },
+  "proxy": "",
+  "title_bar": {
+    "show_sign_in": false,
+    "show_branch_status_icon": true,
+  },
+  "vim": {
+    "cursor_shape": {
+      "insert": "bar",
+    },
+  },
+  "text_rendering_mode": "platform_default",
+  "ui_font_family": ".SystemUIFont",
+  "buffer_font_family": "IntelOne Mono",
+  "buffer_font_fallbacks": ["Menlo"],
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+    "anthropic_retention": false,
+  },
+  "vim_mode": true,
+  "icon_theme": {
+    "mode": "light",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 12.0,
+  "theme": {
+    "mode": "dark",
+    "light": "Ayu Light",
+    "dark": "True Dark",
+  },
+  "theme_overrides": {
+    "True Dark": {
+      "elevated_surface.background": "#111111FF",
+      "surface.background": "#111111FF",
+      "background": "#000200FF",
+      "element.background": "#000200FF",
+      "element.hover": "#8F8F8F36",
+      "ghost_element.hover": "#8F8F8F42",
+      "status_bar.background": "#000200FF",
+      "title_bar.background": "#000200FF",
+      "tab_bar.background": "#111111FF",
+      "tab.inactive_background": "#111111FF",
+      "panel.background": "#111111FF",
+      "editor.subheader.background": "#111111FF",
+      "editor.highlighted_line.background": "#111111FF",
+      "panel.overlay_background": "#111111FF",
+      "panel.overlay_hover": "#000200FF",
+    },
+  },
+}
