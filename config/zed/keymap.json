@@ -20,25 +20,25 @@
   },
   {
     "unbind": {
-      "cmd-shift-c": "collab_panel::ToggleFocus"
-    }
+      "cmd-shift-c": "collab_panel::ToggleFocus",
+    },
   },
   {
     "context": "KeymapEditor",
     "unbind": {
-      "cmd-shift-c": "keymap_editor::CopyContext"
-    }
+      "cmd-shift-c": "keymap_editor::CopyContext",
+    },
   },
   {
     "context": "ProjectPanel",
     "bindings": {
-      "cmd-shift-c": "workspace::CopyRelativePath"
-    }
+      "cmd-shift-c": "workspace::CopyRelativePath",
+    },
   },
   {
     "context": "ProjectPanel",
     "unbind": {
-      "alt-cmd-shift-c": "workspace::CopyRelativePath"
-    }
-  }
+      "alt-cmd-shift-c": "workspace::CopyRelativePath",
+    },
+  },
 ]
