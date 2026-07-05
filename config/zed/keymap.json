@@ -30,6 +30,18 @@
     },
   },
   {
+    "context": "Editor",
+    "bindings": {
+      "cmd-shift-l": "editor::OpenPermalinkToLine",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-shift-c": "workspace::CopyRelativePath",
+    },
+  },
+  {
     "context": "ProjectPanel",
     "bindings": {
       "cmd-shift-c": "workspace::CopyRelativePath",
