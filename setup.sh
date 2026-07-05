@@ -125,6 +125,11 @@ setup_lib() {
     PATH="$PATH:$(gem env gempath | tr ':' '\n' | sed -e 's|$|/bin:|g' | tr -d '\n' | sed -e 's|:$||')" sh -c bundle
   fi
 }
+setup_zed() {
+  log_section "Setting up Zed config ..."
+
+  make_symlink "$shdir/config/zed" "$HOME/.config/"
+}
 setup_ghostty() {
   log_section "Setting up Ghostty config ..."
 
