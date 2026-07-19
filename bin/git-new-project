@@ -1,0 +1,160 @@
+#!/bin/sh
+
+default_org=polamjag
+github_root=${GIT_NEW_PROJECT_ROOT:-$HOME/src/github.com}
+sourced=0
+
+if [ -n "${BASH_VERSION-}" ] && [ "${BASH_SOURCE-}" != "$0" ]; then
+  sourced=1
+fi
+if [ -n "${ZSH_VERSION-}" ]; then
+  case ${ZSH_EVAL_CONTEXT-} in
+    *:file) sourced=1 ;;
+  esac
+fi
+
+usage() {
+  cat <<'EOF'
+Usage: git-new-project [PROJECT]
+
+Select a GitHub organization under ~/src/github.com, initialize PROJECT
+there as an empty Git repository, and enter the new project directory.
+
+The organization picker starts with "polamjag" selected. Pass a project
+name to skip the project-name prompt. When executed, the command starts an
+interactive shell in the new directory; source it to change the current
+shell's directory instead:
+
+  source git-new-project PROJECT
+EOF
+}
+
+die() {
+  echo "git-new-project: $*" >&2
+  if [ "$sourced" -eq 1 ]; then
+    return 1
+  fi
+  exit 1
+}
+
+main() {
+  if [ "$#" -gt 1 ]; then
+    usage >&2
+    return 2
+  fi
+
+  if [ ! -d "$github_root" ]; then
+    die "directory does not exist: $github_root"
+    return 1
+  fi
+  if ! command -v peco >/dev/null 2>&1; then
+    die "peco is required to select an organization"
+    return 1
+  fi
+
+  if ! org_candidates=$(find "$github_root" -mindepth 1 -maxdepth 1 -type d \
+      -exec basename {} \; | sort | awk -v default="$default_org" '
+        $0 == default { print; found = 1; next }
+        { rest[++count] = $0 }
+        END {
+          for (i = 1; i <= count; i++) print rest[i]
+        }
+      '); then
+    die "could not list organizations under $github_root"
+    return 1
+  fi
+  if [ -z "$org_candidates" ]; then
+    die "no organizations found under $github_root"
+    return 1
+  fi
+
+  if ! org=$(printf '%s\n' "$org_candidates" |
+      peco --prompt 'ORG> ' --initial-index 0); then
+    die "organization selection cancelled"
+    return 1
+  fi
+  if [ -z "$org" ]; then
+    die "organization selection cancelled"
+    return 1
+  fi
+
+  org_path=$github_root/$org
+  if [ ! -d "$org_path" ]; then
+    die "organization directory does not exist: $org_path"
+    return 1
+  fi
+
+  project_name=${1-}
+  if [ -z "$project_name" ]; then
+    if [ ! -r /dev/tty ]; then
+      die "pass PROJECT when no interactive terminal is available"
+      return 1
+    fi
+    printf 'Project name: ' >/dev/tty
+    IFS= read -r project_name </dev/tty || project_name=
+  fi
+  if [ -z "$project_name" ]; then
+    die "project name is required"
+    return 1
+  fi
+
+  case "$project_name" in
+    .|..|*/*)
+      die "PROJECT must be a directory name, not a path: $project_name"
+      return 1
+      ;;
+  esac
+
+  project_path=$org_path/$project_name
+  if [ -e "$project_path" ]; then
+    die "project path already exists: $project_path"
+    return 1
+  fi
+
+  if ! mkdir "$project_path"; then
+    die "could not create project directory: $project_path"
+    return 1
+  fi
+  if ! git -C "$project_path" init >/dev/null; then
+    die "could not initialize Git repository: $project_path"
+    return 1
+  fi
+
+  if [ "$sourced" -eq 1 ]; then
+    if ! cd "$project_path"; then
+      die "could not enter project directory: $project_path"
+      return 1
+    fi
+    echo "Initialized empty Git repository in $project_path"
+    return 0
+  fi
+
+  echo "Initialized empty Git repository in $project_path"
+  if [ ! -t 0 ] || [ ! -t 1 ]; then
+    echo "$project_path"
+    return 0
+  fi
+
+  if ! cd "$project_path"; then
+    die "could not enter project directory: $project_path"
+    return 1
+  fi
+  exec "${SHELL:-/bin/sh}" -i
+}
+
+case "${1-}" in
+  -h|--help)
+    usage
+    if [ "$sourced" -eq 1 ]; then
+      return 0
+    fi
+    exit 0
+    ;;
+esac
+
+main "$@"
+status=$?
+if [ "$sourced" -eq 1 ]; then
+  return "$status"
+fi
+exit "$status"
